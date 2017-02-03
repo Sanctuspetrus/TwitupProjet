@@ -5,9 +5,9 @@ import com.iup.tp.twitup.core.EntityManager;
 public class TwitupLoginControllerImpl implements TwitupLoginController {
 	
 	protected EntityManager em;
-	protected TwitupLoginView loginView;
+	protected TwitupSignInView loginView;
 	
-	public TwitupLoginControllerImpl(EntityManager em, TwitupLoginView lv){
+	public TwitupLoginControllerImpl(EntityManager em, TwitupSignInView lv){
 		this.em = em;
 		this.loginView = lv;
 	}
