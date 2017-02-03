@@ -42,7 +42,7 @@ public class TwitupMenuBarControllerImpl implements TwitupMenuBarController{
 		return new TwitupWatcher() {
 			@Override
 			public void action(Object o) {
-				JOptionPane.showMessageDialog(frame,"UBO M2-TIIL\nDÃ©partement Informatique", "A propos", JOptionPane.INFORMATION_MESSAGE, new ImageIcon("src/resources/images/logoIUP_50.jpg"));
+				JOptionPane.showMessageDialog(frame,"UBO M2-TIIL\nDépartement Informatique", "A propos", JOptionPane.INFORMATION_MESSAGE, new ImageIcon("src/resources/images/logoIUP_50.jpg"));
 			}
 		};	
 	}

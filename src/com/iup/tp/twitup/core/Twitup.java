@@ -40,12 +40,12 @@ import com.iup.tp.twitup.ihm.menubar.TwitupMenuBarView;
  */
 public class Twitup {
 	/**
-	 * Base de donnÃ©es.
+	 * Base de données.
 	 */
 	protected IDatabase mDatabase;
 
 	/**
-	 * Gestionnaire des entitÃ©s contenu de la base de donnÃ©es.
+	 * Gestionnaire des entités contenu de la base de données.
 	 */
 	protected EntityManager mEntityManager;
 
@@ -55,17 +55,17 @@ public class Twitup {
 	protected TwitupMainView mMainView;
 
 	/**
-	 * Classe de surveillance de rÃ©pertoire
+	 * Classe de surveillance de répertoire
 	 */
 	protected IWatchableDirectory mWatchableDirectory;
 
 	/**
-	 * RÃ©pertoire d'Ã©change de l'application.
+	 * Répertoire d'échange de l'application.
 	 */
 	protected String mExchangeDirectoryPath;
 
 	/**
-	 * Idnique si le mode bouchonÃ© est activÃ©.
+	 * Idnique si le mode bouchoné est activé.
 	 */
 	protected boolean mIsMockEnabled = false;
 
@@ -81,7 +81,7 @@ public class Twitup {
 		// Init du look and feel de l'application
 		this.initLookAndFeel();
 
-		// Initialisation de la base de donnÃ©es
+		// Initialisation de la base de données
 		this.initDatabase();
 
 		if (this.mIsMockEnabled) {
@@ -92,7 +92,7 @@ public class Twitup {
 		// Initialisation de l'IHM
 		this.initGui();
 
-		// Initialisation du rÃ©pertoire d'Ã©change
+		// Initialisation du répertoire d'échange
 		this.initDirectory();
 	}
 
@@ -106,7 +106,7 @@ public class Twitup {
 	 * Initialisation de l'interface graphique.
 	 */
 	protected void initGui() {
-
+		
 		TwitupFrame frame = new TwitupFrame();
 		TwitupMainViewControllerImpl mainViewCtrl = new TwitupMainViewControllerImpl();
 		mMainView = new TwitupMainViewImpl(frame);
@@ -114,7 +114,7 @@ public class Twitup {
 
 		TwitupMenuBarView menuBar = new TwitupMenuBarViewImpl(frame);
 		TwitupMenuBarControllerImpl menuBarCtrl = new TwitupMenuBarControllerImpl(frame, menuBar);
-		// On "observe" si le chemin du rÃ©pertoir d'Ã©change a Ã©tÃ© modifiÃ©
+		// On "observe" si le chemin du répertoir d'échange a été modifié
 		menuBarCtrl.addActionExchangeFolder(new TwitupWatcher() {
 			@Override
 			public void action(Object o) {
@@ -125,33 +125,43 @@ public class Twitup {
 	}
 
 	/**
-	 * Initialisation du rÃ©pertoire d'Ã©change (depuis la conf ou depuis un file
+	 * Initialisation du répertoire d'échange (depuis la conf ou depuis un file
 	 * chooser). <br/>
-	 * <b>Le chemin doit obligatoirement avoir Ã©tÃ© saisi et Ãªtre valide avant de
+	 * <b>Le chemin doit obligatoirement avoir été saisi et être valide avant de
 	 * pouvoir utiliser l'application</b>
 	 */
 	protected void initDirectory() {
+		// Chargement du fichier de configuration
 		Properties properties = PropertiesManager.loadProperties(Constants.CONFIGURATION_FILE);
+		// Vérification que le chemin vers le dossier d'échange est fournit dans le fichier de configuration
 		if(properties.containsKey(Constants.CONFIGURATION_KEY_EXCHANGE_DIRECTORY)){
+			// Chargement du chemin et on quitte
 			mExchangeDirectoryPath = properties.getProperty(Constants.CONFIGURATION_KEY_EXCHANGE_DIRECTORY);
+			return;
 		}
-		if(!this.chooseExchangeDirectory()){
+		// Si le chemin n'est pas définit on ouvre une boite de dialogue pour la selection du dossier
+		String path = this.chooseExchangeDirectory();
+		if(path != null){
+			// Si le chemin est bon on le sauvegarde en dur et en mémoire
+			properties.setProperty(Constants.CONFIGURATION_KEY_EXCHANGE_DIRECTORY, path);
+			PropertiesManager.writeProperties(properties, Constants.CONFIGURATION_FILE);
+			initDirectory(path);
+		} else {
+			JOptionPane.showMessageDialog(null, path + " n'est pas un chemin valide.", "Chemin invalide", JOptionPane.ERROR_MESSAGE);
 			mMainView.close();
 		}
 	}
 	
 	/**
-	 * Ouvre une boite de dialogue pour selectionner le dossier d'Ã©change
+	 * Ouvre une boite de dialogue pour selectionner le dossier d'échange
 	 * @return bool
 	 */
-	protected boolean chooseExchangeDirectory(){
+	protected String chooseExchangeDirectory(){
 		String path = this.chooseDirectory();
 		if(path != null && isValideExchangeDirectory(new File(path))){
-			initDirectory(path);
-			return true;
+			return path;
 		} else {
-			JOptionPane.showMessageDialog(null, path + " n'est pas un chemin valide.", "Chemin invalide", JOptionPane.ERROR_MESSAGE);
-			return false;
+			return null;
 		}
 	}
 
@@ -169,20 +179,20 @@ public class Twitup {
 	}
 
 	/**
-	 * Indique si le fichier donnÃ© est valide pour servire de rÃ©pertoire
-	 * d'Ã©change
+	 * Indique si le fichier donné est valide pour servire de répertoire
+	 * d'échange
 	 * 
 	 * @param directory
-	 *            , RÃ©pertoire Ã  tester.
+	 *            , Répertoire à tester.
 	 */
 	protected boolean isValideExchangeDirectory(File directory) {
-		// Valide si rÃ©pertoire disponible en lecture et Ã©criture
+		// Valide si répertoire disponible en lecture et écriture
 		return directory != null && directory.exists() && directory.isDirectory() && directory.canRead()
 				&& directory.canWrite();
 	}
 
 	/**
-	 * Initialisation du mode bouchonÃ© de l'application
+	 * Initialisation du mode bouchoné de l'application
 	 */
 	protected void initMock() {
 		TwitupMock mock = new TwitupMock(this.mDatabase, this.mEntityManager);
@@ -190,7 +200,7 @@ public class Twitup {
 	}
 
 	/**
-	 * Initialisation de la base de donnÃ©es
+	 * Initialisation de la base de données
 	 */
 	protected void initDatabase() {
 		mDatabase = new Database();
@@ -198,7 +208,7 @@ public class Twitup {
 	}
 
 	/**
-	 * Initialisation du rÃ©pertoire d'Ã©change.
+	 * Initialisation du répertoire d'échange.
 	 * 
 	 * @param directoryPath
 	 */
