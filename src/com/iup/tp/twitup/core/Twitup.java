@@ -15,7 +15,9 @@ import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import com.iup.tp.twitup.common.Constants;
 import com.iup.tp.twitup.common.PropertiesManager;
@@ -26,6 +28,8 @@ import com.iup.tp.twitup.events.file.WatchableDirectory;
 import com.iup.tp.twitup.ihm.TwitupFrame;
 import com.iup.tp.twitup.ihm.TwitupMock;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
+import com.iup.tp.twitup.ihm.login.TwitupSignInView;
+import com.iup.tp.twitup.ihm.login.TwitupSignInViewImpl;
 import com.iup.tp.twitup.ihm.mainview.TwitupMainViewControllerImpl;
 import com.iup.tp.twitup.ihm.mainview.TwitupMainViewImpl;
 import com.iup.tp.twitup.ihm.mainview.TwitupMainView;
@@ -107,13 +111,13 @@ public class Twitup {
 	 */
 	protected void initGui() {
 		
-		TwitupFrame frame = new TwitupFrame();
+		TwitupFrame mainFrame = new TwitupFrame();
 		TwitupMainViewControllerImpl mainViewCtrl = new TwitupMainViewControllerImpl();
-		mMainView = new TwitupMainViewImpl(frame);
+		mMainView = new TwitupMainViewImpl(mainFrame);
 
 
-		TwitupMenuBarView menuBar = new TwitupMenuBarViewImpl(frame);
-		TwitupMenuBarControllerImpl menuBarCtrl = new TwitupMenuBarControllerImpl(frame, menuBar);
+		TwitupMenuBarView menuBar = new TwitupMenuBarViewImpl(mainFrame);
+		TwitupMenuBarControllerImpl menuBarCtrl = new TwitupMenuBarControllerImpl(mainFrame, menuBar);
 		// On "observe" si le chemin du répertoir d'échange a été modifié
 		menuBarCtrl.addActionExchangeFolder(new TwitupWatcher() {
 			@Override
