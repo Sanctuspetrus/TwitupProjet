@@ -20,7 +20,7 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 	}
 
 	public void initView(){
-		loginView.addActionConnection(loginAttempt());
+		loginView.addActionLogIn(loginAttempt());
 		loginView.show();
 	}
 
@@ -46,10 +46,10 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 		return new TwitupWatcher() {
 			@Override
 			public void action(Object o) {
-				if(connection(loginView.getTag(), loginView.getPassword()) == null){
-					loginView.showError();
+				if(connection(loginView.getUsername(), loginView.getPassword()) == null){
+					loginView.error("La tentative a échoué");
 				}else{
-					loginView.showSuccess();
+					loginView.success("Connecté");
 				}
 				
 			}
