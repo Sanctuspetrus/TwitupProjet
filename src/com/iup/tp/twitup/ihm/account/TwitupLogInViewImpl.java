@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.login;
+package com.iup.tp.twitup.ihm.account;
 
 import javax.swing.JTextField;
 
@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
-public class TwitupSignInViewImpl implements TwitupSignInView{
+public class TwitupLogInViewImpl implements TwitupLogInView{
 	
 	protected JPanel panel;
 	protected JLabel identLabel;
@@ -22,7 +22,7 @@ public class TwitupSignInViewImpl implements TwitupSignInView{
 	protected JButton cancel;
 	
 	
-	public TwitupSignInViewImpl(JPanel p) {
+	public TwitupLogInViewImpl(JPanel p) {
 		panel = p;
 		identLabel = new JLabel("Identifiant : ");
 		pwdLabel = new JLabel("Mot de passe : ");

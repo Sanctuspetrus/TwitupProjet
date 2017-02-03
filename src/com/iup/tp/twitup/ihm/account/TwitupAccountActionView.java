@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.login;
+package com.iup.tp.twitup.ihm.account;
 
 import com.iup.tp.twitup.ihm.TwitupView;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;

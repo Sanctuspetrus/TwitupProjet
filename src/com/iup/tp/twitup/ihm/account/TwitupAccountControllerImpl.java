@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.login;
+package com.iup.tp.twitup.ihm.account;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -7,12 +7,12 @@ import com.iup.tp.twitup.datamodel.Database;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
-public class TwitupLoginControllerImpl implements TwitupLoginController {
+public class TwitupAccountControllerImpl implements TwitupAccountController {
 
 	protected Database db;
-	protected TwitupSignInView loginView;
+	protected TwitupLogInView loginView;
 
-	public TwitupLoginControllerImpl(Database db, TwitupSignInView lv){
+	public TwitupAccountControllerImpl(Database db, TwitupLogInView lv){
 		this.db = db;
 		this.loginView = lv;
 	}

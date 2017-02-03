@@ -8,9 +8,10 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import com.iup.tp.twitup.ihm.account.TwitupAccountActionView;
 import com.iup.tp.twitup.ihm.event.TwitupWatchable;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
-import com.iup.tp.twitup.ihm.login.TwitupAccountActionView;
 
 public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountActionView {
 
