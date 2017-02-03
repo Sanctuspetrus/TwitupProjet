@@ -11,14 +11,16 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 
 	protected Database db;
 	protected TwitupLogInView loginView;
+	protected TwitupAccountActionView actionView;
 
-	public TwitupAccountControllerImpl(Database db, TwitupLogInView lv){
+	public TwitupAccountControllerImpl(Database db, TwitupLogInView lv, TwitupAccountActionView aav){
 		this.db = db;
 		this.loginView = lv;
+		actionView = aav;
 	}
 
 	public void initView(){
-		loginView.addActionLoginAttempt(loginAttempt());
+		loginView.addActionConnection(loginAttempt());
 		loginView.show();
 	}
 

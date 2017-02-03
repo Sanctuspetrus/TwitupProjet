@@ -5,16 +5,12 @@ import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
 public interface TwitupLogInView extends TwitupView {
 
-	void addActionConnection();
-
-	void showSuccess();
-
-	void showError();
-
-	void addActionLoginAttempt(TwitupWatcher loginAttempt);
+	// Bouton connection
+	void addActionConnection(TwitupWatcher tw);
+	void delActionConnection(TwitupWatcher tw);
 
 	String getTag();
 
 	String getPassword();
-
+	
 }
