@@ -30,7 +30,7 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView {
 		menuBar = new JMenuBar();
 		frame = f;
 		files = new JMenu("Fichier");
-		shareFolder = new JMenuItem("RÃ©pertoire d'Ã©change");
+		shareFolder = new JMenuItem("Répertoire d'échange");
 		close = new JMenuItem("Quitter", new ImageIcon("src/resources/images/middle.gif"));
 		help = new JMenu("?");
 		about = new JMenuItem("A propos");
