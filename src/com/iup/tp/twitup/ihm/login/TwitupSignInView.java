@@ -17,6 +17,4 @@ public interface TwitupSignInView extends TwitupView {
 
 	String getPassword();
 
-	
-
 }
