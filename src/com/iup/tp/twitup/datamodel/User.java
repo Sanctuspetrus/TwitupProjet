@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * Classe du modÃ¨le reprÃ©sentant un utilisateur.
+ * Classe du modèle représentant un utilisateur.
  * 
  * @author S.Lucas
  */
@@ -16,8 +16,8 @@ public class User {
 	protected final UUID mUuid;
 
 	/**
-	 * Tag non modifiable correspondant Ã  l'utilisateur. <br/>
-	 * <i>Doit Ãªtre unique dans le systÃ¨me</i>
+	 * Tag non modifiable correspondant à l'utilisateur. <br/>
+	 * <i>Doit être unique dans le système</i>
 	 */
 	protected final String mUserTag;
 
@@ -37,7 +37,7 @@ public class User {
 	protected final Set<String> mFollows;
 
 	/**
-	 * Chemin d'accÃ¨s Ã  l'image de l'avatar de l'utilisateur.
+	 * Chemin d'accès à l'image de l'avatar de l'utilisateur.
 	 */
 	protected String mAvatarPath;
 
@@ -47,13 +47,13 @@ public class User {
 	 * @param uuid
 	 *            , Identifiant unique de l'utilisateur.
 	 * @param userTag
-	 *            , Tag correspondant Ã  l'utilisateur.
+	 *            , Tag correspondant à l'utilisateur.
 	 * @param name
 	 *            , Nom de l'utilisateur.
 	 * @param follows
 	 *            , Liste des tags suivis.
 	 * @param avatarPath
-	 *            , Chemin d'accÃ¨s Ã  l'image de l'avatar.
+	 *            , Chemin d'accès à l'image de l'avatar.
 	 */
 	public User(UUID uuid, String userTag, String userPassword, String name, Set<String> follows, String avatarPath) {
 		mUuid = uuid;
@@ -88,7 +88,7 @@ public class User {
 	}
 
 	/**
-	 * Retourne le tag correspondant Ã  l'utilisateur.
+	 * Retourne le tag correspondant à l'utilisateur.
 	 */
 	public String getUserTag() {
 		return this.mUserTag;
@@ -111,10 +111,10 @@ public class User {
 	}
 
 	/**
-	 * Retourne la liste clonÃ©e des tag suivis par l'utilsateur.
+	 * Retourne la liste clonée des tag suivis par l'utilsateur.
 	 */
 	public Set<String> getFollows() {
-		// Clonage pour Ã©viter les modifications exterieures
+		// Clonage pour éviter les modifications exterieures
 		return new HashSet<String>(this.mFollows);
 	}
 
@@ -122,7 +122,7 @@ public class User {
 	 * Retire un tag de la liste des tags suivis.
 	 * 
 	 * @param tagToRemove
-	 *            , tag Ã  retirer.
+	 *            , tag à retirer.
 	 */
 	public void removeFollowing(String tagToRemove) {
 		this.mFollows.remove(tagToRemove);
@@ -132,21 +132,21 @@ public class User {
 	 * Ajout un tag de la liste des tags suivis.
 	 * 
 	 * @param tagToFollow
-	 *            , tag Ã  ajouter.
+	 *            , tag à ajouter.
 	 */
 	public void addFollowing(String tagToFollow) {
 		this.mFollows.add(tagToFollow);
 	}
 
 	/**
-	 * Retourne le chemin d'accÃ¨s au fichier de l'avatar de l'utilisateur.
+	 * Retourne le chemin d'accès au fichier de l'avatar de l'utilisateur.
 	 */
 	public String getAvatarPath() {
 		return this.mAvatarPath;
 	}
 
 	/**
-	 * Assigne le chemin d'accÃ¨s au fichier de l'avatar de l'utilisateur.
+	 * Assigne le chemin d'accès au fichier de l'avatar de l'utilisateur.
 	 * 
 	 * @param avatarPath
 	 */
@@ -155,7 +155,7 @@ public class User {
 	}
 
 	/**
-	 * Indique si l'utilisateur suit l'utilisateur donnÃ©.
+	 * Indique si l'utilisateur suit l'utilisateur donné.
 	 */
 	public boolean isFollowing(User userToCheck) {
 		return this.getFollows().contains(userToCheck.getUserTag());

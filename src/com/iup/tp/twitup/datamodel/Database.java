@@ -6,18 +6,18 @@ import java.util.Set;
 import com.iup.tp.twitup.common.Constants;
 
 /**
- * Classe reprÃ©sentant les donÃ©nes chargÃ©es dans l'application.
+ * Classe représentant les données chargées dans l'application.
  * 
  * @author S.Lucas
  */
 public class Database implements IDatabase {
 	/**
-	 * Liste des utilisateurs enregistrÃ©s.
+	 * Liste des utilisateurs enregistrés.
 	 */
 	protected final Set<User> mUsers;
 
 	/**
-	 * Liste des Twit enregistrÃ©s.
+	 * Liste des Twit enregistrés.
 	 */
 	protected final Set<Twit> mTwits;
 
@@ -40,7 +40,7 @@ public class Database implements IDatabase {
 	 */
 	@Override
 	public Set<User> getUsers() {
-		// Clonage pour Ã©viter les modifications extÃ©rieures.
+		// Clonage pour éviter les modifications extérieures.
 		return new HashSet<User>(this.mUsers);
 	}
 
@@ -49,7 +49,7 @@ public class Database implements IDatabase {
 	 */
 	@Override
 	public Set<Twit> getTwits() {
-		// Clonage pour Ã©viter les modifications extÃ©rieures.
+		// Clonage pour éviter les modifications extérieures.
 		return new HashSet<Twit>(this.mTwits);
 	}
 
@@ -87,7 +87,7 @@ public class Database implements IDatabase {
 	 */
 	@Override
 	public void modifiyTwit(Twit twitToModify) {
-		// Le rÃ©-ajout va Ã©craser l'ancienne copie.
+		// Le ré-ajout va écraser l'ancienne copie.
 		this.mTwits.add(twitToModify);
 
 		// Notification des observateurs
@@ -129,7 +129,7 @@ public class Database implements IDatabase {
 	 */
 	@Override
 	public void modifiyUser(User userToModify) {
-		// Le rÃ©-ajout va Ã©craser l'ancienne copie.
+		// Le ré-ajout va écraser l'ancienne copie.
 		this.mUsers.add(userToModify);
 
 		// Notification des observateurs
@@ -143,7 +143,7 @@ public class Database implements IDatabase {
 	 */
 	@Override
 	public void clearTwits() {
-		// Parcours de la liste clonnÃ©e des twits
+		// Parcours de la liste clonnée des twits
 		Set<Twit> clonedTwits = this.mTwits;
 		for (Twit twit : clonedTwits) {
 			// Suppression de chacun des twits
@@ -156,7 +156,7 @@ public class Database implements IDatabase {
 	 */
 	@Override
 	public void clearUsers() {
-		// Parcours de la liste clonnÃ©e des utilisateurs
+		// Parcours de la liste clonnée des utilisateurs
 		Set<User> clonedUsers = this.mUsers;
 		for (User user : clonedUsers) {
 			// Suppression de chacun des utlisateurs
@@ -182,7 +182,7 @@ public class Database implements IDatabase {
 
 		// Parcours de tous les twits de la base
 		for (Twit twit : this.getTwits()) {
-			// Si le twit contiens le tag demandÃ©
+			// Si le twit contiens le tag demandé
 			if (twit.containsTag(tag)) {
 				taggedTwits.add(twit);
 			}
@@ -200,7 +200,7 @@ public class Database implements IDatabase {
 
 		// Parcours de tous les twits de la base
 		for (Twit twit : this.getTwits()) {
-			// Si le twit contiens le tag utilisateur demandÃ©
+			// Si le twit contiens le tag utilisateur demandé
 			if (twit.containsUserTag(userTag)) {
 				taggedTwits.add(twit);
 			}
@@ -218,7 +218,7 @@ public class Database implements IDatabase {
 
 		// Parcours de tous les twits de la base
 		for (Twit twit : this.getTwits()) {
-			// Si le twiter est celui recherchÃ©
+			// Si le twiter est celui recherché
 			if (twit.getTwiter().equals(user)) {
 				userTwits.add(twit);
 			}
@@ -236,7 +236,7 @@ public class Database implements IDatabase {
 
 		// Parcours de tous les utilisateurs de la base
 		for (User otherUser : this.getUsers()) {
-			// Si le l'utilisateur courant suit l'utilisateur donnÃ©
+			// Si le l'utilisateur courant suit l'utilisateur donné
 			if (otherUser.isFollowing(user)) {
 				followers.add(otherUser);
 			}
@@ -250,7 +250,7 @@ public class Database implements IDatabase {
 
 		// Parcours de tous les utilisateurs de la base
 		for (User otherUser : this.getUsers()) {
-			// Si le l'utilisateur courant suit l'utilisateur donnÃ©
+			// Si le l'utilisateur courant suit l'utilisateur donné
 			if (user.getFollows().contains(otherUser.getUserTag())) {
 				followers.add(otherUser);
 			}
@@ -305,7 +305,7 @@ public class Database implements IDatabase {
 	}
 
 	/**
-	 * Retourne une liste clonÃ©es des observateurs de modifications.
+	 * Retourne une liste clonées des observateurs de modifications.
 	 */
 	protected Set<IDatabaseObserver> getObservers() {
 		return new HashSet<IDatabaseObserver>(this.mObservers);
