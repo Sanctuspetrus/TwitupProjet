@@ -23,6 +23,7 @@ import com.iup.tp.twitup.common.Constants;
 import com.iup.tp.twitup.common.PropertiesManager;
 import com.iup.tp.twitup.datamodel.Database;
 import com.iup.tp.twitup.datamodel.IDatabase;
+import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
 import com.iup.tp.twitup.ihm.TwitupFrame;
@@ -77,6 +78,8 @@ public class Twitup {
 	 * Nom de la classe de l'UI.
 	 */
 	protected String mUiClassName;
+	
+	protected User connectedUser;
 
 	/**
 	 * Constructeur.

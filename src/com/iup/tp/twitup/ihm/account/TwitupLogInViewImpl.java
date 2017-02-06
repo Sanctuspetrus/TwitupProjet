@@ -58,18 +58,6 @@ public class TwitupLogInViewImpl implements TwitupLogInView{
 	}
 
 	@Override
-	public void success(String msg) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void error(String msg) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void addActionLogIn(TwitupWatcher tw) {
 		// TODO Auto-generated method stub
 		
