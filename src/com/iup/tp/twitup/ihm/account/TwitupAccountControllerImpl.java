@@ -9,18 +9,22 @@ import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
 public class TwitupAccountControllerImpl implements TwitupAccountController {
 
-	protected Database db;
-	protected TwitupLogInView loginView;
+	protected Database database;
+	protected TwitupLogInView logInView;
+	protected TwitupLogOutView logOutView;
+	protected TwitupSignUpView signUpView;
 	protected TwitupAccountActionView actionView;
 
-	public TwitupAccountControllerImpl(Database db, TwitupLogInView lv, TwitupAccountActionView aav){
-		this.db = db;
-		this.loginView = lv;
+	public TwitupAccountControllerImpl(Database db, TwitupAccountActionView aav, TwitupLogInView liv, TwitupLogOutView lov, TwitupSignUpView suv){
+		database = db;
+		logInView = liv;
+		logOutView = lov;
+		signUpView = suv;
 		actionView = aav;
 	}
 
 	public void initView(){
-		loginView.addActionLogIn(loginAttempt());
+		logInView.addActionLogIn(loginAttempt());
 		loginView.show();
 	}
 
@@ -29,7 +33,7 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 	//return l'User trouvé, null sinon
 	public User connection(String userTag, String password){
 
-		Set<User> users = db.getUsers();	
+		Set<User> users = database.getUsers();	
 		Iterator<User> i = users.iterator();
 		while(i.hasNext()){
 
@@ -54,6 +58,26 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 				
 			}
 		};
+	}
+
+	@Override
+	public void addActionLogIn(TwitupWatcher tw) {
+		
+	}
+
+	@Override
+	public void delActionLogIn(TwitupWatcher tw) {
+		
+	}
+
+	@Override
+	public void addActionLogOut(TwitupWatcher tw) {
+		
+	}
+
+	@Override
+	public void delActionLogOut(TwitupWatcher tw) {
+		
 	}
 
 }
