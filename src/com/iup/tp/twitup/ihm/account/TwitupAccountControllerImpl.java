@@ -2,18 +2,22 @@ package com.iup.tp.twitup.ihm.account;
 
 import java.util.Iterator;
 import java.util.Set;
+import java.util.UUID;
 
 import com.iup.tp.twitup.datamodel.Database;
 import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.event.TwitupWatchable;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
 public class TwitupAccountControllerImpl implements TwitupAccountController {
 
+	protected User user;
 	protected Database database;
 	protected TwitupLogInView logInView;
 	protected TwitupLogOutView logOutView;
 	protected TwitupSignUpView signUpView;
 	protected TwitupAccountActionView actionView;
+	protected TwitupWatchable userWatchable;
 
 	public TwitupAccountControllerImpl(Database db, TwitupAccountActionView aav, TwitupLogInView liv, TwitupLogOutView lov, TwitupSignUpView suv){
 		database = db;
@@ -23,61 +27,179 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 		actionView = aav;
 	}
 
-	public void initView(){
-		logInView.addActionLogIn(loginAttempt());
-		loginView.show();
+	public User findUserByTag(String tag){
+		for (User user : database.getUsers()) {
+			if(user.getUserTag().equals(tag));
+				return user;
+		}
+		return null;
 	}
-
-
+	
 	//vérifie si l'utilisateur existe
 	//return l'User trouvé, null sinon
-	public User connection(String userTag, String password){
-
-		Set<User> users = database.getUsers();	
-		Iterator<User> i = users.iterator();
-		while(i.hasNext()){
-
-			//si le pseudo et mdp correspondent à un user, return du User
-			if(((i.next().getUserTag().equals(userTag)) && (i.next()).getUserPassword().equals(password))){
-				return i.next();
+	protected User connection(String userTag, String password){
+		User user = this.findUserByTag(userTag);	
+		
+		if(user != null){
+			if(user.getUserPassword().equals(password)){
+				return user;
 			}
 		}
 		return null;		
 	}
 
-	public TwitupWatcher loginAttempt(){
-
+	/**
+	 * Action effectuée lorsque l'utilisateur tente de se connecter
+	 * @return TwitupWatcher un observateur sur l'évennement de connection
+	 */
+	protected TwitupWatcher logInAttempt(){
 		return new TwitupWatcher() {
 			@Override
 			public void action(Object o) {
-				if(connection(loginView.getUsername(), loginView.getPassword()) == null){
-					loginView.error("La tentative a échoué");
+				setUser(connection(logInView.getUsername(), logInView.getPassword()));
+				if(getUser() == null){
+					logInView.error("La tentative a échoué");
 				}else{
-					loginView.success("Connecté");
+					logInView.success("Connecté");
 				}
-				
+			}
+		};
+	}
+	/**
+	 * Action effectuée lorsque l'utilisateur tente de se déconnecter
+	 * @return TwitupWatcher un observateur sur l'évennement de déconnection
+	 */
+	protected TwitupWatcher logOutAttempt(){
+		return new TwitupWatcher() {
+			@Override
+			public void action(Object o) {
+				setUser(null);
+			}
+		};
+	}
+	/**
+	 * Action effectuée lorsque l'utilisateur tente de créer un nouveau compte
+	 * @return TwitupWatcher un observateur sur l'évennement de création d'un compte
+	 */
+	protected TwitupWatcher signUpAttempt(){
+		return new TwitupWatcher() {
+			@Override
+			public void action(Object o) {
+				String userTag = signUpView.getUsertag();
+				String userPassword = signUpView.getPassword();
+				String name = signUpView.getUsername();
+				if(findUserByTag(userTag) == null){
+					User newuser = new User(UUID.fromString(name), userTag, userPassword, name, null, "");
+					setUser(newuser); // nécessaire pour notifier les observateurs
+					signUpView.success("Connecté");
+				} else {
+					signUpView.error("La tentative a échoué");					
+				}
 			}
 		};
 	}
 
 	@Override
-	public void addActionLogIn(TwitupWatcher tw) {
-		
+	public void addActionUser(TwitupWatcher tw) {
+		userWatchable.addWatcher(tw);
 	}
 
 	@Override
-	public void delActionLogIn(TwitupWatcher tw) {
-		
+	public void delActionUser(TwitupWatcher tw) {
+		userWatchable.delWatcher(tw);	
 	}
 
 	@Override
-	public void addActionLogOut(TwitupWatcher tw) {
+	public void init() {
+		actionView.init();
+		// Action 
+		actionView.addActionLogIn(new TwitupWatcher() {
+			@Override
+			public void action(Object o) {
+				logInView.show();
+			}
+		});
+		actionView.addActionLogOut(new TwitupWatcher() {
+			@Override
+			public void action(Object o) {
+				logOutView.show();
+			}
+		});
+		actionView.addActionSignUp(new TwitupWatcher() {
+			@Override
+			public void action(Object o) {
+				signUpView.show();
+			}
+		});
 		
+		logInView.init();
+		logInView.addActionLogIn(logInAttempt());
+		logOutView.init();
+		logOutView.addActionLogOut(logOutAttempt());
+		signUpView.init();
+		signUpView.addActionSignUp(signUpAttempt());
 	}
 
 	@Override
-	public void delActionLogOut(TwitupWatcher tw) {
-		
+	public void destroy() {
+		logInView.destroy();
+		logOutView.destroy();
+		signUpView.destroy();
+		actionView.destroy();
 	}
 
+	public Database getDatabase() {
+		return database;
+	}
+
+	public void setDatabase(Database database) {
+		this.database = database;
+	}
+
+	public TwitupLogInView getLogInView() {
+		return logInView;
+	}
+
+	public void setLogInView(TwitupLogInView logInView) {
+		this.logInView = logInView;
+	}
+
+	public TwitupLogOutView getLogOutView() {
+		return logOutView;
+	}
+
+	public void setLogOutView(TwitupLogOutView logOutView) {
+		this.logOutView = logOutView;
+	}
+
+	public TwitupSignUpView getSignUpView() {
+		return signUpView;
+	}
+
+	public void setSignUpView(TwitupSignUpView signUpView) {
+		this.signUpView = signUpView;
+	}
+
+	public TwitupAccountActionView getActionView() {
+		return actionView;
+	}
+
+	public void setActionView(TwitupAccountActionView actionView) {
+		this.actionView = actionView;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		// Inutile de modifier et notifier tout le monde si user est exactement le même
+		if(!this.user.equals(user)){
+			this.user = user;
+			userWatchable.sendEvent();		
+		}
+	}
+
+	
+	
 }

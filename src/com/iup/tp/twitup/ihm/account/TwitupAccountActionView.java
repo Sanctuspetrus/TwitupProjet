@@ -10,13 +10,13 @@ public interface TwitupAccountActionView extends TwitupView{
 	public void delActionSignUp(TwitupWatcher tw);
 	
 	// Bouton Connexion
-	public void addActionSignIn(TwitupWatcher tw);
-	public void delActionSignIn(TwitupWatcher tw);
+	public void addActionLogIn(TwitupWatcher tw);
+	public void delActionLogIn(TwitupWatcher tw);
 	public void showSignIn(boolean bool);
 	
 	// Bouton Déconnexion
-	public void addActionSignOut(TwitupWatcher tw);
-	public void delActionSignOut(TwitupWatcher tw);
+	public void addActionLogOut(TwitupWatcher tw);
+	public void delActionLogOut(TwitupWatcher tw);
 	public void showSignOut(boolean bool);
 	
 }

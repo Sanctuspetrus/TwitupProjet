@@ -200,22 +200,22 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 	}
 
 	@Override
-	public void addActionSignIn(TwitupWatcher tw) {
+	public void addActionLogIn(TwitupWatcher tw) {
 		signInWatcher.addWatcher(tw);
 	}
 
 	@Override
-	public void delActionSignIn(TwitupWatcher tw) {
+	public void delActionLogIn(TwitupWatcher tw) {
 		signInWatcher.delWatcher(tw);
 	}
 
 	@Override
-	public void addActionSignOut(TwitupWatcher tw) {
+	public void addActionLogOut(TwitupWatcher tw) {
 		signOutWatcher.addWatcher(tw);
 	}
 
 	@Override
-	public void delActionSignOut(TwitupWatcher tw) {
+	public void delActionLogOut(TwitupWatcher tw) {
 		signOutWatcher.delWatcher(tw);
 	}
 

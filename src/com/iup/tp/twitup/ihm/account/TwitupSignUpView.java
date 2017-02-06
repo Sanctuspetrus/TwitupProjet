@@ -3,7 +3,7 @@ package com.iup.tp.twitup.ihm.account;
 import com.iup.tp.twitup.ihm.TwitupView;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
-public interface TwitupSignUpView extends TwitupView {
+public interface TwitupSignUpView extends TwitupView, TwitupError, TwitupSuccess {
 
 	void addActionSignUp(TwitupWatcher tw);
 	void delActionSignUp(TwitupWatcher tw);
@@ -12,5 +12,6 @@ public interface TwitupSignUpView extends TwitupView {
 	void delActionCancel(TwitupWatcher tw);
 
 	String getUsername();
+	String getUsertag();
 	String getPassword();
 }
