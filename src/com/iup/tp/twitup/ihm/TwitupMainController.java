@@ -8,8 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
-import com.iup.tp.twitup.ihm.mainview.TwitupMainViewController;
-import com.iup.tp.twitup.ihm.menubar.TwitupMenuBarViewImpl;
+import com.iup.tp.twitup.ihm.mainview.controller.TwitupMainViewController;
+import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarViewImpl;
 
 public class TwitupMainController implements TwitupController{
 	

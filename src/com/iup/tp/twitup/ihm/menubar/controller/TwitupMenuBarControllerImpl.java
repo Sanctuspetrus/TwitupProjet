@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.menubar;
+package com.iup.tp.twitup.ihm.menubar.controller;
 
 import java.awt.event.WindowEvent;
 
@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import com.iup.tp.twitup.ihm.event.TwitupWatchable;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
+import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;
 
 public class TwitupMenuBarControllerImpl implements TwitupMenuBarController{
 

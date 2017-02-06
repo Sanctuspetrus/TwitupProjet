@@ -31,12 +31,12 @@ import com.iup.tp.twitup.ihm.TwitupMock;
 import com.iup.tp.twitup.ihm.account.TwitupLogInView;
 import com.iup.tp.twitup.ihm.account.TwitupLogInViewImpl;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
-import com.iup.tp.twitup.ihm.mainview.TwitupMainViewControllerImpl;
-import com.iup.tp.twitup.ihm.mainview.TwitupMainViewImpl;
-import com.iup.tp.twitup.ihm.mainview.TwitupMainView;
-import com.iup.tp.twitup.ihm.menubar.TwitupMenuBarViewImpl;
-import com.iup.tp.twitup.ihm.menubar.TwitupMenuBarControllerImpl;
-import com.iup.tp.twitup.ihm.menubar.TwitupMenuBarView;
+import com.iup.tp.twitup.ihm.mainview.controller.TwitupMainViewControllerImpl;
+import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
+import com.iup.tp.twitup.ihm.mainview.view.TwitupMainViewImpl;
+import com.iup.tp.twitup.ihm.menubar.controller.TwitupMenuBarControllerImpl;
+import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;
+import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarViewImpl;
 
 /**
  * Classe principale l'application.

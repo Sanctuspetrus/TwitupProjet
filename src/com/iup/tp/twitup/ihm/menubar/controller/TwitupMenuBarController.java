@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.menubar;
+package com.iup.tp.twitup.ihm.menubar.controller;
 
 import com.iup.tp.twitup.ihm.TwitupController;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;

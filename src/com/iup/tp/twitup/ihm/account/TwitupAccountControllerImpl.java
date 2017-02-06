@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.UUID;
 
-import com.iup.tp.twitup.datamodel.Database;
+import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.event.TwitupWatchable;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
@@ -12,14 +12,14 @@ import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 public class TwitupAccountControllerImpl implements TwitupAccountController {
 
 	protected User user;
-	protected Database database;
+	protected IDatabase database;
 	protected TwitupLogInView logInView;
 	protected TwitupLogOutView logOutView;
 	protected TwitupSignUpView signUpView;
 	protected TwitupAccountActionView actionView;
 	protected TwitupWatchable userWatchable;
 
-	public TwitupAccountControllerImpl(Database db, TwitupAccountActionView aav, TwitupLogInView liv, TwitupLogOutView lov, TwitupSignUpView suv){
+	public TwitupAccountControllerImpl(IDatabase db, TwitupAccountActionView aav, TwitupLogInView liv, TwitupLogOutView lov, TwitupSignUpView suv){
 		database = db;
 		logInView = liv;
 		logOutView = lov;
@@ -90,6 +90,7 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 				String name = signUpView.getUsername();
 				if(findUserByTag(userTag) == null){
 					User newuser = new User(UUID.fromString(name), userTag, userPassword, name, null, "");
+					database.addUser(newuser);
 					setUser(newuser); // nécessaire pour notifier les observateurs
 					signUpView.success("Connecté");
 				} else {
@@ -148,11 +149,11 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 		actionView.destroy();
 	}
 
-	public Database getDatabase() {
+	public IDatabase getDatabase() {
 		return database;
 	}
 
-	public void setDatabase(Database database) {
+	public void setDatabase(IDatabase database) {
 		this.database = database;
 	}
 

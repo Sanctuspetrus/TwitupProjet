@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.mainview;
+package com.iup.tp.twitup.ihm.mainview.view;
 
 
 import java.awt.event.WindowEvent;

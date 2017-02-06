@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.menubar;
+package com.iup.tp.twitup.ihm.menubar.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

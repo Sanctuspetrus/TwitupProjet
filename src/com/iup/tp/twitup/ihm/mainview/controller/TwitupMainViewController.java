@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.mainview;
+package com.iup.tp.twitup.ihm.mainview.controller;
 
 import java.awt.event.ActionListener;
 
