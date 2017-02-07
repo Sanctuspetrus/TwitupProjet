@@ -9,6 +9,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,16 +23,16 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView{
 	protected JLabel identLabel;
 	protected JLabel pwdLabel;
 	protected JLabel connecLabel;
-	protected JLabel subscribeLabel;
-	protected JTextField loginSignInField;
-	protected JPasswordField pwdSignInField;
+	protected JLabel signUpLabel;
+	protected JTextField loginsignUpField;
+	protected JPasswordField pwdsignUpField;
 	protected JTextField loginSubsField;
 	protected JTextField nomSubsField;
 	protected JPasswordField pwdSubsField;
 	protected JTextField pathAvatar;
 
-	protected JButton signIn;
-	protected JButton subscribe;
+	protected JButton login;
+	protected JButton signUp;
 	
 	protected TwitupWatchable signUpWatchable;
 	protected TwitupWatchable loginWatchable;
@@ -37,16 +40,17 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView{
 	
 	public TwitupLogInViewImpl() {
 		connecLabel = new JLabel("Se Connecter");
-		subscribeLabel = new JLabel("S'inscrire");
-		loginSignInField = new JTextField("login");
-		pwdSignInField = new JPasswordField();
+		signUpLabel = new JLabel("S'inscrire");
+		loginsignUpField = new JTextField("login");
+		pwdsignUpField = new JPasswordField();
 		loginSubsField = new JTextField("login");
 		nomSubsField = new JTextField("nom");
 		pwdSubsField = new JPasswordField();
 		pathAvatar = new JTextField("path image");
 		
-		signIn = new JButton("Se Connecter !!!");
-		subscribe = new JButton("S'inscrire !!!");
+		login = new JButton("Se Connecter !!!");
+		signUp = new JButton("S'inscrire !!!");
+
 		
 	}
 	
@@ -84,16 +88,33 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView{
 
 	@Override
 	public String getUsername() {
-		return loginSignInField.getText();
+		return loginsignUpField.getText();
 	}
 
 	@Override
 	public char[] getPassword() {
-		return pwdSignInField.getPassword();
+		return pwdsignUpField.getPassword();
 	}
 
 	@Override
 	public void init() {
+		
+		signUp.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				signUpWatchable.sendEvent();
+			}
+		});
+		
+		login.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				loginWatchable.sendEvent();
+			}
+		});
+		
 		this.setLayout(new GridLayout(1,1));
 		
 		JPanel leftPanel = new JPanel();
@@ -118,7 +139,7 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView{
 		c.gridy = 1;
 		c.gridwidth = 2;
 		c.insets = new Insets(20,50,0,50);
-		leftPanel.add(loginSignInField,c);
+		leftPanel.add(loginsignUpField,c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 0.5;
@@ -126,7 +147,7 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView{
 		c.gridy = 2;
 		c.gridwidth = 2;
 		c.insets = new Insets(20,50,0,50);
-		leftPanel.add(pwdSignInField,c);
+		leftPanel.add(pwdsignUpField,c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 0.5;
@@ -135,7 +156,7 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView{
 		c.gridy = 3;
 		c.gridwidth = 1;
 		c.insets = new Insets(20,50,0,50);
-		leftPanel.add(signIn,c);
+		leftPanel.add(login,c);
 		
 
 		
@@ -146,7 +167,7 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView{
 		c.gridx = 2;
 		c.gridy = 0;
 		c.insets = new Insets(50,0,0,0);
-		rightPanel.add(subscribeLabel, c);
+		rightPanel.add(signUpLabel, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 0.5;
@@ -154,7 +175,7 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView{
 		c.gridy = 1;
 		c.gridwidth = 2;
 		c.insets = new Insets(20,50,0,50);
-		rightPanel.add(loginSubsField, c);
+		rightPanel.add(loginsignUpField, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 0.5;
@@ -194,7 +215,7 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView{
 		c.gridx = 2;
 		c.gridy = 6;
 		c.insets = new Insets(20,50,0,50);
-		rightPanel.add(subscribe, c);
+		rightPanel.add(signUp, c);
 		
 		this.add(leftPanel);
 		this.add(rightPanel);
