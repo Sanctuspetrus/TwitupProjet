@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.account;
+package com.iup.tp.twitup.ihm.account.controller;
 
 import com.iup.tp.twitup.ihm.TwitupController;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
