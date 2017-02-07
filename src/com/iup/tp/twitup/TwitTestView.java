@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.iup.tp.twitup.ihm.account.TwitupLogInViewImpl;
+import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImpl;
 
 public class TwitTestView {
 

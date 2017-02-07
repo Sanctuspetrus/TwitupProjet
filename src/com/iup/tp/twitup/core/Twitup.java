@@ -28,8 +28,8 @@ import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
 import com.iup.tp.twitup.ihm.TwitupFrame;
 import com.iup.tp.twitup.ihm.TwitupMock;
-import com.iup.tp.twitup.ihm.account.TwitupLogInView;
-import com.iup.tp.twitup.ihm.account.TwitupLogInViewImpl;
+import com.iup.tp.twitup.ihm.account.view.TwitupLogInView;
+import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImpl;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 import com.iup.tp.twitup.ihm.mainview.controller.TwitupMainViewControllerImpl;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
@@ -70,9 +70,9 @@ public class Twitup {
 	protected String mExchangeDirectoryPath;
 
 	/**
-	 * Idnique si le mode bouchoné est activé.
+	 * Indique si le mode bouchoné est activé.
 	 */
-	protected boolean mIsMockEnabled = false;
+	protected boolean mIsMockEnabled = true;
 
 	/**
 	 * Nom de la classe de l'UI.

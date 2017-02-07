@@ -1,6 +1,8 @@
-package com.iup.tp.twitup.ihm.account;
+package com.iup.tp.twitup.ihm.account.view;
 
 import com.iup.tp.twitup.ihm.TwitupView;
+import com.iup.tp.twitup.ihm.account.TwitupError;
+import com.iup.tp.twitup.ihm.account.TwitupSuccess;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
 public interface TwitupLogInView extends TwitupView, TwitupSuccess, TwitupError{

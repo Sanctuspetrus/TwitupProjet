@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.account;
+package com.iup.tp.twitup.ihm.account.controller;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -6,6 +6,10 @@ import java.util.UUID;
 
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
+import com.iup.tp.twitup.ihm.account.view.TwitupLogInView;
+import com.iup.tp.twitup.ihm.account.view.TwitupLogOutView;
+import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
 import com.iup.tp.twitup.ihm.event.TwitupWatchable;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
@@ -37,11 +41,11 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 	
 	//vérifie si l'utilisateur existe
 	//return l'User trouvé, null sinon
-	protected User connection(String userTag, String password){
+	protected User connection(String userTag, char[] cs){
 		User user = this.findUserByTag(userTag);	
 		
 		if(user != null){
-			if(user.getUserPassword().equals(password)){
+			if(user.getUserPassword().equals(new String(cs))){
 				return user;
 			}
 		}
