@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.account;
+package com.iup.tp.twitup.ihm.account.view;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

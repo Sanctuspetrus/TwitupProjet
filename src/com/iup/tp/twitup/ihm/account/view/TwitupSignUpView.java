@@ -15,5 +15,5 @@ public interface TwitupSignUpView extends TwitupView, TwitupError, TwitupSuccess
 
 	String getUsername();
 	String getUsertag();
-	String getPassword();
+	char[] getSignUpPassword();
 }
