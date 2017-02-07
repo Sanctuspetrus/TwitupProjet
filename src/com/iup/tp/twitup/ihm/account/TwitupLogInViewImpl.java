@@ -103,9 +103,7 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 				signUpWatchable.sendEvent();
-				
 			}
 		});
 		
@@ -113,9 +111,7 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 				loginWatchable.sendEvent();
-				
 			}
 		});
 		
