@@ -34,8 +34,7 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 	protected TwitupWatchable researchWatchable;
 	protected TwitupWatchable sendTwitWatchable;
 	
-	public TwitupTwitViewImpl(IDatabase db){
-		database = db;
+	public TwitupTwitViewImpl(){
 		database.addObserver(this);
 		
 		researchBar = new JTextArea();
