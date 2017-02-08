@@ -12,9 +12,9 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 	protected User user;
 	protected TwitupTwitView msgView;
 	
-	TwitupTwitControllerImpl(IDatabase db, User u, TwitupTwitView mv){
+	public TwitupTwitControllerImpl(IDatabase db, TwitupTwitView mv){
 		database = db;
-		user = u;
+		user = null;
 		msgView = mv;
 	}
 
@@ -32,10 +32,16 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 		return new TwitupWatcher() {
 			@Override
 			public void action(Object o) {
-				database.addTwit(new Twit(user, msgView.getLastTwit()));
+				if(user != null){
+					database.addTwit(new Twit(user, msgView.getLastTwit()));
+				}
 			}
 		};
 	}
-	
 
+	@Override
+	public void actionUserChange(User u) {
+		this.user = u;
+	}
+	
 }

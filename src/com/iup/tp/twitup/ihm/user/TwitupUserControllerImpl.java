@@ -10,8 +10,10 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	protected User currentUser;
 	protected ArrayList<UserObserver> uolist;
 	protected IDatabase database;
+	protected TwitupUserView userView;
 	
-	public TwitupUserControllerImpl(IDatabase database) {
+	public TwitupUserControllerImpl(IDatabase database, TwitupUserView uv) {
+		this.userView = uv;
 		this.database = database;
 		this.currentUser = null;
 		this.uolist = new ArrayList<UserObserver>();
@@ -29,8 +31,7 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-		
+		userView.init();
 	}
 
 	@Override
