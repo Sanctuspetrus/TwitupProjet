@@ -1,24 +1,9 @@
 package com.iup.tp.twitup.core;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Properties;
-import java.util.Scanner;
-
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
 import com.iup.tp.twitup.common.Constants;
 import com.iup.tp.twitup.common.PropertiesManager;
 import com.iup.tp.twitup.datamodel.Database;
@@ -26,31 +11,21 @@ import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
-import com.iup.tp.twitup.ihm.TwitupFrame;
+import com.iup.tp.twitup.ihm.GUI;
+import com.iup.tp.twitup.ihm.GUISwing;
 import com.iup.tp.twitup.ihm.TwitupMock;
 import com.iup.tp.twitup.ihm.account.controller.TwitupAccountController;
 import com.iup.tp.twitup.ihm.account.controller.TwitupAccountControllerImpl;
-import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
-import com.iup.tp.twitup.ihm.account.view.TwitupLogInView;
-import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImpl;
-import com.iup.tp.twitup.ihm.account.view.TwitupLogOutView;
-import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 import com.iup.tp.twitup.ihm.mainview.controller.TwitupMainViewController;
 import com.iup.tp.twitup.ihm.mainview.controller.TwitupMainViewControllerImpl;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
-import com.iup.tp.twitup.ihm.mainview.view.TwitupMainViewImpl;
 import com.iup.tp.twitup.ihm.menubar.controller.TwitupMenuBarControllerImpl;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;
-import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarViewImpl;
 import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitController;
 import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitControllerImpl;
-import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
-import com.iup.tp.twitup.ihm.twit.view.TwitupTwitViewImpl;
 import com.iup.tp.twitup.ihm.user.TwitupUserController;
 import com.iup.tp.twitup.ihm.user.TwitupUserControllerImpl;
-import com.iup.tp.twitup.ihm.user.TwitupUserView;
-import com.iup.tp.twitup.ihm.user.TwitupUserViewImpl;
 
 /**
  * Classe principale l'application.
@@ -128,8 +103,10 @@ public class Twitup {
 	 */
 	protected void initGui() {
 		
+		GUI guiSwing = GUISwing.getInstance(); 
+		
 		TwitupMainViewController mainViewCtrl = new TwitupMainViewControllerImpl();
-		TwitupMenuBarControllerImpl menuBarCtrl = new TwitupMenuBarControllerImpl(mainFrame, menuBar);
+		TwitupMenuBarControllerImpl menuBarCtrl = new TwitupMenuBarControllerImpl(guiSwing.getFrame(), (TwitupMenuBarView) guiSwing.getTwitupAccountActionView());
 		// On "observe" si le chemin du répertoir d'échange a été modifié
 		menuBarCtrl.addActionExchangeFolder(new TwitupWatcher() {
 			@Override
@@ -138,9 +115,9 @@ public class Twitup {
 			}
 		});
 		menuBarCtrl.initView();
-		TwitupUserController userCtrl = new TwitupUserControllerImpl(mDatabase, userView);
-		TwitupTwitController twitCtrl = new TwitupTwitControllerImpl(mDatabase, twitView);
-		TwitupAccountController accountCtrl = new TwitupAccountControllerImpl(mDatabase, aac, liv, lov, suv);
+		TwitupUserController userCtrl = new TwitupUserControllerImpl(mDatabase, guiSwing.getTwitupUserView());
+		TwitupTwitController twitCtrl = new TwitupTwitControllerImpl(mDatabase, guiSwing.getTwitupTwitView());
+		TwitupAccountController accountCtrl = new TwitupAccountControllerImpl(mDatabase, guiSwing.getTwitupAccountActionView(), guiSwing.getTwitupLogInView(), null, guiSwing.getTwitupSignupView());
 		userCtrl.init();
 		twitCtrl.init();
 		accountCtrl.init();

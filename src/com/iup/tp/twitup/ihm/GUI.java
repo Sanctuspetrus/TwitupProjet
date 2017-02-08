@@ -8,6 +8,7 @@ import com.iup.tp.twitup.ihm.user.TwitupUserView;
 
 public interface GUI {
 	void launch();
+	TwitupFrame getFrame();
 	TwitupUserView getTwitupUserView();
 	TwitupTwitView getTwitupTwitView();
 	TwitupLogInView getTwitupLogInView();

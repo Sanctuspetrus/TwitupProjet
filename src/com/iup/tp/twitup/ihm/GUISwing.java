@@ -58,7 +58,7 @@ public class GUISwing implements GUI {
 
 		// Initialisation des vues
 		TwitupUserView userView = new TwitupUserViewImpl();
-		TwitupTwitView twitView = new TwitupTwitViewImpl(mDatabase);
+		TwitupTwitView twitView = new TwitupTwitViewImpl();
 		TwitupLogInView liv = new TwitupLogInViewImpl();
 		TwitupLogOutView lov = null;
 		TwitupSignUpView suv = null;
@@ -91,6 +91,12 @@ public class GUISwing implements GUI {
 
 	@Override
 	public TwitupAccountActionView getTwitupAccountActionView() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TwitupFrame getFrame() {
 		// TODO Auto-generated method stub
 		return null;
 	}
