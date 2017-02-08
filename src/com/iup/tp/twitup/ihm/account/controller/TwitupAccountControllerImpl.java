@@ -1,5 +1,6 @@
 package com.iup.tp.twitup.ihm.account.controller;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.UUID;
@@ -21,14 +22,15 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 	protected TwitupLogOutView logOutView;
 	protected TwitupSignUpView signUpView;
 	protected TwitupAccountActionView actionView;
-	protected TwitupWatchable userWatchable;
+	protected ArrayList<AccountObserver> aolist; 
 
-	public TwitupAccountControllerImpl(IDatabase db, TwitupAccountActionView aav, TwitupLogInView liv, TwitupLogOutView lov, TwitupSignUpView suv){
+ 	public TwitupAccountControllerImpl(IDatabase db, TwitupAccountActionView aav, TwitupLogInView liv, TwitupLogOutView lov, TwitupSignUpView suv){
 		database = db;
 		logInView = liv;
 		logOutView = lov;
 		signUpView = suv;
 		actionView = aav;
+		aolist = new ArrayList<AccountObserver>();
 	}
 
 	public User findUserByTag(String tag){
@@ -60,7 +62,7 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 		return new TwitupWatcher() {
 			@Override
 			public void action(Object o) {
-				setUser(connection(logInView.getUsername(), logInView.getPassword()));
+				setUser(connection(logInView.getUsername(), logInView.getLoginPassword()));
 				if(getUser() == null){
 					logInView.error("La tentative a échoué");
 				}else{
@@ -90,7 +92,7 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 			@Override
 			public void action(Object o) {
 				String userTag = signUpView.getUsertag();
-				String userPassword = signUpView.getPassword();
+				String userPassword = String.valueOf(signUpView.getSignUpPassword());
 				String name = signUpView.getUsername();
 				if(findUserByTag(userTag) == null){
 					User newuser = new User(UUID.fromString(name), userTag, userPassword, name, null, "");
@@ -102,16 +104,6 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 				}
 			}
 		};
-	}
-
-	@Override
-	public void addActionUser(TwitupWatcher tw) {
-		userWatchable.addWatcher(tw);
-	}
-
-	@Override
-	public void delActionUser(TwitupWatcher tw) {
-		userWatchable.delWatcher(tw);	
 	}
 
 	@Override
@@ -201,7 +193,32 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 		// Inutile de modifier et notifier tout le monde si user est exactement le même
 		if(!this.user.equals(user)){
 			this.user = user;
-			userWatchable.sendEvent();		
+			notifyLogIn(user);
+		}
+	}
+
+	// OBSERVER USER
+	@Override
+	public void addAccountObserver(AccountObserver ao) {
+		aolist.add(ao);
+	}
+
+	@Override
+	public void delAccountObserver(AccountObserver ao) {
+		aolist.remove(ao);
+	}
+
+	@Override
+	public void notifyLogIn(User u) {
+		for (AccountObserver ao : aolist) {
+			ao.actionLogIn(u);
+		}
+	}
+
+	@Override
+	public void notifyLogOut(User u) {
+		for (AccountObserver ao : aolist) {
+			ao.actionLogOut(u);
 		}
 	}
 

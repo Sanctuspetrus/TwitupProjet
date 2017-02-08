@@ -26,8 +26,6 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	protected TwitupWatcher newMsg(){
