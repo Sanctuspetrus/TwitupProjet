@@ -67,6 +67,18 @@ public class TwitupMenuBarControllerImpl implements TwitupMenuBarController{
 		changeExchangeFolder.delWatcher(tw);
 	}
 
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }

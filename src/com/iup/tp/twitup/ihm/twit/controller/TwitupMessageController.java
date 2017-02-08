@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.message.controller;
+package com.iup.tp.twitup.ihm.twit.controller;
 
 import com.iup.tp.twitup.ihm.TwitupController;
 

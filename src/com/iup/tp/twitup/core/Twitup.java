@@ -28,8 +28,13 @@ import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
 import com.iup.tp.twitup.ihm.TwitupFrame;
 import com.iup.tp.twitup.ihm.TwitupMock;
+import com.iup.tp.twitup.ihm.account.controller.TwitupAccountController;
+import com.iup.tp.twitup.ihm.account.controller.TwitupAccountControllerImpl;
+import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImpl;
+import com.iup.tp.twitup.ihm.account.view.TwitupLogOutView;
+import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 import com.iup.tp.twitup.ihm.mainview.controller.TwitupMainViewControllerImpl;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
@@ -129,6 +134,15 @@ public class Twitup {
 			}
 		});
 		menuBarCtrl.initView();
+		
+		TwitupLogInView liv = new TwitupLogInViewImpl();
+		TwitupLogOutView lov = null;
+		TwitupSignUpView suv = null;
+		TwitupAccountActionView aac = (TwitupAccountActionView) menuBar;
+		
+		TwitupAccountController accountCtrl = new TwitupAccountControllerImpl(mDatabase, aac, liv, lov, suv);
+		accountCtrl.init();
+
 	}
 
 	/**
