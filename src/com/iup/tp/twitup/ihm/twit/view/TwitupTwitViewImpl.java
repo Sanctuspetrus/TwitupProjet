@@ -6,11 +6,11 @@ import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
-public class TwitupMessageViewImpl implements TwitupMessageView, IDatabaseObserver{
+public class TwitupTwitViewImpl implements TwitupTwitView, IDatabaseObserver{
 
 	IDatabase database;
 	
-	public TwitupMessageViewImpl(IDatabase db){
+	public TwitupTwitViewImpl(IDatabase db){
 		database = db;
 		database.addObserver(this);
 	}

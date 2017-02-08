@@ -4,15 +4,15 @@ import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
-import com.iup.tp.twitup.ihm.twit.view.TwitupMessageView;
+import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
 
-public class TwitupMessageControllerImpl implements TwitupMessageController{
+public class TwitupTwitControllerImpl implements TwitupTwitController{
 	
 	protected IDatabase database;
 	protected User user;
-	protected TwitupMessageView msgView;
+	protected TwitupTwitView msgView;
 	
-	TwitupMessageControllerImpl(IDatabase db, User u, TwitupMessageView mv){
+	TwitupTwitControllerImpl(IDatabase db, User u, TwitupTwitView mv){
 		database = db;
 		user = u;
 		msgView = mv;
