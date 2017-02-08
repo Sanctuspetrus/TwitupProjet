@@ -32,9 +32,13 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 		return new TwitupWatcher() {
 			@Override
 			public void action(Object o) {
+<<<<<<< HEAD
 				if(user != null){
 					database.addTwit(new Twit(user, msgView.getLastTwit()));
 				}
+=======
+				database.addTwit(new Twit(user, msgView.getTwitSent()));
+>>>>>>> origin/master
 			}
 		};
 	}
