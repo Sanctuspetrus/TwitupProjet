@@ -178,4 +178,7 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 		return zoneRedacTwit.getText();
 	}
 	
+	public void setDatabase(IDatabase db){
+		database = db;
+	}
 }
