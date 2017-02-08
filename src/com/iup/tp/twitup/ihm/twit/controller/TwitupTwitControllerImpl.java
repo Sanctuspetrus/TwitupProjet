@@ -21,6 +21,7 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 	@Override
 	public void init() {
 		msgView.addActionNewTwit(newMsg());
+		msgView.setDatabase(database);
 		msgView.init();
 	}
 
