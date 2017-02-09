@@ -10,10 +10,13 @@ public class VignetteAbonnesModif extends JPanel{
 	JButton button;
 	
 	
-	public VignetteAbonnesModif(VignetteAbonnes vi, JButton buttonSuppr){
+	public VignetteAbonnesModif(VignetteAbonnes vi, JButton button){
 		
 		this.vi = vi;
-		this.button = buttonSuppr;
+		this.button = button;
+		
+		this.add(vi);
+		this.add(button);
 		
 	}
 	

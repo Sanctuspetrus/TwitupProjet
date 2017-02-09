@@ -29,10 +29,13 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	TwitupWatchable researchWatchable;
 	TwitupWatchable addAboWatchable;
 	
+	JPanel north;
 	
 	public TwitupUserViewImpl(){
 		
-		researchBar = new JTextField();
+		north = new JPanel();
+		
+		researchBar = new JTextField("rechercher");
 		researchButton = new JButton("RECHERCHER");
 		
 		supprWatchable = new TwitupWatchable();
@@ -45,12 +48,13 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	@Override
 	public void init() {
 
-		zoneAbonnes.setLayout(new BoxLayout(zoneAbonnes, BoxLayout.Y_AXIS));
-		
 		this.setLayout(new BorderLayout());
+		zoneAbonnes.setLayout(new BoxLayout(zoneAbonnes, BoxLayout.PAGE_AXIS));
 		
-		this.add(researchBar, BorderLayout.NORTH);
-		this.add(researchButton, BorderLayout.NORTH);
+		north.add(researchBar);
+		north.add(researchButton);
+		
+		this.add(north, BorderLayout.NORTH);
 		
 		showUserAbonnes();
 
@@ -111,6 +115,10 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	@Override
 	public void setListUserAbonnes(Set<User> listUserAbo) {
 		this.listUserAbo = listUserAbo;
+		for (User user : listUserAbo) {
+			System.out.println("vue abo : " + user.getName());
+		}
+		
 		showUserAbonnes();
 		this.revalidate();
 		this.repaint();
