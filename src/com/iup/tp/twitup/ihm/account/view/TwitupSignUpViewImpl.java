@@ -45,9 +45,7 @@ public class TwitupSignUpViewImpl extends JPanel implements TwitupSignUpView{
 
 		
 	}
-	
-	
-	
+
 
 	@Override
 	public void init() {
@@ -147,13 +145,13 @@ public class TwitupSignUpViewImpl extends JPanel implements TwitupSignUpView{
 
 	@Override
 	public void addActionSignUp(TwitupWatcher tw) {
-		// TODO Auto-generated method stub
+		signUpWatchable.addWatcher(tw);
 		
 	}
 
 	@Override
 	public void delActionSignUp(TwitupWatcher tw) {
-		// TODO Auto-generated method stub
+		signUpWatchable.delWatcher(tw);
 		
 	}
 
@@ -171,20 +169,17 @@ public class TwitupSignUpViewImpl extends JPanel implements TwitupSignUpView{
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return nomSignUpField.getText();
 	}
 
 	@Override
 	public String getUsertag() {
-		// TODO Auto-generated method stub
-		return null;
+		return loginsignUpField.getText();
 	}
 
 	@Override
 	public char[] getSignUpPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return pwdSignUpField.getPassword();
 	}
 
 }

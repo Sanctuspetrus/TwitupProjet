@@ -35,7 +35,6 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 	protected TwitupWatchable sendTwitWatchable;
 	
 	public TwitupTwitViewImpl(){
-		database.addObserver(this);
 		
 		researchBar = new JTextArea();
 		zoneRedacTwit = new JTextArea();
@@ -49,6 +48,8 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 
 	@Override
 	public void init() {
+		
+		database.addObserver(this);
 		
 		researchButton.addActionListener(new ActionListener() {			
 			@Override
