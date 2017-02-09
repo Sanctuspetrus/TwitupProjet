@@ -41,7 +41,7 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	@Override
 	public void init() {
 		database.addObserver(this);
-		userView.setListUser(followers);
+		userView.setListUserAbonnes(followers);
 		userView.init();
 	}
 
@@ -163,7 +163,7 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 
 	public void setFollowers(Set<User> abonne) {
 		this.followers = abonne;
-		userView.setListUser(abonne);
+		userView.setListUserAbonnes(abonne);
 	}
 	
 	public void updateFollowers(){
@@ -176,7 +176,7 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 
 	public void setSearchResult(Set<User> recherche) {
 		this.searchResult = recherche;
-		userView.setListUser(recherche);
+		userView.setListResearched(recherche);
 	}
 
 	public Set<Twit> getUserTwit() {
