@@ -51,8 +51,9 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 
 	@Override
 	public void init() {
-
+		
 		database.addObserver(this);
+
 		researchButton.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
