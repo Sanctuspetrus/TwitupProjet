@@ -5,12 +5,9 @@ import com.iup.tp.twitup.ihm.account.view.TwitupLogInView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImpl;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogOutView;
 import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
-import com.iup.tp.twitup.ihm.event.TwitupWatcher;
-import com.iup.tp.twitup.ihm.mainview.controller.TwitupMainViewController;
-import com.iup.tp.twitup.ihm.mainview.controller.TwitupMainViewControllerImpl;
+import com.iup.tp.twitup.ihm.account.view.TwitupSignUpViewImpl;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainViewImpl;
-import com.iup.tp.twitup.ihm.menubar.controller.TwitupMenuBarControllerImpl;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarViewImpl;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
@@ -42,7 +39,7 @@ public class GUISwing implements GUI {
 		twitView = new TwitupTwitViewImpl();
 		liv = new TwitupLogInViewImpl();
 		lov = null;
-		suv = null;
+		suv = new TwitupSignUpViewImpl();
 		aac = (TwitupAccountActionView) menuBar;
 	}
 	
@@ -55,50 +52,39 @@ public class GUISwing implements GUI {
 	
 	@Override
 	public void launch() {
-
-		// Initialisation des vues
-		TwitupUserView userView = new TwitupUserViewImpl();
-		TwitupTwitView twitView = new TwitupTwitViewImpl();
-		TwitupLogInView liv = new TwitupLogInViewImpl();
-		TwitupLogOutView lov = null;
-		TwitupSignUpView suv = null;
-		TwitupAccountActionView aac = (TwitupAccountActionView) menuBar;
+		mainFrame.setContentPane((TwitupLogInViewImpl)liv);
+		mainFrame.setContentPane((TwitupSignUpViewImpl)suv);
+		mMainView.show();
 	}
 
 	@Override
 	public TwitupUserView getTwitupUserView() {
-		// TODO Auto-generated method stub
-		return null;
+		return userView;
 	}
 
 	@Override
 	public TwitupTwitView getTwitupTwitView() {
-		// TODO Auto-generated method stub
-		return null;
+		return twitView;
 	}
 
 	@Override
 	public TwitupLogInView getTwitupLogInView() {
-		// TODO Auto-generated method stub
-		return null;
+		return liv;
 	}
 
 	@Override
 	public TwitupSignUpView getTwitupSignupView() {
-		// TODO Auto-generated method stub
-		return null;
+		return suv;
 	}
 
 	@Override
 	public TwitupAccountActionView getTwitupAccountActionView() {
-		// TODO Auto-generated method stub
-		return null;
+		return aac;
 	}
 
 	@Override
 	public TwitupFrame getFrame() {
-		// TODO Auto-generated method stub
-		return null;
+		return mainFrame;
 	}
 
 }

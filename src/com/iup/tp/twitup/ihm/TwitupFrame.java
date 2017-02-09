@@ -22,20 +22,5 @@ public class TwitupFrame extends JFrame {
 		this.pack();
 
 		my.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-//		this.addWindowListener( new WindowAdapter()
-//		{
-//			public void windowClosing(WindowEvent e)
-//			{
-//				int result = JOptionPane.showConfirmDialog(
-//						null,
-//						"Are you sure you want to exit the application?",
-//						"Exit Application",
-//						JOptionPane.YES_NO_OPTION);
-//
-//				if (result == JOptionPane.YES_OPTION)
-//					my.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//			}
-//		});
 	}
 }

@@ -69,6 +69,8 @@ public class Twitup {
 	protected String mUiClassName;
 	
 	protected User connectedUser;
+	
+	protected GUI guiSwing;
 
 	/**
 	 * Constructeur.
@@ -103,7 +105,7 @@ public class Twitup {
 	 */
 	protected void initGui() {
 		
-		GUI guiSwing = GUISwing.getInstance(); 
+		guiSwing = GUISwing.getInstance(); 
 		
 		TwitupMainViewController mainViewCtrl = new TwitupMainViewControllerImpl();
 		TwitupMenuBarControllerImpl menuBarCtrl = new TwitupMenuBarControllerImpl(guiSwing.getFrame(), (TwitupMenuBarView) guiSwing.getTwitupAccountActionView());
@@ -222,6 +224,6 @@ public class Twitup {
 	}
 
 	public void show() {
-		mMainView.show();
+		guiSwing.launch();
 	}
 }

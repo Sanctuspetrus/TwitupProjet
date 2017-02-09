@@ -1,5 +1,9 @@
 package com.iup.tp.twitup.ihm.user;
 
+import java.util.Set;
+
+import com.iup.tp.twitup.datamodel.Twit;
+
 public class TwitupUserViewImpl implements TwitupUserView {
 
 	@Override
@@ -24,6 +28,12 @@ public class TwitupUserViewImpl implements TwitupUserView {
 	public void destroy() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void setListTwit(Set<Twit> listTwit) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

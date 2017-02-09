@@ -88,14 +88,17 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 	 * @return TwitupWatcher un observateur sur l'évennement de création d'un compte
 	 */
 	protected TwitupWatcher signUpAttempt(){
+		System.out.println("couplage");
 		return new TwitupWatcher() {
 			@Override
 			public void action(Object o) {
 				String userTag = signUpView.getUsertag();
 				String userPassword = String.valueOf(signUpView.getSignUpPassword());
 				String name = signUpView.getUsername();
+				System.out.println("yolo : "+userTag);
+				System.out.println(findUserByTag(userTag));
 				if(findUserByTag(userTag) == null){
-					User newuser = new User(UUID.fromString(name), userTag, userPassword, name, null, "");
+					User newuser = new User(UUID.fromString(userTag), userTag, userPassword, name, null, "");
 					database.addUser(newuser);
 					setUser(newuser); // nécessaire pour notifier les observateurs
 					signUpView.success("Connecté");
@@ -131,10 +134,12 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 		
 		logInView.init();
 		logInView.addActionLogIn(logInAttempt());
-		logOutView.init();
-		logOutView.addActionLogOut(logOutAttempt());
-		signUpView.init();
+		if(logOutView != null){
+			logOutView.init();
+			logOutView.addActionLogOut(logOutAttempt());
+		}
 		signUpView.addActionSignUp(signUpAttempt());
+		signUpView.init();
 	}
 
 	@Override
@@ -191,7 +196,8 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 
 	public void setUser(User user) {
 		// Inutile de modifier et notifier tout le monde si user est exactement le même
-		if(!this.user.equals(user)){
+		if(this.user == null || !this.user.equals(user)){
+			System.out.println(user);
 			this.user = user;
 			notifyLogIn(user);
 		}
