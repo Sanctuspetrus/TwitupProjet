@@ -72,8 +72,6 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 			});
 			zoneAbonnes.add(new VignetteAbonnesModif(new VignetteAbonnes(user), supprButton));
 		}
-		this.revalidate();
-		this.repaint();
 	}
 	
 	@Override
@@ -90,8 +88,6 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 			});
 			zoneAbonnes.add(new VignetteAbonnesModif(new VignetteAbonnes(user), addButton));
 		}
-		this.revalidate();
-		this.repaint();
 	}
 
 	@Override
@@ -115,11 +111,17 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	@Override
 	public void setListUserAbonnes(Set<User> listUserAbo) {
 		this.listUserAbo = listUserAbo;
+		showUserAbonnes();
+		this.revalidate();
+		this.repaint();
 	}
 	
 	@Override
 	public void setListResearched(Set<User> listUserRech) {
 		this.listUserResearch = listUserRech;
+		showUserResearched();
+		this.revalidate();
+		this.repaint();
 	}
 
 	@Override
