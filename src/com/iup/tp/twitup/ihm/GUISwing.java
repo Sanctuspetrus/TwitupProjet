@@ -77,6 +77,12 @@ public class GUISwing implements GUI {
 				mainFrame.setContentPane((TwitupUserViewImpl)userView);
 			}
 		});
+		liv.addActionLogIn(new TwitupWatcher() {
+			@Override
+			public void action(Object o) {
+				mainFrame.setContentPane((TwitupUserViewImpl)userView);
+			}
+		});
 		
 		mainView.show();
 	}

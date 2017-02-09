@@ -127,7 +127,8 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	 */
 	@Override
 	public void notifyUserAdded(User addedUser) {
-		System.out.println("New user : "+addedUser.getName());
+		System.out.println("New user : ");
+		printUser(addedUser);
 		if(currentUser != null){
 			updateFollowers();
 		}
@@ -138,7 +139,8 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	 */
 	@Override
 	public void notifyUserDeleted(User deletedUser) {
-		System.out.println("Deleted user : "+deletedUser.getName());
+		System.out.println("Deleted user : ");
+		printUser(deletedUser);
 		if(currentUser != null){
 			updateFollowers();
 		}
@@ -149,7 +151,8 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	 */
 	@Override
 	public void notifyUserModified(User modifiedUser) {
-		System.out.println("Modified user : "+modifiedUser.getName());
+		System.out.println("Modified user : ");
+		printUser(modifiedUser);
 		if(currentUser != null){
 			updateFollowers();
 		}
@@ -168,6 +171,9 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	
 	public void updateFollowers(){
 		setFollowers(database.getUsers());
+		for (User user : followers) {
+			System.out.println(user.getName());
+		}
 	}
 
 	public Set<User> getSearchResult() {
@@ -187,6 +193,14 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 		this.userTwit = userTwit;
 	}
 
+	public void printUser(User u){
+		StringBuilder msg = new StringBuilder();
+		msg.append("\nNom : "+u.getName());
+		msg.append("\nTag : "+u.getUserTag());
+		msg.append("\nMot de passe : "+u.getUserPassword());
+		msg.append("\nAvatar : "+u.getAvatarPath());
+		System.out.println(msg);
+	}
 	
 
 }
