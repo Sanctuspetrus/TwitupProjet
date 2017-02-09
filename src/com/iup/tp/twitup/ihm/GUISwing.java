@@ -23,7 +23,7 @@ public class GUISwing implements GUI {
 	 */
 	protected static GUISwing singleton;
 	protected TwitupFrame mainFrame;
-	protected TwitupMainView mMainView;
+	protected TwitupMainView mainView;
 	protected TwitupMenuBarView menuBar;
 	protected TwitupUserView userView;
 	protected TwitupTwitView twitView;
@@ -34,7 +34,7 @@ public class GUISwing implements GUI {
 	
 	protected GUISwing() {
 		mainFrame = new TwitupFrame();
-		mMainView = new TwitupMainViewImpl(mainFrame);
+		mainView = new TwitupMainViewImpl(mainFrame);
 		menuBar = new TwitupMenuBarViewImpl(mainFrame);
 		userView = new TwitupUserViewImpl();
 		twitView = new TwitupTwitViewImpl();
@@ -58,7 +58,7 @@ public class GUISwing implements GUI {
 			public void action(Object o) {
 				System.out.println("Création compte");
 				mainFrame.setContentPane((TwitupSignUpViewImpl)suv);
-				mMainView.show();
+				mainView.show();
 			}
 		});
 		aac.addActionLogIn(new TwitupWatcher() {
@@ -66,11 +66,18 @@ public class GUISwing implements GUI {
 			public void action(Object o) {
 				System.out.println("Connexion");
 				mainFrame.setContentPane((TwitupLogInViewImpl)liv);
-				mMainView.show();
+				mainView.show();
 			}
 		});
 		
-		mMainView.show();
+		suv.addActionSignUp(new TwitupWatcher() {
+			@Override
+			public void action(Object o) {
+				mainFrame.setContentPane((TwitupMainViewImpl)mainView);
+			}
+		});
+		
+		mainView.show();
 	}
 
 	@Override

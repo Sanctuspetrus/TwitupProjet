@@ -64,10 +64,18 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 			public void action(Object o) {
 				User attempt = connection(logInView.getUsername(), logInView.getLoginPassword());
 				if(attempt == null){
-					logInView.error("La tentative a échoué");
+					StringBuilder msg = new StringBuilder();
+					msg.append("L'utilisateur ");
+					msg.append(logInView.getUsername());
+					msg.append(" n'est pas reconnu");
+					logInView.error(msg.toString());
 				}else{
 					setUser(attempt);
-					logInView.success("Connecté");
+					StringBuilder msg = new StringBuilder();
+					msg.append("Connecté en tant que ");
+					msg.append(attempt.getName());
+					msg.append(", bravo!");
+					logInView.success(msg.toString());
 				}
 			}
 		};
@@ -95,15 +103,24 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 				String userTag = signUpView.getUsertag();
 				String userPassword = String.valueOf(signUpView.getSignUpPassword());
 				String name = signUpView.getUsername();
-				System.out.println("yolo : "+userTag);
-				System.out.println(findUserByTag(userTag));
+				String image = "";
+				
 				if(findUserByTag(userTag) == null){
-					User newuser = new User(UUID.randomUUID(), userTag, userPassword, name, null, "");
+					User newuser = new User(UUID.randomUUID(), userTag, userPassword, name, null, image);
 					database.addUser(newuser);
 					setUser(newuser); // nécessaire pour notifier les observateurs
-					signUpView.success("Connecté");
+
+					StringBuilder msg = new StringBuilder();
+					msg.append("Le compte ");
+					msg.append(newuser.getName());
+					msg.append(" a été créé : ");
+					msg.append("\nNom : "+newuser.getName());
+					msg.append("\nTag : "+newuser.getUserTag());
+					msg.append("\nMot de passe : "+newuser.getUserPassword());
+					msg.append("\nAvatar : "+newuser.getAvatarPath());
+					signUpView.success(msg.toString());
 				} else {
-					signUpView.error("La tentative a échoué");					
+					signUpView.error("La tentative a échoué, le compte éxiste déjà");					
 				}
 			}
 		};
