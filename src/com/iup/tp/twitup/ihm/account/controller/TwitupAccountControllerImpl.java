@@ -69,14 +69,22 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 					msg.append(logInView.getUsername());
 					msg.append(" n'est pas reconnu");
 					logInView.error(msg.toString());
-				}else{
+					return;
+				}
+				if(attempt.equals(user)){
+					StringBuilder msg = new StringBuilder();
+					msg.append("Vous êtes déjà connecté en tant que ");
+					msg.append(user.getName());
+					logInView.error(msg.toString());
+					return;
+				}
 					setUser(attempt);
 					StringBuilder msg = new StringBuilder();
 					msg.append("Connecté en tant que ");
-					msg.append(attempt.getName());
+					msg.append(user.getName());
 					msg.append(", bravo!");
 					logInView.success(msg.toString());
-				}
+				
 			}
 		};
 	}
@@ -89,6 +97,9 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 			@Override
 			public void action(Object o) {
 				setUser(null);
+				StringBuilder msg = new StringBuilder();
+				msg.append("Déconnecté");
+				logInView.success(msg.toString());
 			}
 		};
 	}
@@ -136,12 +147,7 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 				logInView.show();
 			}
 		});
-		actionView.addActionLogOut(new TwitupWatcher() {
-			@Override
-			public void action(Object o) {
-				logOutView.show();
-			}
-		});
+		actionView.addActionLogOut(logOutAttempt());
 		actionView.addActionSignUp(new TwitupWatcher() {
 			@Override
 			public void action(Object o) {
@@ -213,9 +219,15 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 
 	public void setUser(User user) {
 		// Inutile de modifier et notifier tout le monde si user est exactement le même
+		if(user == null){
+			this.user = user;
+			notifyLogOut(user);
+			return;
+		}
 		if(this.user == null || !this.user.equals(user)){
 			this.user = user;
 			notifyLogIn(user);
+			return;
 		}
 	}
 

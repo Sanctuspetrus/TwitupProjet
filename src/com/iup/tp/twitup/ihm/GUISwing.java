@@ -53,6 +53,7 @@ public class GUISwing implements GUI {
 	
 	@Override
 	public void launch() {
+		mainFrame.setContentPane((TwitupUserViewImpl)userView);
 		aac.addActionSignUp(new TwitupWatcher() {
 			@Override
 			public void action(Object o) {
@@ -73,7 +74,7 @@ public class GUISwing implements GUI {
 		suv.addActionSignUp(new TwitupWatcher() {
 			@Override
 			public void action(Object o) {
-				mainFrame.setContentPane((TwitupMainViewImpl)mainView);
+				mainFrame.setContentPane((TwitupUserViewImpl)userView);
 			}
 		});
 		
