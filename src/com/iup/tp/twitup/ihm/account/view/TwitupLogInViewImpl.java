@@ -110,13 +110,13 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView {
 
 	@Override
 	public void success(String msg) {
-		System.out.println("reussite de la connection");
+		System.out.println(msg);
 		
 	}
 
 	@Override
 	public void error(String msg) {
-		System.out.println("erreur de la connection");
+		System.out.println(msg);
 		
 	}
 
