@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.IDatabaseObserver;
@@ -21,7 +22,7 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 
 	IDatabase database;
 	
-	JTextArea researchBar;
+	JTextField researchBar;
 	JTextArea zoneRedacTwit;
 	
 	JButton researchButton;
@@ -36,7 +37,7 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 	
 	public TwitupTwitViewImpl(){
 		
-		researchBar = new JTextArea();
+		researchBar = new JTextField();
 		zoneRedacTwit = new JTextArea();
 		
 		researchButton = new JButton("Rechercher");

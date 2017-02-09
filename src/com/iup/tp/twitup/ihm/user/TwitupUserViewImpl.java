@@ -9,33 +9,32 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
-import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.event.TwitupWatchable;
-
-import javafx.scene.layout.Border;
+import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
 @SuppressWarnings("serial")
 public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	
 	
-	JTextArea researchBar;
+	JTextField researchBar;
 	JButton researchButton;
-	Set<User> listUser;
+	Set<User> listUserAbo;
+	Set<User> listUserResearch;
 	
 	JPanel zoneAbonnes;
 	
 	TwitupWatchable supprWatchable;
 	TwitupWatchable researchWatchable;
+	TwitupWatchable addAboWatchable;
 	
 	
 	public TwitupUserViewImpl(){
 		
-		researchBar = new JTextArea();
+		researchBar = new JTextField();
 		researchButton = new JButton("RECHERCHER");
-		
-		zoneAbonnes = new JPanel();
 		
 		supprWatchable = new TwitupWatchable();
 		researchWatchable = new TwitupWatchable();
@@ -52,33 +51,46 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 		this.add(researchBar, BorderLayout.NORTH);
 		this.add(researchButton, BorderLayout.NORTH);
 		
-		zoneAbonnes.setLayout(new BoxLayout(zoneAbonnes, BoxLayout.Y_AXIS));
+		showUserAbonnes();
+
+		this.add(zoneAbonnes, BorderLayout.CENTER);
 		
-		
-		
-		
-		for (User user : listUser) {
+	}
+
+	@Override
+	public void showUserAbonnes() {
+		zoneAbonnes.removeAll();
+		for (User user : listUserAbo) {
 			
-			zoneAbonnes.add(new VignetteAbonnes(user));
-			
-			/*JPanel temp = new JPanel();
-			JButton supprButton = new JButton("suppr");
+			JButton supprButton = new JButton("X");
 			supprButton.addActionListener(new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						supprWatchable.sendEvent(user);
 					}
 			});
-			
-			pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));*/
-			
+			zoneAbonnes.add(new VignetteAbonnesModif(new VignetteAbonnes(user), supprButton));
 		}
-		
-		
-		
-		
-		this.add(zoneAbonnes, BorderLayout.CENTER);
-		
+		this.revalidate();
+		this.repaint();
+	}
+	
+	@Override
+	public void showUserResearched() {
+		zoneAbonnes.removeAll();
+		for (User user : listUserResearch) {
+			
+			JButton addButton = new JButton("add");
+			addButton.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						addAboWatchable.sendEvent(user);
+					}
+			});
+			zoneAbonnes.add(new VignetteAbonnesModif(new VignetteAbonnes(user), addButton));
+		}
+		this.revalidate();
+		this.repaint();
 	}
 
 	@Override
@@ -100,8 +112,43 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	}
 
 	@Override
-	public void setListUser(Set<User> listUser) {
-		this.listUser = listUser;
+	public void setListUserAbonnes(Set<User> listUserAbo) {
+		this.listUserAbo = listUserAbo;
+	}
+	
+	@Override
+	public void setListResearched(Set<User> listUserRech) {
+		this.listUserResearch = listUserRech;
+	}
+
+	@Override
+	public void addActionResearch(TwitupWatcher tw) {
+		researchWatchable.addWatcher(tw);
+	}
+
+	@Override
+	public void delActionResearch(TwitupWatcher tw) {
+		researchWatchable.delWatcher(tw);
+	}
+
+	@Override
+	public void addActionSuppr(TwitupWatcher tw) {
+		supprWatchable.addWatcher(tw);
+	}
+
+	@Override
+	public void delActionSuppr(TwitupWatcher tw) {
+		supprWatchable.delWatcher(tw);
+	}
+
+	@Override
+	public void addActionAddAbo(TwitupWatcher tw) {
+		addAboWatchable.addWatcher(tw);
+	}
+
+	@Override
+	public void delActionAddAbo(TwitupWatcher tw) {
+		addAboWatchable.delWatcher(tw);
 	}
 
 }
