@@ -40,6 +40,7 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 
 	@Override
 	public void init() {
+		database.addObserver(this);
 		userView.setListUser(followers);
 		userView.init();
 	}
@@ -87,7 +88,7 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 
 	public void setCurrentUser(User currentUser) {
 		this.currentUser = currentUser;
-		setFollowers(database.getFollowers(currentUser));
+		updateFollowers();
 		notifyUserChange(currentUser);
 	}
 
@@ -126,9 +127,9 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	 */
 	@Override
 	public void notifyUserAdded(User addedUser) {
+		System.out.println("New user : "+addedUser.getName());
 		if(currentUser != null){
-			setFollowers(database.getFollowers(currentUser));
-			userView.setListUser(followers);
+			updateFollowers();
 		}
 	}
 
@@ -137,9 +138,9 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	 */
 	@Override
 	public void notifyUserDeleted(User deletedUser) {
+		System.out.println("Deleted user : "+deletedUser.getName());
 		if(currentUser != null){
-			setFollowers(database.getFollowers(currentUser));
-			userView.setListUser(followers);
+			updateFollowers();
 		}
 	}
 
@@ -148,8 +149,9 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	 */
 	@Override
 	public void notifyUserModified(User modifiedUser) {
+		System.out.println("Modified user : "+modifiedUser.getName());
 		if(currentUser != null){
-			setFollowers(database.getFollowers(currentUser));
+			updateFollowers();
 		}
 	}
 
@@ -162,6 +164,10 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	public void setFollowers(Set<User> abonne) {
 		this.followers = abonne;
 		userView.setListUser(abonne);
+	}
+	
+	public void updateFollowers(){
+		setFollowers(database.getUsers());
 	}
 
 	public Set<User> getSearchResult() {
