@@ -92,9 +92,8 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	}
 
 	@Override
-	public void setListTwit(Set<Twit> listTwit) {
-		// TODO Auto-generated method stub
-		
+	public void setListUser(Set<User> listUser) {
+		this.listUser = listUser;
 	}
 
 }

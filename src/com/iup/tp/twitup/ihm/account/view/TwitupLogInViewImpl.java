@@ -110,13 +110,13 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView {
 
 	@Override
 	public void success(String msg) {
-		// TODO Auto-generated method stub
+		System.out.println("reussite de la connection");
 		
 	}
 
 	@Override
 	public void error(String msg) {
-		// TODO Auto-generated method stub
+		System.out.println("erreur de la connection");
 		
 	}
 
@@ -148,6 +148,11 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView {
 	@Override
 	public char[] getLoginPassword() {
 		return pwdLoginField.getPassword();
+	}
+	
+	@Override
+	public void show() {
+		this.setVisible(true);
 	}
 	
 
