@@ -22,6 +22,7 @@ public class TwitupMainViewImpl implements TwitupMainView{
 
 	public void show(){
 		frame.setVisible(true);
+		frame.repaint();
 	}
 	
 	public void close(){

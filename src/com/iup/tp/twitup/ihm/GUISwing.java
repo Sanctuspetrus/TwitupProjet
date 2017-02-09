@@ -6,6 +6,7 @@ import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImpl;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogOutView;
 import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
 import com.iup.tp.twitup.ihm.account.view.TwitupSignUpViewImpl;
+import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainViewImpl;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;
@@ -23,13 +24,13 @@ public class GUISwing implements GUI {
 	protected static GUISwing singleton;
 	protected TwitupFrame mainFrame;
 	protected TwitupMainView mMainView;
-	TwitupMenuBarView menuBar;
-	TwitupUserView userView;
-	TwitupTwitView twitView;
-	TwitupLogInView liv;
-	TwitupLogOutView lov;
-	TwitupSignUpView suv;
-	TwitupAccountActionView aac;
+	protected TwitupMenuBarView menuBar;
+	protected TwitupUserView userView;
+	protected TwitupTwitView twitView;
+	protected TwitupLogInView liv;
+	protected TwitupLogOutView lov;
+	protected TwitupSignUpView suv;
+	protected TwitupAccountActionView aac;
 	
 	protected GUISwing() {
 		mainFrame = new TwitupFrame();
@@ -52,8 +53,23 @@ public class GUISwing implements GUI {
 	
 	@Override
 	public void launch() {
-		mainFrame.setContentPane((TwitupLogInViewImpl)liv);
-		mainFrame.setContentPane((TwitupSignUpViewImpl)suv);
+		aac.addActionSignUp(new TwitupWatcher() {
+			@Override
+			public void action(Object o) {
+				System.out.println("Création compte");
+				mainFrame.setContentPane((TwitupSignUpViewImpl)suv);
+				mMainView.show();
+			}
+		});
+		aac.addActionLogIn(new TwitupWatcher() {
+			@Override
+			public void action(Object o) {
+				System.out.println("Connexion");
+				mainFrame.setContentPane((TwitupLogInViewImpl)liv);
+				mMainView.show();
+			}
+		});
+		
 		mMainView.show();
 	}
 
