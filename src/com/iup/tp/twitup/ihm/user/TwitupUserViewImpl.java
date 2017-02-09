@@ -50,10 +50,16 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 		this.add(researchBar, BorderLayout.NORTH);
 		this.add(researchButton, BorderLayout.NORTH);
 		
+		zoneAbonnes.setLayout(new BoxLayout(zoneAbonnes, BoxLayout.Y_AXIS));
+		
+		
+		
 		
 		for (User user : listUser) {
 			
-			JPanel temp = new JPanel();
+			zoneAbonnes.add(new VignetteAbonnes(user));
+			
+			/*JPanel temp = new JPanel();
 			JButton supprButton = new JButton("suppr");
 			supprButton.addActionListener(new ActionListener(){
 					@Override
@@ -62,7 +68,7 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 					}
 			});
 			
-			pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
+			pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));*/
 			
 		}
 		
