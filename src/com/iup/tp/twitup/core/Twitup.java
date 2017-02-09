@@ -120,6 +120,7 @@ public class Twitup {
 		TwitupUserController userCtrl = new TwitupUserControllerImpl(mDatabase, guiSwing.getTwitupUserView());
 		TwitupTwitController twitCtrl = new TwitupTwitControllerImpl(mDatabase, guiSwing.getTwitupTwitView());
 		TwitupAccountController accountCtrl = new TwitupAccountControllerImpl(mDatabase, guiSwing.getTwitupAccountActionView(), guiSwing.getTwitupLogInView(), null, guiSwing.getTwitupSignupView());
+		accountCtrl.addAccountObserver(userCtrl);
 		userCtrl.init();
 		twitCtrl.init();
 		accountCtrl.init();

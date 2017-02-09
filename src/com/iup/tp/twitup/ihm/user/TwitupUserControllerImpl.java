@@ -129,6 +129,7 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	public void notifyUserAdded(User addedUser) {
 		System.out.println("New user : ");
 		printUser(addedUser);
+		System.out.println(currentUser);
 		if(currentUser != null){
 			updateFollowers();
 		}
