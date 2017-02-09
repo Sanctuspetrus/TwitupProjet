@@ -8,7 +8,6 @@ import java.util.Set;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.iup.tp.twitup.datamodel.User;
@@ -38,6 +37,8 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 		
 		supprWatchable = new TwitupWatchable();
 		researchWatchable = new TwitupWatchable();
+		
+		zoneAbonnes = new JPanel();
 		
 	}
 	
