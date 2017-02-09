@@ -133,7 +133,7 @@ public class TwitupSignUpViewImpl extends JPanel implements TwitupSignUpView{
 
 	@Override
 	public void error(String msg) {
-		System.out.println("erreur lors de la création de compte");
+		System.out.println(msg);
 		
 	}
 
@@ -145,7 +145,7 @@ public class TwitupSignUpViewImpl extends JPanel implements TwitupSignUpView{
 		pwdSignUpField = new JPasswordField();
 		pathAvatar = new JTextField("path image");
 		
-		System.out.println("création du compte effectué");
+		System.out.println(msg);
 	}
 
 	@Override
