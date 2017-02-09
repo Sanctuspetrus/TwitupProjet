@@ -14,6 +14,8 @@ import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.event.TwitupWatchable;
 
+import javafx.scene.layout.Border;
+
 @SuppressWarnings("serial")
 public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	
@@ -75,7 +77,7 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 		
 		
 		
-		this.add(zoneAbonnes);
+		this.add(zoneAbonnes, BorderLayout.CENTER);
 		
 	}
 
