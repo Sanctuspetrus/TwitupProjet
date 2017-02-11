@@ -5,8 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -23,7 +23,7 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	Set<User> listUserAbo;
 	Set<User> listUserResearch;
 	
-	JPanel zoneAbonnes;
+	JList<VignetteAbonnesModif> zoneAbonnes;
 	
 	TwitupWatchable supprWatchable;
 	TwitupWatchable researchWatchable;
@@ -41,7 +41,7 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 		supprWatchable = new TwitupWatchable();
 		researchWatchable = new TwitupWatchable();
 		
-		zoneAbonnes = new JPanel();
+		zoneAbonnes = new JList<VignetteAbonnesModif>();
 		
 	}
 	
@@ -49,7 +49,6 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	public void init() {
 
 		this.setLayout(new BorderLayout());
-		zoneAbonnes.setLayout(new BoxLayout(zoneAbonnes, BoxLayout.PAGE_AXIS));
 		
 		north.add(researchBar);
 		north.add(researchButton);
@@ -62,8 +61,7 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 		
 	}
 
-	@Override
-	public void showUserAbonnes() {
+	private void showUserAbonnes() {
 		zoneAbonnes.removeAll();
 		for (User user : listUserAbo) {
 			
@@ -78,8 +76,7 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 		}
 	}
 	
-	@Override
-	public void showUserResearched() {
+	private void showUserResearched() {
 		zoneAbonnes.removeAll();
 		for (User user : listUserResearch) {
 			
@@ -115,10 +112,6 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	@Override
 	public void setListUserAbonnes(Set<User> listUserAbo) {
 		this.listUserAbo = listUserAbo;
-		for (User user : listUserAbo) {
-			System.out.println("vue abo : " + user.getName());
-		}
-		
 		showUserAbonnes();
 		this.revalidate();
 		this.repaint();

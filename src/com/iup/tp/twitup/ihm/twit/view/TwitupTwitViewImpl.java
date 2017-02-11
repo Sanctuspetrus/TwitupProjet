@@ -39,6 +39,8 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 		
 		researchBar = new JTextField();
 		zoneRedacTwit = new JTextArea();
+		//limite le nombre de caractères écrivibles  à 150
+		zoneRedacTwit.setDocument(new TwitLimit(150));
 		
 		researchButton = new JButton("Rechercher");
 		zoneRedacButton = new JButton();

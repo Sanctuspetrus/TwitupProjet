@@ -19,6 +19,4 @@ public interface TwitupUserView extends TwitupView {
 	
 	public void setListUserAbonnes(Set<User> listUser);
 	public void setListResearched(Set<User> listUser);
-	void showUserAbonnes();
-	void showUserResearched();
 }
