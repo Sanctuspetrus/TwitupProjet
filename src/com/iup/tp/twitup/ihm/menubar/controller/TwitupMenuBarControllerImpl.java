@@ -3,7 +3,6 @@ package com.iup.tp.twitup.ihm.menubar.controller;
 import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 

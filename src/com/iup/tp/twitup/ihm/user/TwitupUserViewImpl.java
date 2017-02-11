@@ -5,9 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import com.iup.tp.twitup.datamodel.User;
@@ -23,7 +25,8 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	Set<User> listUserAbo;
 	Set<User> listUserResearch;
 	
-	JList<VignetteAbonnesModif> zoneAbonnes;
+	JPanel zoneAbonnes;
+	JScrollPane scroll;
 	
 	TwitupWatchable supprWatchable;
 	TwitupWatchable researchWatchable;
@@ -41,7 +44,8 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 		supprWatchable = new TwitupWatchable();
 		researchWatchable = new TwitupWatchable();
 		
-		zoneAbonnes = new JList<VignetteAbonnesModif>();
+		zoneAbonnes = new JPanel();
+		scroll = new JScrollPane(zoneAbonnes);
 		
 	}
 	
@@ -49,6 +53,7 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	public void init() {
 
 		this.setLayout(new BorderLayout());
+		zoneAbonnes.setLayout(new BoxLayout(zoneAbonnes, BoxLayout.Y_AXIS));
 		
 		north.add(researchBar);
 		north.add(researchButton);
@@ -57,7 +62,7 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 		
 		showUserAbonnes();
 
-		this.add(zoneAbonnes, BorderLayout.CENTER);
+		this.add(scroll, BorderLayout.CENTER);
 		
 	}
 
