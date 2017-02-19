@@ -1,6 +1,7 @@
 package com.iup.tp.twitup.ihm.user;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
@@ -46,6 +47,8 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 		
 		zoneAbonnes = new JPanel();
 		scroll = new JScrollPane(zoneAbonnes);
+
+		this.setBackground(Color.GREEN);
 		
 	}
 	

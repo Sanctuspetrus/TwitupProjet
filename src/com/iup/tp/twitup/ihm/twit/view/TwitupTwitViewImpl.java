@@ -1,6 +1,8 @@
 package com.iup.tp.twitup.ihm.twit.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
@@ -16,6 +18,7 @@ import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.event.TwitupWatchable;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
+import com.sun.javafx.scene.layout.region.Margins;
 
 @SuppressWarnings("serial")
 public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatabaseObserver{
@@ -31,6 +34,8 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 	Set<Twit> listTwit;
 	
 	JPanel zoneTwit;
+	JPanel zoneNorth;
+	JPanel zoneSouth;
 	
 	protected TwitupWatchable researchWatchable;
 	protected TwitupWatchable sendTwitWatchable;
@@ -43,12 +48,18 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 		zoneRedacTwit.setDocument(new TwitLimit(150));
 		
 		researchButton = new JButton("Rechercher");
-		zoneRedacButton = new JButton();
+		zoneRedacButton = new JButton("TWIT");
 		
+		zoneNorth = new JPanel();
+		zoneNorth.setLayout(new GridLayout(1,2));
+		zoneSouth = new JPanel();
+		zoneSouth.setLayout(new GridLayout(2,1));
 		zoneTwit = new JPanel();
 		
 		researchWatchable = new TwitupWatchable();
 		sendTwitWatchable = new TwitupWatchable();
+		
+		this.setBackground(Color.BLACK);
 		
 	}
 
@@ -73,18 +84,21 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 		
 		this.setLayout(new BorderLayout());
 		
-		this.add(researchBar, BorderLayout.NORTH);
-		this.add(researchButton, BorderLayout.NORTH);
+		zoneNorth.add(researchBar);
+		zoneNorth.add(researchButton);
+		this.add(zoneNorth, BorderLayout.NORTH);
 		
 		listTwit = database.getTwits();
 		
 		for (Twit twit : listTwit) {
 			zoneTwit.add( new TwitTwitPanel(twit.getText(), twit.getTwiter().getAvatarPath()));
 		}
-
-		this.add(zoneTwit, BorderLayout.CENTER);		
-		this.add(zoneRedacTwit, BorderLayout.SOUTH);
-		this.add(zoneRedacButton, BorderLayout.SOUTH);
+		
+		this.add(zoneTwit, BorderLayout.CENTER);	
+		
+		zoneSouth.add(zoneRedacTwit);
+		zoneSouth.add(zoneRedacButton);
+		this.add(zoneSouth, BorderLayout.SOUTH);
 
 		
 	}

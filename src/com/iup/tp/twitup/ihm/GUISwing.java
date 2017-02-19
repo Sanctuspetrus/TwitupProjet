@@ -1,5 +1,8 @@
 package com.iup.tp.twitup.ihm;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+
 import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImpl;
@@ -9,6 +12,7 @@ import com.iup.tp.twitup.ihm.account.view.TwitupSignUpViewImpl;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainViewImpl;
+import com.iup.tp.twitup.ihm.mainview.view.TwitupMainViewImpl2;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarViewImpl;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
@@ -34,7 +38,7 @@ public class GUISwing implements GUI {
 	
 	protected GUISwing() {
 		mainFrame = new TwitupFrame();
-		mainView = new TwitupMainViewImpl(mainFrame);
+		mainView = new TwitupMainViewImpl2(mainFrame);
 		menuBar = new TwitupMenuBarViewImpl(mainFrame);
 		userView = new TwitupUserViewImpl();
 		twitView = new TwitupTwitViewImpl();
@@ -53,7 +57,13 @@ public class GUISwing implements GUI {
 	
 	@Override
 	public void launch() {
-		mainFrame.setContentPane((TwitupUserViewImpl)userView);
+		
+		mainFrame.setSize(1000,500);
+		mainFrame.setLocation(700, 100);
+		mainView.init(userView, twitView);
+		
+		mainFrame.setContentPane((TwitupMainViewImpl2)mainView);
+		
 		aac.addActionSignUp(new TwitupWatcher() {
 			@Override
 			public void action(Object o) {
@@ -74,13 +84,17 @@ public class GUISwing implements GUI {
 		suv.addActionSignUp(new TwitupWatcher() {
 			@Override
 			public void action(Object o) {
-				mainFrame.setContentPane((TwitupUserViewImpl)userView);
+				//mainFrame.setContentPane((TwitupUserViewImpl)userView);
+				mainFrame.setContentPane((TwitupMainViewImpl2)mainView);
+				mainView.show();
 			}
 		});
 		liv.addActionLogIn(new TwitupWatcher() {
 			@Override
 			public void action(Object o) {
-				mainFrame.setContentPane((TwitupUserViewImpl)userView);
+				//mainFrame.setContentPane((TwitupUserViewImpl)userView);
+				mainFrame.setContentPane((TwitupMainViewImpl2)mainView);
+				mainView.show();
 			}
 		});
 		
