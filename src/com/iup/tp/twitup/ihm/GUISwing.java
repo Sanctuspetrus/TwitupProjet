@@ -12,7 +12,6 @@ import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
 import com.iup.tp.twitup.ihm.account.view.TwitupSignUpViewImpl;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
-import com.iup.tp.twitup.ihm.mainview.view.TwitupMainViewImpl;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainViewImpl2;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarViewImpl;
@@ -77,7 +76,7 @@ public class GUISwing implements GUI {
 		aac.addActionSignUp(new TwitupWatcher() {
 			@Override
 			public void action(Object o) {
-				System.out.println("Création compte");
+				System.out.println("Crï¿½ation compte");
 				mainFrame.setContentPane((TwitupSignUpViewImpl)suv);
 				mainView.show();
 			}
