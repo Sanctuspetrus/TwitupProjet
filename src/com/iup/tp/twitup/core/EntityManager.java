@@ -79,6 +79,7 @@ public class EntityManager implements IWatchableDirectoryObserver {
 	 */
 	@Override
 	public void notifyNewFiles(Set<File> newFiles) {
+		System.out.println("Nouveaux fichiers");
 		//
 		// Récupération des fichiers utilisateurs en premier
 		// (nécessaires pour gérer les twits)

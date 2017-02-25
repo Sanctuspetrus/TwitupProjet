@@ -6,6 +6,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import com.iup.tp.twitup.ihm.TwitupView;
+import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
+import com.iup.tp.twitup.ihm.user.TwitupUserView;
 
 /**
  * Classe de la vue principale de l'application.
@@ -37,6 +39,12 @@ public class TwitupMainViewImpl implements TwitupMainView{
 
 	@Override
 	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init(TwitupUserView userView, TwitupTwitView twitView) {
 		// TODO Auto-generated method stub
 		
 	}

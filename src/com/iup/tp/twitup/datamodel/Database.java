@@ -60,7 +60,7 @@ public class Database implements IDatabase {
 	public void addTwit(Twit twitToAdd) {
 		// Ajout du twit
 		this.mTwits.add(twitToAdd);
-
+		System.out.println("Nouveau twit ajouté à la bdd");
 		// Notification des observateurs
 		for (IDatabaseObserver observer : mObservers) {
 			observer.notifyTwitAdded(twitToAdd);

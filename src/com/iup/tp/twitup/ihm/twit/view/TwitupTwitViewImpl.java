@@ -5,7 +5,9 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -16,9 +18,6 @@ import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.IDatabaseObserver;
 import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
-import com.iup.tp.twitup.ihm.event.TwitupWatchable;
-import com.iup.tp.twitup.ihm.event.TwitupWatcher;
-import com.sun.javafx.scene.layout.region.Margins;
 
 @SuppressWarnings("serial")
 public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatabaseObserver{
@@ -37,8 +36,7 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 	JPanel zoneNorth;
 	JPanel zoneSouth;
 	
-	protected TwitupWatchable researchWatchable;
-	protected TwitupWatchable sendTwitWatchable;
+	protected ArrayList<TwitViewObserver> listObserver; 
 	
 	public TwitupTwitViewImpl(){
 		
@@ -56,11 +54,11 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 		zoneSouth.setLayout(new GridLayout(2,1));
 		zoneTwit = new JPanel();
 		
-		researchWatchable = new TwitupWatchable();
-		sendTwitWatchable = new TwitupWatchable();
+		listTwit = new TreeSet<Twit>();
 		
 		this.setBackground(Color.BLACK);
 		
+		listObserver = new ArrayList<TwitViewObserver>();
 	}
 
 	@Override
@@ -71,14 +69,14 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 		researchButton.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				researchWatchable.sendEvent();
+				sendRecherche(researchBar.getText());
 			}
 		});
 		
 		zoneRedacButton.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				sendTwitWatchable.sendEvent();
+				sendNewTwit(zoneRedacTwit.getText());
 			}
 		});
 		
@@ -122,30 +120,8 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 	}
 
 	@Override
-	public void addActionNewTwit(TwitupWatcher tw) {
-		sendTwitWatchable.addWatcher(tw);
-	}
-
-	@Override
-	public void delActionNewTwit(TwitupWatcher tw) {
-		sendTwitWatchable.delWatcher(tw);	
-	}
-
-
-	@Override
-	public void addActionResearchTwit(TwitupWatcher tw) {
-		researchWatchable.addWatcher(tw);
-	}
-
-	@Override
-	public void delActionResearchTwit(TwitupWatcher tw) {
-		researchWatchable.delWatcher(tw);
-		
-	}
-	
-
-	@Override
 	public void notifyTwitAdded(Twit addedTwit) {
+		System.out.println("La vue a reçu un nouveau twit");
 		zoneTwit.removeAll();
 		for (Twit twit : listTwit) {
 			zoneTwit.add( new TwitTwitPanel(twit.getText(), twit.getTwiter().getAvatarPath()));
@@ -199,5 +175,29 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 	
 	public void setDatabase(IDatabase db){
 		database = db;
+	}
+
+	@Override
+	public void addObserver(TwitViewObserver tvo) {
+		listObserver.add(tvo);
+	}
+
+	@Override
+	public void delObserver(TwitViewObserver tvo) {
+		listObserver.remove(tvo);
+	}
+
+	@Override
+	public void sendNewTwit(String t) {
+		for (TwitViewObserver twitViewObserver : listObserver) {
+			twitViewObserver.notifyNewTwit(t);
+		}
+	}
+
+	@Override
+	public void sendRecherche(String str) {
+		for (TwitViewObserver twitViewObserver : listObserver) {
+			twitViewObserver.notifyRecherche(str);
+		}
 	}
 }

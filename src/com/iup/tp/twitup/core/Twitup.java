@@ -105,7 +105,7 @@ public class Twitup {
 	 */
 	protected void initGui() {
 		
-		guiSwing = GUISwing.getInstance(); 
+		guiSwing = GUISwing.getInstance();
 		
 		TwitupMainViewController mainViewCtrl = new TwitupMainViewControllerImpl();
 		TwitupMenuBarControllerImpl menuBarCtrl = new TwitupMenuBarControllerImpl(guiSwing.getFrame(), (TwitupMenuBarView) guiSwing.getTwitupAccountActionView());
@@ -118,12 +118,16 @@ public class Twitup {
 		});
 		menuBarCtrl.initView();
 		TwitupUserController userCtrl = new TwitupUserControllerImpl(mDatabase, guiSwing.getTwitupUserView());
-		TwitupTwitController twitCtrl = new TwitupTwitControllerImpl(mDatabase, guiSwing.getTwitupTwitView());
-		TwitupAccountController accountCtrl = new TwitupAccountControllerImpl(mDatabase, guiSwing.getTwitupAccountActionView(), guiSwing.getTwitupLogInView(), null, guiSwing.getTwitupSignupView());
+		TwitupAccountController accountCtrl = new TwitupAccountControllerImpl(mEntityManager, mDatabase, guiSwing.getTwitupAccountActionView(), guiSwing.getTwitupLogInView(), null, guiSwing.getTwitupSignupView());
 		accountCtrl.addAccountObserver(userCtrl);
 		userCtrl.init();
-		twitCtrl.init();
 		accountCtrl.init();
+		
+		// TWIT
+		TwitupTwitController twitCtrl = new TwitupTwitControllerImpl(mEntityManager);
+		userCtrl.addUserObserver(twitCtrl);
+		guiSwing.setTwitCtrl(twitCtrl);
+		guiSwing.setDatabase(mDatabase);
 
 	}
 
@@ -138,12 +142,18 @@ public class Twitup {
 		Properties properties = PropertiesManager.loadProperties(Constants.CONFIGURATION_FILE);
 		// Vérification que le chemin vers le dossier d'échange est fournit dans le fichier de configuration
 		if(properties.containsKey(Constants.CONFIGURATION_KEY_EXCHANGE_DIRECTORY)){
-			// Chargement du chemin et on quitte
-			mExchangeDirectoryPath = properties.getProperty(Constants.CONFIGURATION_KEY_EXCHANGE_DIRECTORY);
-			return;
+			String path = properties.getProperty(Constants.CONFIGURATION_KEY_EXCHANGE_DIRECTORY);
+			// Vérification que le chemin est valide
+			if(isValideExchangeDirectory(new File(path))){
+				System.out.println("Répertoire d'échange :\n" + properties.getProperty(Constants.CONFIGURATION_KEY_EXCHANGE_DIRECTORY));
+				// Chargement du chemin et on quitte
+				initDirectory(properties.getProperty(Constants.CONFIGURATION_KEY_EXCHANGE_DIRECTORY));
+				return;
+			}
 		}
 		// Si le chemin n'est pas définit on ouvre une boite de dialogue pour la selection du dossier
 		String path = this.chooseExchangeDirectory();
+		System.out.println("Nouveau :\n" + path);
 		if(path != null){
 			// Si le chemin est bon on le sauvegarde en dur et en mémoire
 			properties.setProperty(Constants.CONFIGURATION_KEY_EXCHANGE_DIRECTORY, path);

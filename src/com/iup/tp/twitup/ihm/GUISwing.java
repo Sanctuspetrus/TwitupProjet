@@ -3,6 +3,7 @@ package com.iup.tp.twitup.ihm;
 import java.awt.BorderLayout;
 import java.awt.Container;
 
+import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImpl;
@@ -15,6 +16,7 @@ import com.iup.tp.twitup.ihm.mainview.view.TwitupMainViewImpl;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainViewImpl2;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarViewImpl;
+import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitController;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitViewImpl;
 import com.iup.tp.twitup.ihm.user.TwitupUserView;
@@ -26,6 +28,14 @@ public class GUISwing implements GUI {
 	 * Vue principale de l'application.
 	 */
 	protected static GUISwing singleton;
+	
+	// MODEL
+	protected IDatabase db;
+	
+	// CTRL
+	protected TwitupTwitController twitCtrl;
+	
+	// VUES
 	protected TwitupFrame mainFrame;
 	protected TwitupMainView mainView;
 	protected TwitupMenuBarView menuBar;
@@ -98,6 +108,10 @@ public class GUISwing implements GUI {
 			}
 		});
 		
+		twitView.addObserver(twitCtrl);
+		twitView.setDatabase(db);
+		twitView.init();
+		
 		mainView.show();
 	}
 
@@ -131,4 +145,12 @@ public class GUISwing implements GUI {
 		return mainFrame;
 	}
 
+	public void setTwitCtrl(TwitupTwitController ttc){
+		this.twitCtrl = ttc;
+	}
+
+	@Override
+	public void setDatabase(IDatabase db) {
+		this.db = db;
+	}
 }

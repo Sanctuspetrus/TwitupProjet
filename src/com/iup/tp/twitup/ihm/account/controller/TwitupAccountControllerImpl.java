@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.UUID;
 
+import com.iup.tp.twitup.core.EntityManager;
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
@@ -18,14 +19,16 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 
 	protected User user;
 	protected IDatabase database;
+	protected EntityManager entityManager;
 	protected TwitupLogInView logInView;
 	protected TwitupLogOutView logOutView;
 	protected TwitupSignUpView signUpView;
 	protected TwitupAccountActionView actionView;
 	protected ArrayList<AccountObserver> aolist; 
 
- 	public TwitupAccountControllerImpl(IDatabase db, TwitupAccountActionView aav, TwitupLogInView liv, TwitupLogOutView lov, TwitupSignUpView suv){
+ 	public TwitupAccountControllerImpl(EntityManager em, IDatabase db, TwitupAccountActionView aav, TwitupLogInView liv, TwitupLogOutView lov, TwitupSignUpView suv){
 		database = db;
+		entityManager = em;
 		logInView = liv;
 		logOutView = lov;
 		signUpView = suv;
@@ -118,7 +121,7 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 				
 				if(findUserByTag(userTag) == null){
 					User newuser = new User(UUID.randomUUID(), userTag, userPassword, name, null, image);
-					database.addUser(newuser);
+					entityManager.sendUser(newuser);
 					setUser(newuser); // nécessaire pour notifier les observateurs
 
 					StringBuilder msg = new StringBuilder();

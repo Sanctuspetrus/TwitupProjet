@@ -1,8 +1,10 @@
 package com.iup.tp.twitup.ihm;
 
+import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInView;
 import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
+import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitController;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
 import com.iup.tp.twitup.ihm.user.TwitupUserView;
 
@@ -14,4 +16,7 @@ public interface GUI {
 	TwitupLogInView getTwitupLogInView();
 	TwitupSignUpView getTwitupSignupView();
 	TwitupAccountActionView getTwitupAccountActionView();
+	void setTwitCtrl(TwitupTwitController ttc);
+
+	void setDatabase(IDatabase db);
 }
