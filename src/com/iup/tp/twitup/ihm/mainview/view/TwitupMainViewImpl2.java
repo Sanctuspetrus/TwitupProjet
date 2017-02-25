@@ -1,6 +1,5 @@
 package com.iup.tp.twitup.ihm.mainview.view;
 
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -17,7 +16,6 @@ import com.iup.tp.twitup.ihm.user.TwitupUserView;
  */
 @SuppressWarnings("serial")
 public class TwitupMainViewImpl2 extends JPanel implements TwitupMainView{
-
 	protected JFrame frame;
 	protected JPanel mainPanel;
 
@@ -50,11 +48,7 @@ public class TwitupMainViewImpl2 extends JPanel implements TwitupMainView{
 
 	@Override
 	public void init(TwitupUserView userView, TwitupTwitView twitView) {
-		
 		this.add((Component) userView, BorderLayout.WEST);
 		this.add((Component) twitView, BorderLayout.CENTER);
-		
 	}
-	
-
 }
