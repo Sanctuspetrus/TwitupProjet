@@ -48,7 +48,7 @@ public class TwitupSignUpViewImpl extends JPanel implements TwitupSignUpView{
 
 
 	@Override
-	public void init() {
+	public void initView() {
 		
 		signUp.addActionListener(new ActionListener() {			
 			@Override

@@ -1,8 +1,12 @@
 package com.iup.tp.twitup.ihm.user;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.ConstanteJavaFX;
+import com.iup.tp.twitup.ihm.event.TwitupWatchable;
+import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
-public class TwitupUserViewImplFX extends GridPane{
+public class TwitupUserViewImplFX extends GridPane implements TwitupUserView {
 	
 	Button rechercher = new Button("RECHERCHER");
 
@@ -21,10 +25,23 @@ public class TwitupUserViewImplFX extends GridPane{
 	ScrollPane scroll = new ScrollPane();
 	GridPane scrollPane = new GridPane();
 	
-	List<VignetteAbonnesFX> listVignettes = new ArrayList<VignetteAbonnesFX>();;
+	Set<User> listUserAbo;
+	Set<User> listUserResearch;
+	
+	List<VignetteAbonnesFX> listVignettes = new ArrayList<VignetteAbonnesFX>();
+	
+	TwitupWatchable supprWatchable = new TwitupWatchable();
+	TwitupWatchable researchWatchable = new TwitupWatchable();
+	TwitupWatchable aboWatchable = new TwitupWatchable();
 
-	public TwitupUserViewImplFX(){
+	public TwitupUserViewImplFX(){}
+	
+	private void setScrollPane(){
 
+	}
+
+	@Override
+	public void initView() {
 		this.setAlignment(Pos.TOP_CENTER);
 		this.setPadding(new Insets(25, 25, 25, 25));
 		this.setHgap(10);
@@ -40,40 +57,92 @@ public class TwitupUserViewImplFX extends GridPane{
 		this.setStyle(ConstanteJavaFX.COULEURPRINCIPALE);
 		
 		setScrollPane();
-
 	}
-	
-	private void setScrollPane(){
+
+	@Override
+	public void show() {
+		this.show();
+	}
+
+	@Override
+	public void close() {
+		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addActionResearch(TwitupWatcher tw) {
+		researchWatchable.addWatcher(tw);
+	}
+
+	@Override
+	public void delActionResearch(TwitupWatcher tw) {
+		researchWatchable.delWatcher(tw);
+	}
+
+	@Override
+	public void addActionSuppr(TwitupWatcher tw) {
+		supprWatchable.addWatcher(tw);
+	}
+
+	@Override
+	public void delActionSuppr(TwitupWatcher tw) {
+		supprWatchable.delWatcher(tw);
+	}
+
+	@Override
+	public void addActionAddAbo(TwitupWatcher tw) {
+		aboWatchable.addWatcher(tw);
+		
+	}
+
+	@Override
+	public void delActionAddAbo(TwitupWatcher tw) {
+		aboWatchable.delWatcher(tw);
+	}
+
+	@Override
+	public void setListUserAbonnes(Set<User> listUser) {
+		listUserAbo = listUser;
 		scrollPane.getChildren().clear();
-		listVignettes.clear();
-		VignetteAbonnesFX vi1 = new VignetteAbonnesFX("José", "TEMMIE.jpg");
-		VignetteAbonnesFX vi2 = new VignetteAbonnesFX("Henry", "TEMMIE.jpg");
-		VignetteAbonnesFX vi3 = new VignetteAbonnesFX("José", "TEMMIE.jpg");
-		VignetteAbonnesFX vi4 = new VignetteAbonnesFX("Henry", "TEMMIE.jpg");
-		VignetteAbonnesFX vi5 = new VignetteAbonnesFX("José", "TEMMIE.jpg");
-		VignetteAbonnesFX vi6 = new VignetteAbonnesFX("Henry", "TEMMIE.jpg");
-		VignetteAbonnesFX vi7 = new VignetteAbonnesFX("José", "TEMMIE.jpg");
-		VignetteAbonnesFX vi8 = new VignetteAbonnesFX("Henry", "TEMMIE.jpg");
+		listUserAbo.clear();
 		
-		listVignettes.add(vi1);
-		listVignettes.add(vi2);
-		listVignettes.add(vi3);
-		listVignettes.add(vi4);
-		listVignettes.add(vi5);
-		listVignettes.add(vi6);
-		listVignettes.add(vi7);
-		listVignettes.add(vi8);
-		
-		for (int i = 0; i < listVignettes.size(); i++){
+		int i = 0;
+		for (User user : listUserAbo) {
+			VignetteAbonnesFX vignetteTemp = new VignetteAbonnesFX(user.getName(), user.getAvatarPath());
+			listVignettes.add(vignetteTemp);
 			
 			scrollPane.add(listVignettes.get(i), 0, i);
 			scrollPane.setVgap(10);
 			scrollPane.setPadding(new Insets(5, 5, 5, 5));
 			GridPane.setHgrow(listVignettes.get(i), Priority.ALWAYS);
-
+			i++;
 		}
 	}
 
+	@Override
+	public void setListResearched(Set<User> listUser) {
+		listUserResearch = listUser;
+		scrollPane.getChildren().clear();
+		listUserResearch.clear();
+		
+		int i = 0;
+		for (User user : listUserResearch) {
+			VignetteAbonnesFX vignetteTemp = new VignetteAbonnesFX(user.getName(), user.getAvatarPath());
+			listVignettes.add(vignetteTemp);
+			
+			scrollPane.add(listVignettes.get(i), 0, i);
+			scrollPane.setVgap(10);
+			scrollPane.setPadding(new Insets(5, 5, 5, 5));
+			GridPane.setHgrow(listVignettes.get(i), Priority.ALWAYS);
+			i++;
+		}
+	}
 
 }

@@ -6,7 +6,7 @@ public interface TwitupView {
 	/**
 	 * Initialise tous les composant de la vue et le différentes actions
 	 */
-	public void init();
+	public void initView();
 	/**
 	 * Lance l'affichage de la vue
 	 */

@@ -109,7 +109,7 @@ public class GUISwing implements GUI {
 		
 		twitView.addObserver(twitCtrl);
 		twitView.setDatabase(db);
-		twitView.init();
+		twitView.initView();
 		
 		mainView.show();
 	}

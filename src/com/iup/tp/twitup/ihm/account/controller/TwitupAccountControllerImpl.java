@@ -142,7 +142,7 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 
 	@Override
 	public void init() {
-		actionView.init();
+		actionView.initView();
 		// Action 
 		actionView.addActionLogIn(new TwitupWatcher() {
 			@Override
@@ -158,14 +158,14 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 			}
 		});
 		
-		logInView.init();
+		logInView.initView();
 		logInView.addActionLogIn(logInAttempt());
 		if(logOutView != null){
-			logOutView.init();
+			logOutView.initView();
 			logOutView.addActionLogOut(logOutAttempt());
 		}
 		signUpView.addActionSignUp(signUpAttempt());
-		signUpView.init();
+		signUpView.initView();
 	}
 
 	@Override

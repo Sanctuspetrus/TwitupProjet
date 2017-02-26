@@ -62,7 +62,7 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 	}
 
 	@Override
-	public void init() {
+	public void initView() {
 		
 		database.addObserver(this);
 

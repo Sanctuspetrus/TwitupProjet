@@ -39,10 +39,10 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	}
 
 	@Override
-	public void init() {
+	public void initView() {
 		database.addObserver(this);
 		userView.setListUserAbonnes(followers);
-		userView.init();
+		userView.initView();
 	}
 
 	@Override

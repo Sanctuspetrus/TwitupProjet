@@ -49,7 +49,7 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView {
 	}
 
 	@Override
-	public void init() {
+	public void initView() {
 		login.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {

@@ -35,7 +35,7 @@ public class TwitupMainViewImpl2 extends JPanel implements TwitupMainView{
 	}
 
 	@Override
-	public void init() {
+	public void initView() {
 		// TODO Auto-generated method stub
 		
 	}

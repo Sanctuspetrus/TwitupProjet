@@ -1,7 +1,13 @@
 package com.iup.tp.twitup.ihm.menubar.view;
-import com.iup.tp.twitup.ihm.account.view.ConnexionPane;
-import com.iup.tp.twitup.ihm.account.view.CreationComptePane;
-import com.iup.tp.twitup.ihm.twit.view.TwitPane;
+import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
+import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImplFX;
+import com.iup.tp.twitup.ihm.account.view.TwitupSignUpViewImplFX;
+import com.iup.tp.twitup.ihm.event.TwitupWatchable;
+import com.iup.tp.twitup.ihm.event.TwitupWatcher;
+import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
+import com.iup.tp.twitup.ihm.twit.view.TwitupTwitViewImplFX;
+import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
+import com.iup.tp.twitup.ihm.user.TwitupUserView;
 import com.iup.tp.twitup.ihm.user.TwitupUserViewImplFX;
 
 import javafx.application.Application;
@@ -18,19 +24,40 @@ import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class TwitupMenuBarViewImplFX extends Application{
+public class TwitupMenuBarViewImplFX extends Application implements TwitupMenuBarView, TwitupAccountActionView, TwitupMainView {
 
 
     MenuBar menuBar = new MenuBar();
+    
+    Menu menuFile = new Menu("Fichier");
+    MenuItem repItem = new MenuItem("Répertoire d'échange");
+    MenuItem quitItem = new MenuItem("Quitter");
 	GridPane mainPane = new GridPane();
 	GridPane twitPane = new GridPane();
-	ConnexionPane connexionPane = new ConnexionPane();
-	CreationComptePane creationComptePane = new CreationComptePane();
+	
+    Menu menuCompte = new Menu("Compte");
+    MenuItem creerItem = new MenuItem("Créer un compte");
+    MenuItem connexItem = new MenuItem("Connexion");
+    MenuItem decoItem = new MenuItem("Déconnexion");
+    
+    Menu menuAbout = new Menu("?");
+    MenuItem aproposItem = new MenuItem("A Propos");
+    
+	TwitupLogInViewImplFX connexionPane = new TwitupLogInViewImplFX();
+	TwitupSignUpViewImplFX creationComptePane = new TwitupSignUpViewImplFX();
 	
 	TwitupUserViewImplFX gauche = new TwitupUserViewImplFX();
-	TwitPane droit = new TwitPane();
+	TwitupTwitViewImplFX droit = new TwitupTwitViewImplFX();
 	
 	Scene scene = new Scene(mainPane, 850, 500, Color.LIGHTBLUE);
+	
+	// Watchers
+	TwitupWatchable closeWatcher = new TwitupWatchable();
+	TwitupWatchable aboutWatcher = new TwitupWatchable();
+	TwitupWatchable modifyExchangeFolderWatcher = new TwitupWatchable();
+	TwitupWatchable signUpWatcher = new TwitupWatchable();
+	TwitupWatchable signInWatcher = new TwitupWatchable();
+	TwitupWatchable signOutWatcher = new TwitupWatchable();
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -39,15 +66,13 @@ public class TwitupMenuBarViewImplFX extends Application{
 		primaryStage.setMinHeight(500);
         
         // --- Menu File
-        Menu menuFile = new Menu("Fichier");
-        MenuItem repItem = new MenuItem("Répertoire d'échange");
         repItem.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event) {
 				System.out.println("répertoire d'échange");
 			}
         });
-        MenuItem quitItem = new MenuItem("Quitter");
+
         quitItem.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event) {
@@ -57,8 +82,6 @@ public class TwitupMenuBarViewImplFX extends Application{
         });
  
         // --- Menu Edit
-        Menu menuCompte = new Menu("Compte");
-        MenuItem creerItem = new MenuItem("Créer un compte");
         creerItem.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event) {
@@ -66,7 +89,7 @@ public class TwitupMenuBarViewImplFX extends Application{
 				System.out.println("créer un compte");
 			}
         });
-        MenuItem connexItem = new MenuItem("Connexion");
+
         connexItem.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event) {
@@ -74,7 +97,7 @@ public class TwitupMenuBarViewImplFX extends Application{
 				chargementConnexion();
 			}
         });
-        MenuItem decoItem = new MenuItem("Déconnexion");
+
         decoItem.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event) {
@@ -83,8 +106,6 @@ public class TwitupMenuBarViewImplFX extends Application{
         });
  
         // --- Menu View
-        Menu menuAbout = new Menu("?");
-        MenuItem aproposItem = new MenuItem("A Propos");
         aproposItem.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event) {
@@ -112,7 +133,6 @@ public class TwitupMenuBarViewImplFX extends Application{
 		});
 		scene.heightProperty().addListener(new ChangeListener<Number>() {
 		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
-		    	//menuBar.setPrefHeight(newSceneHeight.doubleValue());
 		    }
 		});
 		
@@ -122,7 +142,6 @@ public class TwitupMenuBarViewImplFX extends Application{
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
-
 		
 	}
 	private void chargementConnexion(){
@@ -154,5 +173,86 @@ public class TwitupMenuBarViewImplFX extends Application{
     public static void main(String[] args) {
         Application.launch(TwitupMenuBarViewImplFX.class, args);
     }
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void close() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void addActionSignUp(TwitupWatcher tw) {
+		signUpWatcher.addWatcher(tw);
+	}
+	@Override
+	public void delActionSignUp(TwitupWatcher tw) {
+		signUpWatcher.delWatcher(tw);
+	}
+	@Override
+	public void addActionLogIn(TwitupWatcher tw) {
+		signInWatcher.addWatcher(tw);
+	}
+	@Override
+	public void delActionLogIn(TwitupWatcher tw) {
+		signInWatcher.delWatcher(tw);
+	}
+	@Override
+	public void addActionLogOut(TwitupWatcher tw) {
+		signOutWatcher.addWatcher(tw);
+	}
+	@Override
+	public void delActionLogOut(TwitupWatcher tw) {
+		signOutWatcher.delWatcher(tw);
+	}
+	@Override
+	public void showSignIn(boolean bool) {
+		connexItem.setVisible(true);
+	}
+	@Override
+	public void showSignOut(boolean bool) {
+		decoItem.setVisible(true);
+	}
+	@Override
+	public void addActionClose(TwitupWatcher tw) {
+		closeWatcher.addWatcher(tw);
+	}
+	@Override
+	public void delActionClose(TwitupWatcher tw) {
+		closeWatcher.delWatcher(tw);
+	}
+	@Override
+	public void addActionAbout(TwitupWatcher tw) {
+		aboutWatcher.addWatcher(tw);
+	}
+	@Override
+	public void delActionAbout(TwitupWatcher tw) {
+		aboutWatcher.delWatcher(tw);
+	}
+	@Override
+	public void addActionModifyExchangeFolder(TwitupWatcher tw) {
+		modifyExchangeFolderWatcher.addWatcher(tw);		
+	}
+	@Override
+	public void delActionModifyExchangeFolder(TwitupWatcher tw) {
+		modifyExchangeFolderWatcher.delWatcher(tw);
+	}
+	@Override
+	public void init(TwitupUserView userView, TwitupTwitView twitView) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void initView() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

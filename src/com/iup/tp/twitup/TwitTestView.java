@@ -30,7 +30,7 @@ public class TwitTestView {
 		
 		f.add(vue);
 		
-		vue.init();
+		vue.initView();
 		
 		f.revalidate();
 		f.repaint();

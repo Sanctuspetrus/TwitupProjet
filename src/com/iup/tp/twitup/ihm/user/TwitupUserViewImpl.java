@@ -8,7 +8,6 @@ import java.util.Set;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -53,7 +52,7 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	}
 	
 	@Override
-	public void init() {
+	public void initView() {
 
 		this.setLayout(new BorderLayout());
 		zoneAbonnes.setLayout(new BoxLayout(zoneAbonnes, BoxLayout.Y_AXIS));
@@ -86,6 +85,7 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	
 	private void showUserResearched() {
 		zoneAbonnes.removeAll();
+		
 		for (User user : listUserResearch) {
 			
 			JButton addButton = new JButton("add");

@@ -32,7 +32,7 @@ public class TwitupMainViewImpl implements TwitupMainView{
 	}
 
 	@Override
-	public void init() {
+	public void initView() {
 		// TODO Auto-generated method stub
 		
 	}
