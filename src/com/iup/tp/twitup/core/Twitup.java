@@ -21,6 +21,7 @@ import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 import com.iup.tp.twitup.ihm.mainview.controller.TwitupMainViewController;
 import com.iup.tp.twitup.ihm.mainview.controller.TwitupMainViewControllerImpl;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
+import com.iup.tp.twitup.ihm.menubar.controller.MenuBarObserver;
 import com.iup.tp.twitup.ihm.menubar.controller.TwitupMenuBarControllerImpl;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;
 import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitController;
@@ -112,17 +113,23 @@ public class Twitup {
 		guiSwing.setDatabase(mDatabase);
 		
 		TwitupMainViewController mainViewCtrl = new TwitupMainViewControllerImpl();
-		TwitupMenuBarControllerImpl menuBarCtrl = new TwitupMenuBarControllerImpl(guiSwing.getFrame(), (TwitupMenuBarView) guiSwing.getTwitupAccountActionView());
-		// On "observe" si le chemin du r�pertoir d'�change a �t� modifi�
-		menuBarCtrl.addActionExchangeFolder(new TwitupWatcher() {
+		
+		// MENU BAR
+		TwitupMenuBarControllerImpl menuBarCtrl = new TwitupMenuBarControllerImpl();
+		menuBarCtrl.addMenuBarObserver(new MenuBarObserver() {
+			
 			@Override
-			public void action(Object o) {
+			public void actionExchangeFolder() {
 				chooseExchangeDirectory();
 			}
+			
+			@Override
+			public void actionClose() {
+			}
 		});
-		menuBarCtrl.initView();
+
+		// USER
 		TwitupUserController userCtrl = new TwitupUserControllerImpl(mDatabase, guiSwing.getTwitupUserView());
-//		userCtrl.initView();
 		
 		// ACCOUNT
 		TwitupAccountController accountCtrl = new TwitupAccountControllerImpl(mEntityManager, mDatabase);
