@@ -13,7 +13,7 @@ public interface TwitupSignUpView extends TwitupView, AccountObserver, TwitupErr
 	void addSignUpViewObserver(SignUpViewObserver suvo);
 	void delSignUpViewObserver(SignUpViewObserver suvo);
 	
-	// Bouton créer compte
+	// Bouton crï¿½er compte
 	void sendSignUpAttempt();
 	// Bouton Annuler
 	void sendSignUpCancel();
