@@ -12,6 +12,7 @@ import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
 import com.iup.tp.twitup.ihm.GUI;
+import com.iup.tp.twitup.ihm.GUIFX;
 import com.iup.tp.twitup.ihm.GUISwing;
 import com.iup.tp.twitup.ihm.TwitupMock;
 import com.iup.tp.twitup.ihm.account.controller.TwitupAccountController;
@@ -34,12 +35,12 @@ import com.iup.tp.twitup.ihm.user.TwitupUserControllerImpl;
  */
 public class Twitup {
 	/**
-	 * Base de données.
+	 * Base de donnï¿½es.
 	 */
 	protected IDatabase mDatabase;
 
 	/**
-	 * Gestionnaire des entités contenu de la base de données.
+	 * Gestionnaire des entitï¿½s contenu de la base de donnï¿½es.
 	 */
 	protected EntityManager mEntityManager;
 
@@ -49,17 +50,17 @@ public class Twitup {
 	protected TwitupMainView mMainView;
 
 	/**
-	 * Classe de surveillance de répertoire
+	 * Classe de surveillance de rï¿½pertoire
 	 */
 	protected IWatchableDirectory mWatchableDirectory;
 
 	/**
-	 * Répertoire d'échange de l'application.
+	 * Rï¿½pertoire d'ï¿½change de l'application.
 	 */
 	protected String mExchangeDirectoryPath;
 
 	/**
-	 * Indique si le mode bouchoné est activé.
+	 * Indique si le mode bouchonï¿½ est activï¿½.
 	 */
 	protected boolean mIsMockEnabled = true;
 
@@ -71,6 +72,8 @@ public class Twitup {
 	protected User connectedUser;
 	
 	protected GUI guiSwing;
+	
+	protected GUI guiFX;
 
 	/**
 	 * Constructeur.
@@ -79,7 +82,7 @@ public class Twitup {
 		// Init du look and feel de l'application
 		this.initLookAndFeel();
 
-		// Initialisation de la base de données
+		// Initialisation de la base de donnï¿½es
 		this.initDatabase();
 
 		if (this.mIsMockEnabled) {
@@ -90,7 +93,7 @@ public class Twitup {
 		// Initialisation de l'IHM
 		this.initGui();
 
-		// Initialisation du répertoire d'échange
+		// Initialisation du rï¿½pertoire d'ï¿½change
 		this.initDirectory();
 	}
 
@@ -110,7 +113,7 @@ public class Twitup {
 		
 		TwitupMainViewController mainViewCtrl = new TwitupMainViewControllerImpl();
 		TwitupMenuBarControllerImpl menuBarCtrl = new TwitupMenuBarControllerImpl(guiSwing.getFrame(), (TwitupMenuBarView) guiSwing.getTwitupAccountActionView());
-		// On "observe" si le chemin du répertoir d'échange a été modifié
+		// On "observe" si le chemin du rï¿½pertoir d'ï¿½change a ï¿½tï¿½ modifiï¿½
 		menuBarCtrl.addActionExchangeFolder(new TwitupWatcher() {
 			@Override
 			public void action(Object o) {
@@ -131,34 +134,42 @@ public class Twitup {
 		TwitupTwitController twitCtrl = new TwitupTwitControllerImpl(mEntityManager);
 		userCtrl.addUserObserver(twitCtrl);
 		guiSwing.setTwitCtrl(twitCtrl);
+		guiSwing.setDatabase(mDatabase);
+		
+		guiFX = GUIFX.getInstance();
+		
+		
+		
+		
+		
 
 	}
 
 	/**
-	 * Initialisation du répertoire d'échange (depuis la conf ou depuis un file
+	 * Initialisation du rï¿½pertoire d'ï¿½change (depuis la conf ou depuis un file
 	 * chooser). <br/>
-	 * <b>Le chemin doit obligatoirement avoir été saisi et être valide avant de
+	 * <b>Le chemin doit obligatoirement avoir ï¿½tï¿½ saisi et ï¿½tre valide avant de
 	 * pouvoir utiliser l'application</b>
 	 */
 	protected void initDirectory() {
 		// Chargement du fichier de configuration
 		Properties properties = PropertiesManager.loadProperties(Constants.CONFIGURATION_FILE);
-		// Vérification que le chemin vers le dossier d'échange est fournit dans le fichier de configuration
+		// Vï¿½rification que le chemin vers le dossier d'ï¿½change est fournit dans le fichier de configuration
 		if(properties.containsKey(Constants.CONFIGURATION_KEY_EXCHANGE_DIRECTORY)){
 			String path = properties.getProperty(Constants.CONFIGURATION_KEY_EXCHANGE_DIRECTORY);
-			// Vérification que le chemin est valide
+			// Vï¿½rification que le chemin est valide
 			if(isValideExchangeDirectory(new File(path))){
-				System.out.println("Répertoire d'échange :\n" + properties.getProperty(Constants.CONFIGURATION_KEY_EXCHANGE_DIRECTORY));
+				System.out.println("Rï¿½pertoire d'ï¿½change :\n" + properties.getProperty(Constants.CONFIGURATION_KEY_EXCHANGE_DIRECTORY));
 				// Chargement du chemin et on quitte
 				initDirectory(properties.getProperty(Constants.CONFIGURATION_KEY_EXCHANGE_DIRECTORY));
 				return;
 			}
 		}
-		// Si le chemin n'est pas définit on ouvre une boite de dialogue pour la selection du dossier
+		// Si le chemin n'est pas dï¿½finit on ouvre une boite de dialogue pour la selection du dossier
 		String path = this.chooseExchangeDirectory();
 		System.out.println("Nouveau :\n" + path);
 		if(path != null){
-			// Si le chemin est bon on le sauvegarde en dur et en mémoire
+			// Si le chemin est bon on le sauvegarde en dur et en mï¿½moire
 			properties.setProperty(Constants.CONFIGURATION_KEY_EXCHANGE_DIRECTORY, path);
 			PropertiesManager.writeProperties(properties, Constants.CONFIGURATION_FILE);
 			initDirectory(path);
@@ -169,7 +180,7 @@ public class Twitup {
 	}
 	
 	/**
-	 * Ouvre une boite de dialogue pour selectionner le dossier d'échange
+	 * Ouvre une boite de dialogue pour selectionner le dossier d'ï¿½change
 	 * @return bool
 	 */
 	protected String chooseExchangeDirectory(){
@@ -195,20 +206,20 @@ public class Twitup {
 	}
 
 	/**
-	 * Indique si le fichier donné est valide pour servire de répertoire
-	 * d'échange
+	 * Indique si le fichier donnï¿½ est valide pour servire de rï¿½pertoire
+	 * d'ï¿½change
 	 * 
 	 * @param directory
-	 *            , Répertoire à tester.
+	 *            , Rï¿½pertoire ï¿½ tester.
 	 */
 	protected boolean isValideExchangeDirectory(File directory) {
-		// Valide si répertoire disponible en lecture et écriture
+		// Valide si rï¿½pertoire disponible en lecture et ï¿½criture
 		return directory != null && directory.exists() && directory.isDirectory() && directory.canRead()
 				&& directory.canWrite();
 	}
 
 	/**
-	 * Initialisation du mode bouchoné de l'application
+	 * Initialisation du mode bouchonï¿½ de l'application
 	 */
 	protected void initMock() {
 		TwitupMock mock = new TwitupMock(this.mDatabase, this.mEntityManager);
@@ -216,7 +227,7 @@ public class Twitup {
 	}
 
 	/**
-	 * Initialisation de la base de données
+	 * Initialisation de la base de donnï¿½es
 	 */
 	protected void initDatabase() {
 		mDatabase = new Database();
@@ -224,7 +235,7 @@ public class Twitup {
 	}
 
 	/**
-	 * Initialisation du répertoire d'échange.
+	 * Initialisation du rï¿½pertoire d'ï¿½change.
 	 * 
 	 * @param directoryPath
 	 */
