@@ -75,42 +75,9 @@ public class GUISwing implements GUI {
 		
 		mainFrame.setContentPane((TwitupMainViewImpl2)mainView);
 		
-		aac.addActionSignUp(new TwitupWatcher() {
-			@Override
-			public void action(Object o) {
-				System.out.println("Cr�ation compte");
-				mainFrame.setContentPane((TwitupSignUpViewImpl)suv);
-				mainView.show();
-			}
-		});
-		aac.addActionLogIn(new TwitupWatcher() {
-			@Override
-			public void action(Object o) {
-				System.out.println("Connexion");
-				mainFrame.setContentPane((TwitupLogInViewImpl)liv);
-				mainView.show();
-			}
-		});
-		
-		suv.addActionSignUp(new TwitupWatcher() {
-			@Override
-			public void action(Object o) {
-				//mainFrame.setContentPane((TwitupUserViewImpl)userView);
-				mainFrame.setContentPane((TwitupMainViewImpl2)mainView);
-				mainView.show();
-			}
-		});
-		liv.addActionLogIn(new TwitupWatcher() {
-			@Override
-			public void action(Object o) {
-				//mainFrame.setContentPane((TwitupUserViewImpl)userView);
-				mainFrame.setContentPane((TwitupMainViewImpl2)mainView);
-				mainView.show();
-			}
-		});
-		
 		liv.addLogInViewObserver(accountCtrl);
 		suv.addSignUpViewObserver(accountCtrl);
+		aac.addAccountActionViewObserver(accountCtrl);
 		
 		twitView.addObserver(twitCtrl);
 		twitView.setDatabase(db);

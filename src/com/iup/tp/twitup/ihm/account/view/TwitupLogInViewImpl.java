@@ -122,37 +122,37 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView {
 	}
 
 	@Override
-	public void notifyLogIn(User u) {
+	public void actionLogIn(User u) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void notifyLogOut(User u) {
+	public void actionLogOut(User u) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void notifySignUp(User u) {
+	public void actionSignUp(User u) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void notifyShowLogIn() {
+	public void actionShowLogIn() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void notifyShowLogOut() {
+	public void actionShowLogOut() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void notifyShowSignUp() {
+	public void actionShowSignUp() {
 		// TODO Auto-generated method stub
 		
 	}

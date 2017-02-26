@@ -29,38 +29,13 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	}
 
 	@Override
-	public void notifyLogIn(User u) {
+	public void actionLogIn(User u) {
 		setCurrentUser(u);
 	}
 
 	@Override
-	public void notifyLogOut(User u) {
+	public void actionLogOut(User u) {
 		setCurrentUser(null);
-	}
-
-	@Override
-	public void initView() {
-		database.addObserver(this);
-		userView.setListUserAbonnes(followers);
-		userView.initView();
-	}
-
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void close() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -201,6 +176,55 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 		msg.append("\nMot de passe : "+u.getUserPassword());
 		msg.append("\nAvatar : "+u.getAvatarPath());
 		System.out.println(msg);
+	}
+
+	@Override
+	public void actionSignUp(User u) {
+		for (UserObserver uo : uolist) {
+			
+		}
+	}
+
+	@Override
+	public void actionShowLogIn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionShowLogOut() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionShowSignUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyAddFollower(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyLostFollower(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyFollowUser(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyUnfollowUser(User u) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

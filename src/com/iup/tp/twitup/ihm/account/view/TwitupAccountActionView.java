@@ -2,8 +2,6 @@ package com.iup.tp.twitup.ihm.account.view;
 
 import com.iup.tp.twitup.ihm.TwitupView;
 import com.iup.tp.twitup.ihm.account.AccountActionViewObserver;
-import com.iup.tp.twitup.ihm.account.LogInViewObserver;
-import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
 public interface TwitupAccountActionView extends TwitupView{
 	

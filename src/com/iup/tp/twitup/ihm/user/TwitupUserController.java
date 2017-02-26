@@ -5,8 +5,12 @@ import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.TwitupView;
 import com.iup.tp.twitup.ihm.account.controller.AccountObserver;
 
-public interface TwitupUserController extends AccountObserver, IDatabaseObserver, TwitupView {
+public interface TwitupUserController extends AccountObserver, IDatabaseObserver {
 	void addUserObserver(UserObserver uo);
 	void delUserObserver(UserObserver uo);
 	void notifyUserChange(User u);
+	void notifyAddFollower(User u);
+	void notifyLostFollower(User u);
+	void notifyFollowUser(User u);
+	void notifyUnfollowUser(User u);
 }

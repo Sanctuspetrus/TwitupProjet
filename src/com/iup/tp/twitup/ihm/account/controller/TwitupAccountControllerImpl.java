@@ -20,7 +20,7 @@ import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
 import com.iup.tp.twitup.ihm.event.TwitupWatchable;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
-public class TwitupAccountControllerImpl implements TwitupAccountController, LogInViewObserver, LogOutViewObserver, SignUpViewObserver, AccountActionViewObserver{
+public class TwitupAccountControllerImpl implements TwitupAccountController{
 
 	protected User user;
 	protected IDatabase database;
@@ -103,21 +103,21 @@ public class TwitupAccountControllerImpl implements TwitupAccountController, Log
 	@Override
 	public void sendLogIn(User u) {
 		for (AccountObserver ao : aolist) {
-			ao.notifyLogIn(u);
+			ao.actionLogIn(u);
 		}
 	}
 
 	@Override
 	public void sendLogOut(User u) {
 		for (AccountObserver ao : aolist) {
-			ao.notifyLogOut(u);
+			ao.actionLogOut(u);
 		}
 	}
 
 	@Override
 	public void sendSignUp(User u) {
 		for (AccountObserver ao : aolist) {
-			ao.notifySignUp(u);
+			ao.actionSignUp(u);
 		}
 	}
 
@@ -197,21 +197,21 @@ public class TwitupAccountControllerImpl implements TwitupAccountController, Log
 	@Override
 	public void actionLogInButton() {
 		for (AccountObserver ao : aolist) {
-			ao.notifyShowLogIn();
+			ao.actionShowLogIn();
 		}
 	}
 
 	@Override
 	public void actionLogOutButton() {
 		for (AccountObserver ao : aolist) {
-			ao.notifyShowLogOut();
+			ao.actionShowLogOut();
 		}
 	}
 
 	@Override
 	public void actionSignUpButton() {
 		for (AccountObserver ao : aolist) {
-			ao.notifyShowSignUp();
+			ao.actionShowSignUp();
 		}
 	}
 
