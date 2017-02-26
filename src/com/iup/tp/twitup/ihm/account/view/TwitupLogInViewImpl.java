@@ -2,6 +2,8 @@ package com.iup.tp.twitup.ihm.account.view;
 
 import javax.swing.JTextField;
 
+import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.account.LogInViewObserver;
 import com.iup.tp.twitup.ihm.event.TwitupWatchable;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
@@ -105,26 +107,6 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView {
 	}
 
 	@Override
-	public void addActionCancel(TwitupWatcher tw) {
-		loginWatchable.addWatcher(tw);
-	}
-
-	@Override
-	public void delActionCancel(TwitupWatcher tw) {
-		loginWatchable.delWatcher(tw);
-	}
-
-	@Override
-	public void addActionLogIn(TwitupWatcher tw) {
-		loginWatchable.addWatcher(tw);
-	}
-
-	@Override
-	public void delActionLogIn(TwitupWatcher tw) {
-		loginWatchable.delWatcher(tw);
-	}
-
-	@Override
 	public String getUsername() {
 		return loginLoginField.getText();
 	}
@@ -137,6 +119,66 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView {
 	@Override
 	public void show() {
 		this.setVisible(true);
+	}
+
+	@Override
+	public void notifyLogIn(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyLogOut(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifySignUp(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyShowLogIn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyShowLogOut() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyShowSignUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addLogInViewObserver(LogInViewObserver livo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delLogInViewObserver(LogInViewObserver livo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sendLogInAttempt() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sendLogInCancel() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

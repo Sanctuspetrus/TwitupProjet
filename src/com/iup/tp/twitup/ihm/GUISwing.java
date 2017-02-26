@@ -109,7 +109,8 @@ public class GUISwing implements GUI {
 			}
 		});
 		
-		twitView.addObserver(twitCtrl);
+		liv.addLogInViewObserver(accountCtrl);
+		suv.addSignUpViewObserver(accountCtrl);
 		
 		twitView.addObserver(twitCtrl);
 		twitView.setDatabase(db);

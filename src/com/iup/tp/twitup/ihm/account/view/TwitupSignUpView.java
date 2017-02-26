@@ -1,6 +1,8 @@
 package com.iup.tp.twitup.ihm.account.view;
 
 import com.iup.tp.twitup.ihm.TwitupView;
+import com.iup.tp.twitup.ihm.account.LogInViewObserver;
+import com.iup.tp.twitup.ihm.account.SignUpViewObserver;
 import com.iup.tp.twitup.ihm.account.TwitupError;
 import com.iup.tp.twitup.ihm.account.TwitupSuccess;
 import com.iup.tp.twitup.ihm.account.controller.AccountObserver;
@@ -8,11 +10,13 @@ import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
 public interface TwitupSignUpView extends TwitupView, AccountObserver, TwitupError, TwitupSuccess {
 
-	void addActionSignUp(TwitupWatcher tw);
-	void delActionSignUp(TwitupWatcher tw);
+	void addSignUpViewObserver(SignUpViewObserver suvo);
+	void delSignUpViewObserver(SignUpViewObserver suvo);
 	
-	void addActionCancel(TwitupWatcher tw);
-	void delActionCancel(TwitupWatcher tw);
+	// Bouton créer compte
+	void sendSignUpAttempt();
+	// Bouton Annuler
+	void sendSignUpCancel();
 
 	String getUsername();
 	String getUsertag();

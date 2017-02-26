@@ -1,22 +1,23 @@
 package com.iup.tp.twitup.ihm.account.view;
 
 import com.iup.tp.twitup.ihm.TwitupView;
+import com.iup.tp.twitup.ihm.account.AccountActionViewObserver;
+import com.iup.tp.twitup.ihm.account.LogInViewObserver;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
 public interface TwitupAccountActionView extends TwitupView{
 	
-	// Bouton Créer un compte
-	public void addActionSignUp(TwitupWatcher tw);
-	public void delActionSignUp(TwitupWatcher tw);
+	void addAccountActionViewObserver(AccountActionViewObserver aavo);
+	void delAccountActionViewObserver(AccountActionViewObserver aavo);
 	
-	// Bouton Connexion
-	public void addActionLogIn(TwitupWatcher tw);
-	public void delActionLogIn(TwitupWatcher tw);
-	public void showSignIn(boolean bool);
+	// Bouton connexion
+	void sendLogInButton();
+	// Bouton déconnexon
+	void sendLogOutButton();
+	// Bouton création compte
+	void sendSignUpButton();
 	
-	// Bouton Déconnexion
-	public void addActionLogOut(TwitupWatcher tw);
-	public void delActionLogOut(TwitupWatcher tw);
-	public void showSignOut(boolean bool);
+	
+	
 	
 }
