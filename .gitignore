@@ -19,3 +19,7 @@ bin/
 hs_err_pid*
 *.classpath
 .classpath
+
+src/resources/configuration\.properties
+
+src/resources/exchange/
