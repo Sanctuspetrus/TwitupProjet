@@ -8,6 +8,7 @@ public interface TwitupAccountController extends TwitupController {
 	
 	void addAccountObserver(AccountObserver ao);
 	void delAccountObserver(AccountObserver ao);
-	void notifyLogIn(User u);
-	void notifyLogOut(User u);
+	void sendLogIn(User u);
+	void sendLogOut(User u);
+	void sendSignUp(User u);
 }

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 
 import com.iup.tp.twitup.datamodel.IDatabase;
+import com.iup.tp.twitup.ihm.account.controller.TwitupAccountController;
 import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImpl;
@@ -33,6 +34,7 @@ public class GUISwing implements GUI {
 	
 	// CTRL
 	protected TwitupTwitController twitCtrl;
+	protected TwitupAccountController accountCtrl;
 	
 	// VUES
 	protected TwitupFrame mainFrame;
@@ -108,6 +110,8 @@ public class GUISwing implements GUI {
 		});
 		
 		twitView.addObserver(twitCtrl);
+		
+		twitView.addObserver(twitCtrl);
 		twitView.setDatabase(db);
 		twitView.initView();
 		
@@ -143,13 +147,18 @@ public class GUISwing implements GUI {
 	public TwitupFrame getFrame() {
 		return mainFrame;
 	}
+	
+	@Override
+	public void setDatabase(IDatabase db) {
+		this.db = db;
+	}
 
 	public void setTwitCtrl(TwitupTwitController ttc){
 		this.twitCtrl = ttc;
 	}
 
 	@Override
-	public void setDatabase(IDatabase db) {
-		this.db = db;
+	public void setAccountCtrl(TwitupAccountController tac) {
+		this.accountCtrl = tac;
 	}
 }

@@ -44,6 +44,7 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 	@Override
 	public void notifyRecherche(String r) {
 		System.out.println(r);
+		
 	}
 
 }

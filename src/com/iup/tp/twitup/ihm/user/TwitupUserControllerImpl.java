@@ -29,12 +29,12 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	}
 
 	@Override
-	public void actionLogIn(User u) {
+	public void notifyLogIn(User u) {
 		setCurrentUser(u);
 	}
 
 	@Override
-	public void actionLogOut(User u) {
+	public void notifyLogOut(User u) {
 		setCurrentUser(null);
 	}
 

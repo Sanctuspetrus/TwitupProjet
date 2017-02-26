@@ -3,13 +3,16 @@ package com.iup.tp.twitup.ihm;
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInView;
+import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImplFX;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogOutView;
 import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
+import com.iup.tp.twitup.ihm.account.view.TwitupSignUpViewImplFX;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarViewImplFX;
 import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitController;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
+import com.iup.tp.twitup.ihm.twit.view.TwitupTwitViewImplFX;
 import com.iup.tp.twitup.ihm.user.TwitupUserView;
 import com.iup.tp.twitup.ihm.user.TwitupUserViewImplFX;
 
@@ -27,23 +30,29 @@ public class GUIFX implements GUI{
 	protected TwitupTwitController twitCtrl;
 	
 	// VUES
-	protected TwitupMainView mainView = new TwitupMainViewImplFX();
-	protected TwitupMenuBarView menuBar = new TwitupMenuBarViewImplFX();
-	protected TwitupUserView userView = new TwitupUserViewImplFX();
-	protected TwitupTwitView twitView = new TwitupTwitViewImplFX();
-	protected TwitupLogInView liv = new TwitupUserViewImplFX();
+	protected TwitupMainView mainView;
+	protected TwitupMenuBarView menuBar;
+	protected TwitupUserView userView;
+	protected TwitupTwitView twitView;
+	protected TwitupLogInView liv;
 	//protected TwitupLogOutView lov = new TwitupUserViewImplFX();
-	protected TwitupSignUpView suv = new TwitupUserViewImplFX();
+	protected TwitupSignUpView suv;
 	
 	
-	
-	
-	
+	public GUIFX(){
+		TwitupMainView mainView = new TwitupMainViewImplFX();
+		TwitupMenuBarView menuBar = new TwitupMenuBarViewImplFX();
+		TwitupUserView userView = new TwitupUserViewImplFX();
+		TwitupTwitView twitView = new TwitupTwitViewImplFX();
+		TwitupLogInView liv = new TwitupLogInViewImplFX();
+		//protected TwitupLogOutView lov = new TwitupUserViewImplFX();
+		TwitupSignUpView suv = new TwitupSignUpViewImplFX();
+			
+	}	
 	
 
 	@Override
 	public void launch() {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -3,11 +3,16 @@ package com.iup.tp.twitup.ihm.account.controller;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 
 import com.iup.tp.twitup.core.EntityManager;
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.account.AccountActionViewObserver;
+import com.iup.tp.twitup.ihm.account.LogInViewObserver;
+import com.iup.tp.twitup.ihm.account.LogOutViewObserver;
+import com.iup.tp.twitup.ihm.account.SignUpViewObserver;
 import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogOutView;
@@ -15,40 +20,32 @@ import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
 import com.iup.tp.twitup.ihm.event.TwitupWatchable;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
-public class TwitupAccountControllerImpl implements TwitupAccountController {
+public class TwitupAccountControllerImpl implements TwitupAccountController, LogInViewObserver, LogOutViewObserver, SignUpViewObserver, AccountActionViewObserver{
 
 	protected User user;
 	protected IDatabase database;
 	protected EntityManager entityManager;
-	protected TwitupLogInView logInView;
-	protected TwitupLogOutView logOutView;
-	protected TwitupSignUpView signUpView;
-	protected TwitupAccountActionView actionView;
 	protected ArrayList<AccountObserver> aolist; 
 
- 	public TwitupAccountControllerImpl(EntityManager em, IDatabase db, TwitupAccountActionView aav, TwitupLogInView liv, TwitupLogOutView lov, TwitupSignUpView suv){
+	public TwitupAccountControllerImpl(EntityManager em, IDatabase db){
 		database = db;
 		entityManager = em;
-		logInView = liv;
-		logOutView = lov;
-		signUpView = suv;
-		actionView = aav;
 		aolist = new ArrayList<AccountObserver>();
 	}
 
 	public User findUserByTag(String tag){
 		for (User user : database.getUsers()) {
 			if(user.getUserTag().equals(tag));
-				return user;
+			return user;
 		}
 		return null;
 	}
-	
+
 	//vérifie si l'utilisateur existe
 	//return l'User trouvé, null sinon
 	protected User connection(String userTag, char[] cs){
 		User user = this.findUserByTag(userTag);	
-		
+
 		if(user != null){
 			if(user.getUserPassword().equals(new String(cs))){
 				return user;
@@ -57,123 +54,13 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 		return null;		
 	}
 
-	/**
-	 * Action effectuée lorsque l'utilisateur tente de se connecter
-	 * @return TwitupWatcher un observateur sur l'évennement de connection
-	 */
-	protected TwitupWatcher logInAttempt(){
-		return new TwitupWatcher() {
-			@Override
-			public void action(Object o) {
-				User attempt = connection(logInView.getUsername(), logInView.getLoginPassword());
-				if(attempt == null){
-					StringBuilder msg = new StringBuilder();
-					msg.append("L'utilisateur ");
-					msg.append(logInView.getUsername());
-					msg.append(" n'est pas reconnu");
-					logInView.error(msg.toString());
-					return;
-				}
-				if(attempt.equals(user)){
-					StringBuilder msg = new StringBuilder();
-					msg.append("Vous êtes déjà connecté en tant que ");
-					msg.append(user.getName());
-					logInView.error(msg.toString());
-					return;
-				}
-					setUser(attempt);
-					StringBuilder msg = new StringBuilder();
-					msg.append("Connecté en tant que ");
-					msg.append(user.getName());
-					msg.append(", bravo!");
-					logInView.success(msg.toString());
-				
-			}
-		};
-	}
-	/**
-	 * Action effectuée lorsque l'utilisateur tente de se déconnecter
-	 * @return TwitupWatcher un observateur sur l'évennement de déconnection
-	 */
-	protected TwitupWatcher logOutAttempt(){
-		return new TwitupWatcher() {
-			@Override
-			public void action(Object o) {
-				setUser(null);
-				StringBuilder msg = new StringBuilder();
-				msg.append("Déconnecté");
-				logInView.success(msg.toString());
-			}
-		};
-	}
-	/**
-	 * Action effectuée lorsque l'utilisateur tente de créer un nouveau compte
-	 * @return TwitupWatcher un observateur sur l'évennement de création d'un compte
-	 */
-	protected TwitupWatcher signUpAttempt(){
-		return new TwitupWatcher() {
-			@Override
-			public void action(Object o) {
-				String userTag = signUpView.getUsertag();
-				String userPassword = String.valueOf(signUpView.getSignUpPassword());
-				String name = signUpView.getUsername();
-				String image = "";
-				
-				if(findUserByTag(userTag) == null){
-					User newuser = new User(UUID.randomUUID(), userTag, userPassword, name, null, image);
-					entityManager.sendUser(newuser);
-					setUser(newuser); // nécessaire pour notifier les observateurs
-
-					StringBuilder msg = new StringBuilder();
-					msg.append("Le compte ");
-					msg.append(newuser.getName());
-					msg.append(" a été créé : ");
-					msg.append("\nNom : "+newuser.getName());
-					msg.append("\nTag : "+newuser.getUserTag());
-					msg.append("\nMot de passe : "+newuser.getUserPassword());
-					msg.append("\nAvatar : "+newuser.getAvatarPath());
-					signUpView.success(msg.toString());
-				} else {
-					signUpView.error("La tentative a échoué, le compte éxiste déjà");					
-				}
-			}
-		};
-	}
-
 	@Override
 	public void init() {
-		actionView.initView();
-		// Action 
-		actionView.addActionLogIn(new TwitupWatcher() {
-			@Override
-			public void action(Object o) {
-				logInView.show();
-			}
-		});
-		actionView.addActionLogOut(logOutAttempt());
-		actionView.addActionSignUp(new TwitupWatcher() {
-			@Override
-			public void action(Object o) {
-				signUpView.show();
-			}
-		});
-		
-		logInView.initView();
-		logInView.addActionLogIn(logInAttempt());
-		if(logOutView != null){
-			logOutView.initView();
-			logOutView.addActionLogOut(logOutAttempt());
-		}
-		signUpView.addActionSignUp(signUpAttempt());
-		signUpView.initView();
 	}
 
 	@Override
 	public void destroy() {
-		logInView.destroy();
-		logOutView.destroy();
-		signUpView.destroy();
-		actionView.destroy();
+
 	}
 
 	public IDatabase getDatabase() {
@@ -184,38 +71,6 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 		this.database = database;
 	}
 
-	public TwitupLogInView getLogInView() {
-		return logInView;
-	}
-
-	public void setLogInView(TwitupLogInView logInView) {
-		this.logInView = logInView;
-	}
-
-	public TwitupLogOutView getLogOutView() {
-		return logOutView;
-	}
-
-	public void setLogOutView(TwitupLogOutView logOutView) {
-		this.logOutView = logOutView;
-	}
-
-	public TwitupSignUpView getSignUpView() {
-		return signUpView;
-	}
-
-	public void setSignUpView(TwitupSignUpView signUpView) {
-		this.signUpView = signUpView;
-	}
-
-	public TwitupAccountActionView getActionView() {
-		return actionView;
-	}
-
-	public void setActionView(TwitupAccountActionView actionView) {
-		this.actionView = actionView;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -224,12 +79,12 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 		// Inutile de modifier et notifier tout le monde si user est exactement le même
 		if(user == null){
 			this.user = user;
-			notifyLogOut(user);
+			sendLogOut(user);
 			return;
 		}
 		if(this.user == null || !this.user.equals(user)){
 			this.user = user;
-			notifyLogIn(user);
+			sendLogIn(user);
 			return;
 		}
 	}
@@ -246,19 +101,122 @@ public class TwitupAccountControllerImpl implements TwitupAccountController {
 	}
 
 	@Override
-	public void notifyLogIn(User u) {
+	public void sendLogIn(User u) {
 		for (AccountObserver ao : aolist) {
-			ao.actionLogIn(u);
+			ao.notifyLogIn(u);
 		}
 	}
 
 	@Override
-	public void notifyLogOut(User u) {
+	public void sendLogOut(User u) {
 		for (AccountObserver ao : aolist) {
-			ao.actionLogOut(u);
+			ao.notifyLogOut(u);
 		}
 	}
 
-	
-	
+	@Override
+	public void sendSignUp(User u) {
+		for (AccountObserver ao : aolist) {
+			ao.notifySignUp(u);
+		}
+	}
+
+	@Override
+	public void actionLogInAttempt(String tag, char[] pwd) {
+		User u = connection(tag, pwd);
+		if(u == null){
+			StringBuilder msg = new StringBuilder();
+			msg.append("L'utilisateur ");
+			msg.append(tag);
+			msg.append(" n'est pas reconnu");
+			return;
+		}
+		if(u.equals(user)){
+			StringBuilder msg = new StringBuilder();
+			msg.append("Vous êtes déjà connecté en tant que ");
+			msg.append(user.getName());
+			return;
+		}
+		setUser(u);
+		StringBuilder msg = new StringBuilder();
+		msg.append("Connecté en tant que ");
+		msg.append(user.getName());
+		msg.append(", bravo!");
+	}
+	@Override
+	public void actionLogInCancel() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void actionLogOutAttempt() {
+		setUser(null);
+		StringBuilder msg = new StringBuilder();
+		msg.append("Déconnecté");
+	}
+
+	@Override
+	public void actionLogOutCancel() {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void actionSignUpAttempt(String tag, String pwd, String name, String img) {
+		String userTag = tag;
+		String userPassword = String.valueOf(pwd);
+		String userName = name;
+		String userImage = img;
+
+		if(findUserByTag(userTag) == null){
+			User newuser = new User(UUID.randomUUID(), userTag, userPassword, userName, new TreeSet<String>(), userImage);
+			entityManager.sendUser(newuser);
+			setUser(newuser); // nécessaire pour notifier les observateurs
+
+			StringBuilder msg = new StringBuilder();
+			msg.append("Le compte ");
+			msg.append(newuser.getName());
+			msg.append(" a été créé : ");
+			msg.append("\nNom : "+newuser.getName());
+			msg.append("\nTag : "+newuser.getUserTag());
+			msg.append("\nMot de passe : "+newuser.getUserPassword());
+			msg.append("\nAvatar : "+newuser.getAvatarPath());
+			System.out.println(msg.toString());
+		} else {
+			System.out.println("La tentative a échoué, le compte éxiste déjà");					
+		}
+	}
+	@Override
+	public void actionSignUpCancel() {
+		// TODO Auto-generated method stub
+
+	}
+
+
+
+	@Override
+	public void actionLogInButton() {
+		for (AccountObserver ao : aolist) {
+			ao.notifyShowLogIn();
+		}
+	}
+
+	@Override
+	public void actionLogOutButton() {
+		for (AccountObserver ao : aolist) {
+			ao.notifyShowLogOut();
+		}
+	}
+
+	@Override
+	public void actionSignUpButton() {
+		for (AccountObserver ao : aolist) {
+			ao.notifyShowSignUp();
+		}
+	}
+
+
+
+
+
 }

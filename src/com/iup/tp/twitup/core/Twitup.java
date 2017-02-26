@@ -106,6 +106,7 @@ public class Twitup {
 	protected void initGui() {
 		
 		guiSwing = GUISwing.getInstance();
+		guiSwing.setDatabase(mDatabase);
 		
 		TwitupMainViewController mainViewCtrl = new TwitupMainViewControllerImpl();
 		TwitupMenuBarControllerImpl menuBarCtrl = new TwitupMenuBarControllerImpl(guiSwing.getFrame(), (TwitupMenuBarView) guiSwing.getTwitupAccountActionView());
@@ -118,16 +119,18 @@ public class Twitup {
 		});
 		menuBarCtrl.initView();
 		TwitupUserController userCtrl = new TwitupUserControllerImpl(mDatabase, guiSwing.getTwitupUserView());
-		TwitupAccountController accountCtrl = new TwitupAccountControllerImpl(mEntityManager, mDatabase, guiSwing.getTwitupAccountActionView(), guiSwing.getTwitupLogInView(), null, guiSwing.getTwitupSignupView());
-		accountCtrl.addAccountObserver(userCtrl);
 		userCtrl.initView();
+		
+		// ACCOUNT
+		TwitupAccountController accountCtrl = new TwitupAccountControllerImpl(mEntityManager, mDatabase);
+		accountCtrl.addAccountObserver(userCtrl);
 		accountCtrl.init();
+		guiSwing.setAccountCtrl(accountCtrl);
 		
 		// TWIT
 		TwitupTwitController twitCtrl = new TwitupTwitControllerImpl(mEntityManager);
 		userCtrl.addUserObserver(twitCtrl);
 		guiSwing.setTwitCtrl(twitCtrl);
-		guiSwing.setDatabase(mDatabase);
 
 	}
 
