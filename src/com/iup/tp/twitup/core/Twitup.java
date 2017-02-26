@@ -122,7 +122,7 @@ public class Twitup {
 		});
 		menuBarCtrl.initView();
 		TwitupUserController userCtrl = new TwitupUserControllerImpl(mDatabase, guiSwing.getTwitupUserView());
-		userCtrl.initView();
+//		userCtrl.initView();
 		
 		// ACCOUNT
 		TwitupAccountController accountCtrl = new TwitupAccountControllerImpl(mEntityManager, mDatabase);

@@ -9,7 +9,7 @@ public interface TwitupUserController extends AccountObserver, IDatabaseObserver
 	void addUserObserver(UserObserver uo);
 	void delUserObserver(UserObserver uo);
 	void notifyUserChange(User u);
-	void notifyAddFollower(User u);
+	void notifyNewFollower(User u);
 	void notifyLostFollower(User u);
 	void notifyFollowUser(User u);
 	void notifyUnfollowUser(User u);

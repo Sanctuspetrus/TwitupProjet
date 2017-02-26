@@ -184,5 +184,41 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 		
 	}
 
+	@Override
+	public void addActionClose(TwitupWatcher tw) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delActionClose(TwitupWatcher tw) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addActionAbout(TwitupWatcher tw) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delActionAbout(TwitupWatcher tw) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addActionModifyExchangeFolder(TwitupWatcher tw) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delActionModifyExchangeFolder(TwitupWatcher tw) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

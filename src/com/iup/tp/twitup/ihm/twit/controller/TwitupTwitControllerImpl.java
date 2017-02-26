@@ -1,11 +1,8 @@
 package com.iup.tp.twitup.ihm.twit.controller;
 
 import com.iup.tp.twitup.core.EntityManager;
-import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
-import com.iup.tp.twitup.ihm.event.TwitupWatcher;
-import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
 
 public class TwitupTwitControllerImpl implements TwitupTwitController{
 
@@ -44,6 +41,30 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 	@Override
 	public void notifyRecherche(String r) {
 		System.out.println(r);
+		
+	}
+
+	@Override
+	public void actionNewFollower(User f) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionLostFollower(User f) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionFollowUser(User f) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionUnfollowUser(User f) {
+		// TODO Auto-generated method stub
 		
 	}
 

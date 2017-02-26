@@ -11,12 +11,12 @@ import com.iup.tp.twitup.datamodel.User;
 public class TwitupUserControllerImpl implements TwitupUserController{
 
 	protected User currentUser;
-	protected ArrayList<UserObserver> uolist;
 	protected IDatabase database;
 	protected TwitupUserView userView;
 	protected Set<User> followers;
 	protected Set<User> searchResult;
 	protected Set<Twit> userTwit;
+	protected ArrayList<UserObserver> uolist;
 
 	public TwitupUserControllerImpl(IDatabase database, TwitupUserView uv) {
 		this.userView = uv;
@@ -134,7 +134,7 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 		}
 	}
 
-	
+
 	// GETTERS / SETTERS
 	public Set<User> getFollowers() {
 		return followers;
@@ -144,7 +144,7 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 		this.followers = abonne;
 		userView.setListUserAbonnes(abonne);
 	}
-	
+
 	public void updateFollowers(){
 		setFollowers(database.getUsers());
 		for (User user : followers) {
@@ -179,53 +179,56 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	}
 
 	@Override
-	public void actionSignUp(User u) {
+	public void notifyNewFollower(User u) {
 		for (UserObserver uo : uolist) {
-			
+			uo.actionNewFollower(u);
 		}
 	}
 
+	@Override
+	public void notifyLostFollower(User u) {
+		for (UserObserver uo : uolist) {
+			uo.actionLostFollower(u);
+		}
+	}
+
+	@Override
+	public void notifyFollowUser(User u) {
+		for (UserObserver uo : uolist) {
+			uo.actionFollowUser(u);
+		}
+	}
+
+	@Override
+	public void notifyUnfollowUser(User u) {
+		for (UserObserver uo : uolist) {
+			uo.actionUnfollowUser(u);
+		}
+	}
+
+
+	
+	@Override
+	public void actionSignUp(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	@Override
 	public void actionShowLogIn() {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
 	public void actionShowLogOut() {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
 	public void actionShowSignUp() {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void notifyAddFollower(User u) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyLostFollower(User u) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyFollowUser(User u) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyUnfollowUser(User u) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-
 }
