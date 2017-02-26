@@ -24,7 +24,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class TwitupMenuBarViewImplFX extends Application implements TwitupMenuBarView, TwitupAccountActionView, TwitupMainView {
+public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMenuBarView, TwitupAccountActionView, TwitupMainView {
 
 
     MenuBar menuBar = new MenuBar();
@@ -46,8 +46,8 @@ public class TwitupMenuBarViewImplFX extends Application implements TwitupMenuBa
 	TwitupLogInViewImplFX connexionPane = new TwitupLogInViewImplFX();
 	TwitupSignUpViewImplFX creationComptePane = new TwitupSignUpViewImplFX();
 	
-	TwitupUserViewImplFX gauche = new TwitupUserViewImplFX();
-	TwitupTwitViewImplFX droit = new TwitupTwitViewImplFX();
+	TwitupUserViewImplFX gauche; 
+	TwitupTwitViewImplFX droit; 
 	
 	Scene scene = new Scene(mainPane, 850, 500, Color.LIGHTBLUE);
 	
@@ -70,6 +70,7 @@ public class TwitupMenuBarViewImplFX extends Application implements TwitupMenuBa
 			@Override
 			public void handle(ActionEvent event) {
 				System.out.println("répertoire d'échange");
+				modifyExchangeFolderWatcher.sendEvent();
 			}
         });
 
@@ -77,7 +78,8 @@ public class TwitupMenuBarViewImplFX extends Application implements TwitupMenuBa
 			@Override
 			public void handle(ActionEvent event) {
 				System.out.println("Quitter");
-				primaryStage.close();
+				//primaryStage.close();
+				closeWatcher.sendEvent();
 			}
         });
  
@@ -85,7 +87,8 @@ public class TwitupMenuBarViewImplFX extends Application implements TwitupMenuBa
         creerItem.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event) {
-				chargementCreationCompte();
+				signUpWatcher.sendEvent();
+				//chargementCreationCompte();
 				System.out.println("créer un compte");
 			}
         });
@@ -94,7 +97,8 @@ public class TwitupMenuBarViewImplFX extends Application implements TwitupMenuBa
 			@Override
 			public void handle(ActionEvent event) {
 				System.out.println("Connexion");
-				chargementConnexion();
+				signInWatcher.sendEvent();
+				//chargementConnexion();
 			}
         });
 
@@ -102,6 +106,7 @@ public class TwitupMenuBarViewImplFX extends Application implements TwitupMenuBa
 			@Override
 			public void handle(ActionEvent event) {
 				System.out.println("Déconnexion");
+				signOutWatcher.sendEvent();
 			}
         });
  
@@ -110,6 +115,7 @@ public class TwitupMenuBarViewImplFX extends Application implements TwitupMenuBa
 			@Override
 			public void handle(ActionEvent event) {
 				System.out.println("A Propos");
+				aboutWatcher.sendEvent();
 			}
         });
         
@@ -144,7 +150,7 @@ public class TwitupMenuBarViewImplFX extends Application implements TwitupMenuBa
 		primaryStage.show();
 		
 	}
-	private void chargementConnexion(){
+	public void chargementConnexion(){
 		mainPane.getChildren().clear();
 		mainPane.add(menuBar,  0, 0, 1, 1);
 		mainPane.add(connexionPane, 0, 1, 1, 1);
@@ -152,7 +158,7 @@ public class TwitupMenuBarViewImplFX extends Application implements TwitupMenuBa
 		scene.setRoot(mainPane);
 	}
 	
-	private void chargementCreationCompte(){
+	public void chargementCreationCompte(){
 		mainPane.getChildren().clear();
 		mainPane.add(menuBar,  0, 0, 1, 1);
 		mainPane.add(creationComptePane, 0, 1, 1, 1);
@@ -160,7 +166,7 @@ public class TwitupMenuBarViewImplFX extends Application implements TwitupMenuBa
 		scene.setRoot(mainPane);
 	}
 	
-	private void chargementTwitup(){
+	public void chargementTwitup(){
 		mainPane.getChildren().clear();
 		mainPane.add(menuBar,  0, 0, 2, 1);
 		mainPane.add(gauche,  0, 1);
@@ -171,7 +177,7 @@ public class TwitupMenuBarViewImplFX extends Application implements TwitupMenuBa
 	}
 	
     public static void main(String[] args) {
-        Application.launch(TwitupMenuBarViewImplFX.class, args);
+        Application.launch(TwitupMenuBarMainViewImplFX.class, args);
     }
 	@Override
 	public void show() {
@@ -246,7 +252,8 @@ public class TwitupMenuBarViewImplFX extends Application implements TwitupMenuBa
 	}
 	@Override
 	public void init(TwitupUserView userView, TwitupTwitView twitView) {
-		// TODO Auto-generated method stub
+		gauche = (TwitupUserViewImplFX)userView;
+		droit = (TwitupTwitViewImplFX)userView;
 		
 	}
 	@Override

@@ -12,6 +12,7 @@ import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
 import com.iup.tp.twitup.ihm.GUI;
+import com.iup.tp.twitup.ihm.GUIFX;
 import com.iup.tp.twitup.ihm.GUISwing;
 import com.iup.tp.twitup.ihm.TwitupMock;
 import com.iup.tp.twitup.ihm.account.controller.TwitupAccountController;
@@ -71,6 +72,8 @@ public class Twitup {
 	protected User connectedUser;
 	
 	protected GUI guiSwing;
+	
+	protected GUI guiFX;
 
 	/**
 	 * Constructeur.
@@ -128,6 +131,13 @@ public class Twitup {
 		userCtrl.addUserObserver(twitCtrl);
 		guiSwing.setTwitCtrl(twitCtrl);
 		guiSwing.setDatabase(mDatabase);
+		
+		guiFX = GUIFX.getInstance();
+		
+		
+		
+		
+		
 
 	}
 
