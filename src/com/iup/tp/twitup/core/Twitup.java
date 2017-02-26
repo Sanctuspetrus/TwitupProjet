@@ -143,6 +143,9 @@ public class Twitup {
 		
 		
 
+		
+		guiFX.setTwitCtrl(twitCtrl);
+		guiFX.setDatabase(mDatabase);
 	}
 
 	/**

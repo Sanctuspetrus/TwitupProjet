@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,28 +13,25 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import com.iup.tp.twitup.ihm.event.TwitupWatchable;
-import com.iup.tp.twitup.ihm.event.TwitupWatcher;
+import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.account.SignUpViewObserver;
+import javafx.scene.text.Text;
 
 @SuppressWarnings("serial")
 public class TwitupSignUpViewImpl extends JPanel implements TwitupSignUpView{
-	
-	
 	
 	protected JLabel signUpLabel;
 	protected JTextField loginsignUpField;
 	protected JTextField nomSignUpField;
 	protected JPasswordField pwdSignUpField;
 	protected JTextField pathAvatar;
+	int compteurValue = 150;
+	Text compteur = new Text(String.valueOf(150));
+	protected ArrayList<SignUpViewObserver> obs = new ArrayList<SignUpViewObserver>();
 	
 	protected JButton signUp;
-
-	protected TwitupWatchable signUpWatchable;
-	
 	
 	public TwitupSignUpViewImpl() {
-		
-		signUpWatchable = new TwitupWatchable();
 		
 		signUpLabel = new JLabel("S'inscrire");
 		loginsignUpField = new JTextField("login");
@@ -42,10 +40,8 @@ public class TwitupSignUpViewImpl extends JPanel implements TwitupSignUpView{
 		pathAvatar = new JTextField("path image");
 		
 		signUp = new JButton("S'inscrire !!!");
-
-		
+	
 	}
-
 
 	@Override
 	public void initView() {
@@ -53,7 +49,7 @@ public class TwitupSignUpViewImpl extends JPanel implements TwitupSignUpView{
 		signUp.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				signUpWatchable.sendEvent();
+				sendSignUpAttempt();
 			}
 		});
 		
@@ -120,16 +116,10 @@ public class TwitupSignUpViewImpl extends JPanel implements TwitupSignUpView{
 	}
 
 	@Override
-	public void close() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void close() {}
 
 	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void destroy() {}
 
 	@Override
 	public void error(String msg) {
@@ -146,30 +136,6 @@ public class TwitupSignUpViewImpl extends JPanel implements TwitupSignUpView{
 		pathAvatar = new JTextField("path image");
 		
 		System.out.println(msg);
-	}
-
-	@Override
-	public void addActionSignUp(TwitupWatcher tw) {
-		signUpWatchable.addWatcher(tw);
-		
-	}
-
-	@Override
-	public void delActionSignUp(TwitupWatcher tw) {
-		signUpWatchable.delWatcher(tw);
-		
-	}
-
-	@Override
-	public void addActionCancel(TwitupWatcher tw) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delActionCancel(TwitupWatcher tw) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -190,6 +156,60 @@ public class TwitupSignUpViewImpl extends JPanel implements TwitupSignUpView{
 	@Override
 	public void show() {
 		this.setVisible(true);
+	}
+
+
+	@Override
+	public void actionLogIn(User u) {}
+
+
+	@Override
+	public void actionLogOut(User u) {}
+
+
+	@Override
+	public void actionSignUp(User u) {}
+
+
+	@Override
+	public void actionShowLogIn() {}
+
+
+	@Override
+	public void actionShowLogOut() {}
+
+
+	@Override
+	public void actionShowSignUp() {
+		initView();
+		show();
+	}
+
+
+	@Override
+	public void addSignUpViewObserver(SignUpViewObserver suvo) {
+		obs.add(suvo);		
+	}
+
+
+	@Override
+	public void delSignUpViewObserver(SignUpViewObserver suvo) {
+		obs.remove(suvo);
+	}
+
+
+	@Override
+	public void sendSignUpAttempt() {
+		for (SignUpViewObserver signUpViewObserver : obs) {
+			signUpViewObserver.actionSignUpAttempt(loginsignUpField.getText(), String.valueOf(pwdSignUpField.getPassword()), nomSignUpField.getText(), pathAvatar.getText());
+		}
+	}
+
+
+	@Override
+	public void sendSignUpCancel() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

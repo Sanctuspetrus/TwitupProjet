@@ -1,4 +1,5 @@
 package com.iup.tp.twitup.ihm.menubar.view;
+import com.iup.tp.twitup.ihm.account.AccountActionViewObserver;
 import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImplFX;
 import com.iup.tp.twitup.ihm.account.view.TwitupSignUpViewImplFX;
@@ -62,8 +63,8 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		primaryStage.setMinWidth(855);
-		primaryStage.setMinHeight(500);
+		primaryStage.setMinWidth(1100);
+		primaryStage.setMinHeight(650);
         
         // --- Menu File
         repItem.setOnAction(new EventHandler<ActionEvent>(){
@@ -194,38 +195,7 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void addActionSignUp(TwitupWatcher tw) {
-		signUpWatcher.addWatcher(tw);
-	}
-	@Override
-	public void delActionSignUp(TwitupWatcher tw) {
-		signUpWatcher.delWatcher(tw);
-	}
-	@Override
-	public void addActionLogIn(TwitupWatcher tw) {
-		signInWatcher.addWatcher(tw);
-	}
-	@Override
-	public void delActionLogIn(TwitupWatcher tw) {
-		signInWatcher.delWatcher(tw);
-	}
-	@Override
-	public void addActionLogOut(TwitupWatcher tw) {
-		signOutWatcher.addWatcher(tw);
-	}
-	@Override
-	public void delActionLogOut(TwitupWatcher tw) {
-		signOutWatcher.delWatcher(tw);
-	}
-	@Override
-	public void showSignIn(boolean bool) {
-		connexItem.setVisible(true);
-	}
-	@Override
-	public void showSignOut(boolean bool) {
-		decoItem.setVisible(true);
-	}
+
 	@Override
 	public void addActionClose(TwitupWatcher tw) {
 		closeWatcher.addWatcher(tw);
@@ -258,6 +228,31 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 	}
 	@Override
 	public void initView() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void addAccountActionViewObserver(AccountActionViewObserver aavo) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void delAccountActionViewObserver(AccountActionViewObserver aavo) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void sendLogInButton() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void sendLogOutButton() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void sendSignUpButton() {
 		// TODO Auto-generated method stub
 		
 	}

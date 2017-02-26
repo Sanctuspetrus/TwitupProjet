@@ -1,23 +1,20 @@
 package com.iup.tp.twitup.ihm.account.view;
 
-import javax.swing.JTextField;
-
-import com.iup.tp.twitup.datamodel.User;
-import com.iup.tp.twitup.ihm.account.LogInViewObserver;
-import com.iup.tp.twitup.ihm.event.TwitupWatchable;
-import com.iup.tp.twitup.ihm.event.TwitupWatcher;
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.account.LogInViewObserver;
 
 @SuppressWarnings("serial")
 public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView {
@@ -30,13 +27,11 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView {
 	
 	protected JPanel subPanel;
 
-	protected JButton login;
-
-	protected TwitupWatchable loginWatchable;	
+	protected JButton login;	
+	
+	protected ArrayList<LogInViewObserver> obs = new ArrayList<LogInViewObserver>();
 	
 	public TwitupLogInViewImpl() {
-		
-		loginWatchable = new TwitupWatchable();
 		
 		connecLabel = new JLabel("Se Connecter");
 		loginLoginField = new JTextField("login");
@@ -55,7 +50,7 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView {
 		login.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				loginWatchable.sendEvent();
+				sendLogInAttempt();
 			}
 		});
 		
@@ -122,57 +117,41 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView {
 	}
 
 	@Override
-	public void actionLogIn(User u) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void actionLogIn(User u) {}
 
 	@Override
-	public void actionLogOut(User u) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void actionLogOut(User u) {}
 
 	@Override
-	public void actionSignUp(User u) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void actionSignUp(User u) {}
 
 	@Override
 	public void actionShowLogIn() {
-		// TODO Auto-generated method stub
-		
+		initView();
+		show();
 	}
 
 	@Override
-	public void actionShowLogOut() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void actionShowLogOut() {}
 
 	@Override
-	public void actionShowSignUp() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void actionShowSignUp() {}
 
 	@Override
 	public void addLogInViewObserver(LogInViewObserver livo) {
-		// TODO Auto-generated method stub
-		
+		obs.add(livo);
 	}
 
 	@Override
 	public void delLogInViewObserver(LogInViewObserver livo) {
-		// TODO Auto-generated method stub
-		
+		obs.remove(livo);
 	}
 
 	@Override
 	public void sendLogInAttempt() {
-		// TODO Auto-generated method stub
-		
+		for (LogInViewObserver logInViewObserver : obs) {
+			logInViewObserver.actionLogInAttempt(loginLoginField.getText(), String.valueOf(pwdLoginField.getPassword()));
+		}
 	}
 
 	@Override

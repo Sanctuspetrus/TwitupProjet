@@ -1,8 +1,9 @@
 package com.iup.tp.twitup.ihm.account.view;
-import com.iup.tp.twitup.ihm.ConstanteJavaFX;
-import com.iup.tp.twitup.ihm.event.TwitupWatchable;
-import com.iup.tp.twitup.ihm.event.TwitupWatcher;
+import java.util.ArrayList;
 
+import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.ConstanteJavaFX;
+import com.iup.tp.twitup.ihm.account.SignUpViewObserver;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -35,7 +36,7 @@ public class TwitupSignUpViewImplFX extends GridPane implements TwitupSignUpView
 	protected Button btn = new Button("S'inscrire");
 	protected HBox hbBtn = new HBox(10);
 	protected Rectangle rectangle = new Rectangle();
-	protected TwitupWatchable signUpWatchable = new TwitupWatchable();
+	protected ArrayList<SignUpViewObserver> obs = new ArrayList<SignUpViewObserver>();
 
 	public TwitupSignUpViewImplFX(){}
 
@@ -79,6 +80,7 @@ public class TwitupSignUpViewImplFX extends GridPane implements TwitupSignUpView
 					actiontarget.setFill(Color.FIREBRICK);
 					actiontarget.setText("Veuillez rentrer tous les champs");
 				}else{
+					sendSignUpAttempt();
 					actiontarget.setText("");
 				}
 			}
@@ -127,33 +129,6 @@ public class TwitupSignUpViewImplFX extends GridPane implements TwitupSignUpView
 		pathImageTextField.setText("");	
 	}
 
-
-	@Override
-	public void addActionSignUp(TwitupWatcher tw) {
-		signUpWatchable.addWatcher(tw);
-	}
-
-
-	@Override
-	public void delActionSignUp(TwitupWatcher tw) {
-		signUpWatchable.delWatcher(tw);
-	}
-
-
-	@Override
-	public void addActionCancel(TwitupWatcher tw) {
-		// TODO Auto-generated method stub
-
-	}
-
-
-	@Override
-	public void delActionCancel(TwitupWatcher tw) {
-		// TODO Auto-generated method stub
-
-	}
-
-
 	@Override
 	public String getUsername() {
 		return nomTextField.getText();
@@ -169,6 +144,57 @@ public class TwitupSignUpViewImplFX extends GridPane implements TwitupSignUpView
 	@Override
 	public char[] getSignUpPassword() {
 		return loginTextField.getText().toCharArray();
+	}
+
+	@Override
+	public void actionLogIn(User u) {}
+
+
+	@Override
+	public void actionLogOut(User u) {}
+
+
+	@Override
+	public void actionSignUp(User u) {}
+
+
+	@Override
+	public void actionShowLogIn() {}
+
+
+	@Override
+	public void actionShowLogOut() {}
+
+
+	@Override
+	public void actionShowSignUp() {
+		initView();
+		show();
+	}
+
+
+	@Override
+	public void addSignUpViewObserver(SignUpViewObserver suvo) {
+		obs.add(suvo);		
+	}
+
+
+	@Override
+	public void delSignUpViewObserver(SignUpViewObserver suvo) {
+		obs.remove(suvo);
+	}
+
+	@Override
+	public void sendSignUpAttempt() {
+		for (SignUpViewObserver signUpViewObserver : obs) {
+			signUpViewObserver.actionSignUpAttempt(loginTextField.getText(), pwBox.getText(), nomTextField.getText(), pathImageTextField.getText());
+		}
+	}
+
+	@Override
+	public void sendSignUpCancel() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

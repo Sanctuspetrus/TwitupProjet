@@ -9,6 +9,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import com.iup.tp.twitup.ihm.account.AccountActionViewObserver;
 import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
 import com.iup.tp.twitup.ihm.event.TwitupWatchable;
 import com.iup.tp.twitup.ihm.event.TwitupWatcher;
@@ -27,13 +28,6 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 	protected JMenuItem signUp;
 	protected JMenuItem signIn;
 	protected JMenuItem signOut;
-
-	protected TwitupWatchable closeWatcher;
-	protected TwitupWatchable aboutWatcher;
-	protected TwitupWatchable modifyExchangeFolderWatcher;
-	protected TwitupWatchable signUpWatcher;
-	protected TwitupWatchable signInWatcher;
-	protected TwitupWatchable signOutWatcher;
 
 	public TwitupMenuBarViewImpl(JFrame f) {
 		// Composants graphiques
@@ -147,77 +141,6 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 		menuBar.removeAll();
 	}
 	
-	// ACTIONS
-	@Override
-	public void showSignIn(boolean bool) {
-		signIn.setVisible(bool);
-	}
-
-	@Override
-	public void showSignOut(boolean bool) {
-		signOut.setVisible(bool);
-	}
-	
-	// WATCHERS
-	@Override
-	public void addActionClose(TwitupWatcher tw) {
-		closeWatcher.addWatcher(tw);
-	}
-
-	@Override
-	public void delActionClose(TwitupWatcher tw) {
-		closeWatcher.delWatcher(tw);
-	}
-
-	@Override
-	public void addActionAbout(TwitupWatcher tw) {
-		aboutWatcher.addWatcher(tw);
-	}
-
-	@Override
-	public void delActionAbout(TwitupWatcher tw) {
-		aboutWatcher.delWatcher(tw);
-	}
-
-	@Override
-	public void addActionModifyExchangeFolder(TwitupWatcher tw) {
-		modifyExchangeFolderWatcher.addWatcher(tw);
-	}
-
-	@Override
-	public void delActionModifyExchangeFolder(TwitupWatcher tw) {
-		modifyExchangeFolderWatcher.delWatcher(tw);
-	}
-
-	@Override
-	public void addActionSignUp(TwitupWatcher tw) {
-		signUpWatcher.addWatcher(tw);
-	}
-
-	@Override
-	public void delActionSignUp(TwitupWatcher tw) {
-		signUpWatcher.delWatcher(tw);
-	}
-
-	@Override
-	public void addActionLogIn(TwitupWatcher tw) {
-		signInWatcher.addWatcher(tw);
-	}
-
-	@Override
-	public void delActionLogIn(TwitupWatcher tw) {
-		signInWatcher.delWatcher(tw);
-	}
-
-	@Override
-	public void addActionLogOut(TwitupWatcher tw) {
-		signOutWatcher.addWatcher(tw);
-	}
-
-	@Override
-	public void delActionLogOut(TwitupWatcher tw) {
-		signOutWatcher.delWatcher(tw);
-	}
 
 	@Override
 	public void initView() {
@@ -227,6 +150,36 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 
 	@Override
 	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addAccountActionViewObserver(AccountActionViewObserver aavo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delAccountActionViewObserver(AccountActionViewObserver aavo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sendLogInButton() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sendLogOutButton() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sendSignUpButton() {
 		// TODO Auto-generated method stub
 		
 	}

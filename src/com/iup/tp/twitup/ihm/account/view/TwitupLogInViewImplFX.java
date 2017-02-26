@@ -1,8 +1,10 @@
 package com.iup.tp.twitup.ihm.account.view;
-import com.iup.tp.twitup.ihm.ConstanteJavaFX;
-import com.iup.tp.twitup.ihm.event.TwitupWatchable;
-import com.iup.tp.twitup.ihm.event.TwitupWatcher;
+import java.util.ArrayList;
 
+import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.ConstanteJavaFX;
+import com.iup.tp.twitup.ihm.account.LogInViewObserver;
+import com.iup.tp.twitup.ihm.event.TwitupWatchable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -32,7 +34,7 @@ public class TwitupLogInViewImplFX extends GridPane implements TwitupLogInView {
 	protected HBox hbBtn = new HBox(10);
 	protected Rectangle rectangle = new Rectangle();
 
-	protected TwitupWatchable loginWatchable = new TwitupWatchable();
+	protected ArrayList<LogInViewObserver> obs = new ArrayList<LogInViewObserver>();
 
 
 	public TwitupLogInViewImplFX(){}
@@ -74,7 +76,7 @@ public class TwitupLogInViewImplFX extends GridPane implements TwitupLogInView {
 					actiontarget.setText("Veuillez rentrer tous les champs");
 				}else{
 					actiontarget.setText("");
-					loginWatchable.sendEvent();
+					sendLogInAttempt();
 				}
 			}
 		});
@@ -86,16 +88,11 @@ public class TwitupLogInViewImplFX extends GridPane implements TwitupLogInView {
 
 	}
 
-
-
-
-
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
 
 	}
-
 
 	@Override
 	public void destroy() {
@@ -103,48 +100,20 @@ public class TwitupLogInViewImplFX extends GridPane implements TwitupLogInView {
 
 	}
 
-
 	@Override
 	public void success(String msg) {
 		System.out.println(msg);
 	}
-
 
 	@Override
 	public void error(String msg) {
 		System.out.println(msg);
 	}
 
-
-	@Override
-	public void addActionLogIn(TwitupWatcher tw) {
-		loginWatchable.addWatcher(tw);
-	}
-
-
-	@Override
-	public void delActionLogIn(TwitupWatcher tw) {
-		loginWatchable.delWatcher(tw);
-	}
-
-
-	@Override
-	public void addActionCancel(TwitupWatcher tw) {
-		loginWatchable.addWatcher(tw);
-	}
-
-
-	@Override
-	public void delActionCancel(TwitupWatcher tw) {
-		loginWatchable.delWatcher(tw);
-	}
-
-
 	@Override
 	public String getUsername() {
 		return userTextField.getText();
 	}
-
 
 	@Override
 	public char[] getLoginPassword() {
@@ -156,5 +125,46 @@ public class TwitupLogInViewImplFX extends GridPane implements TwitupLogInView {
 	public void show() {
 		this.show();
 	}
+
+	@Override
+	public void actionLogIn(User u) {}
+
+	@Override
+	public void actionLogOut(User u) {}
+
+	@Override
+	public void actionSignUp(User u) {}
+
+	@Override
+	public void actionShowLogIn() {
+		initView();
+		show();
+	}
+
+	@Override
+	public void actionShowLogOut() {}
+
+	@Override
+	public void actionShowSignUp() {}
+
+	@Override
+	public void addLogInViewObserver(LogInViewObserver livo) {
+		obs.add(livo);
+	}
+
+	@Override
+	public void delLogInViewObserver(LogInViewObserver livo) {
+		obs.remove(livo);
+	}
+
+	@Override
+	public void sendLogInAttempt() {
+		for (LogInViewObserver logInViewObserver : obs) {
+			logInViewObserver.actionLogInAttempt(userTextField.getText(), pwBox.getText());
+		}
+	}
+
+	@Override
+	public void sendLogInCancel() {}
 
 }
