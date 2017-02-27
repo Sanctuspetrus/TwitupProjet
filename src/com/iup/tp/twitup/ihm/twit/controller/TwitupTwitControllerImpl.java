@@ -28,6 +28,11 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 	@Override
 	public void actionUserChange(User u) {
 		this.user = u;
+		if(user != null){			
+			Set<Twit> listtwits = database.getTwitsWithUserTag(user.getUserTag());
+			listtwits.addAll(database.getUserTwits(user));
+			this.notifyStartTwit(listtwits);
+		}
 	}
 
 	@Override
@@ -72,12 +77,12 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 	public void addTwitObserver(TwitObserver to){
 		listTwitObs.add(to);
 	}
-	
+
 	@Override
 	public void delTwitObserver(TwitObserver to){
 		listTwitObs.remove(to);
 	}
-	
+
 	@Override
 	public void notifySearchResult(Set<Twit> twits) {
 		for (TwitObserver twitObs : listTwitObs) {
@@ -86,21 +91,27 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 	}
 
 	@Override
+	public void notifyStartTwit(Set<Twit> twits) {
+		System.out.println("Observateurs des twits notifier");
+		for (TwitObserver twitObs : listTwitObs) {
+			twitObs.actionStartTwits(twits);
+		}
+	}
+	@Override
 	public void notifyNewTwit(Set<Twit> twits, Twit twit) {
 		System.out.println("Observateurs des twits notifier");
 		for (TwitObserver twitObs : listTwitObs) {
 			twitObs.actionTwitAdded(twits, twit);
 		}
 	}
-
 	@Override
-	public void notifyTwitDeleted(Set<Twit> twits, Twit twit) {
+	public void notifyRemoveTwit(Set<Twit> twits, Twit twit) {
 		for (TwitObserver twitObs : listTwitObs) {
 			twitObs.actionTwitDeleted(twits, twit);
 		}
 	}
 	@Override
-	public void notifyTwitModified(Set<Twit> twits, Twit twit) {
+	public void notifyModifyTwit(Set<Twit> twits, Twit twit) {
 		for (TwitObserver twitObs : listTwitObs) {
 			twitObs.actionTwitModified(twits, twit);
 		}
@@ -110,35 +121,47 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 	// OBS DATABASE
 	@Override
 	public void notifyTwitAdded(Twit addedTwit) {
-		notifyNewTwit(database.getTwits(), addedTwit);
+		if (user != null && addedTwit.containsUserTag(user.getUserTag())) {
+			Set<Twit> listtwits = database.getTwitsWithUserTag(user.getUserTag());
+			listtwits.addAll(database.getUserTwits(user));
+			notifyNewTwit(listtwits, addedTwit);
+		}
 	}
 
 	@Override
 	public void notifyTwitDeleted(Twit deletedTwit) {
-		notifyNewTwit(database.getTwits(), deletedTwit);
+		if (user != null && deletedTwit.containsUserTag(user.getUserTag())) {
+			Set<Twit> listtwits = database.getTwitsWithUserTag(user.getUserTag());
+			listtwits.addAll(database.getUserTwits(user));
+			notifyRemoveTwit(listtwits, deletedTwit);
+		}
 	}
 
 	@Override
 	public void notifyTwitModified(Twit modifiedTwit) {
-		notifyTwitModified(database.getTwits(), modifiedTwit);
+		if (user != null && modifiedTwit.containsUserTag(user.getUserTag())) {
+			Set<Twit> listtwits = database.getTwitsWithUserTag(user.getUserTag());
+			listtwits.addAll(database.getUserTwits(user));
+			notifyModifyTwit(listtwits, modifiedTwit);
+		}
 	}
 
 	@Override
 	public void notifyUserAdded(User addedUser) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void notifyUserDeleted(User deletedUser) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void notifyUserModified(User modifiedUser) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -188,6 +188,14 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView {
 		listTwit.addAll(twits);
 		reafficherTwits();
 	}
+
+	@Override
+	public void actionStartTwits(Set<Twit> twits) {
+		System.out.println("Twits de départ");
+		listTwit.clear();
+		listTwit.addAll(twits);
+		reafficherTwits();
+	}
 	
 	
 }

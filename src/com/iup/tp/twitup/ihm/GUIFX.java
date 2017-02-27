@@ -93,7 +93,6 @@ public class GUIFX implements GUI{
 		twitView.addObserver(twitCtrl);
 		twitCtrl.addTwitObserver(twitView);
 
-		mainView.init(userView, twitView);
 
 		Application.launch(TwitupMenuBarMainViewImplFX.class);
 		mainView.initView();
@@ -101,6 +100,7 @@ public class GUIFX implements GUI{
 		suv.initView();
 		userView.initView();
 		twitView.initView();
+		mainView.init(userView, twitView);
 		
 		mainView.show();
 

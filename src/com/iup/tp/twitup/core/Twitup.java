@@ -257,6 +257,6 @@ public class Twitup {
 
 	public void show() {
 		guiSwing.launch();
-		guiFX.launch();
+//		guiFX.launch();
 	}
 }

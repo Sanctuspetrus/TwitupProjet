@@ -185,10 +185,6 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 	public void chargementTwitup(){
 		mainPane.getChildren().clear();
 		mainPane.add(menuBar,  0, 0, 2, 1);
-		mainPane.add(gauche,  0, 1);
-		mainPane.add(droit, 1, 1);
-		GridPane.setVgrow(droit, Priority.ALWAYS);
-		GridPane.setVgrow(gauche, Priority.ALWAYS);
 		scene.setRoot(mainPane);
 	}
 
@@ -212,6 +208,10 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 	public void init(TwitupUserView userView, TwitupTwitView twitView) {
 		gauche = (TwitupUserViewImplFX)userView;
 		droit = (TwitupTwitViewImplFX)twitView;
+		mainPane.add(gauche,  0, 1);
+		mainPane.add(droit, 1, 1);
+		GridPane.setVgrow(droit, Priority.ALWAYS);
+		GridPane.setVgrow(gauche, Priority.ALWAYS);
 
 	}
 	@Override

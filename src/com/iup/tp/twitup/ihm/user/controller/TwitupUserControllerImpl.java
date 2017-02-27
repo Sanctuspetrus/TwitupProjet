@@ -110,6 +110,10 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 		System.out.println("New user : ");
 		printUser(addedUser);
 		System.out.println(currentUser);
+		if(currentUser != null){
+			addedUser.isFollowing(currentUser);
+			notifyNewFollower(addedUser);		
+		}
 	}
 
 	/**
@@ -119,6 +123,10 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	public void notifyUserDeleted(User deletedUser) {
 		System.out.println("Deleted user : ");
 		printUser(deletedUser);
+		if(currentUser != null){
+			deletedUser.isFollowing(currentUser);
+			notifyLostFollower(deletedUser);		
+		}
 	}
 
 	/**
@@ -130,11 +138,8 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 		printUser(modifiedUser);
 		
 		if(currentUser != null){
-			for (String tag : modifiedUser.getFollows()) {
-				if(database.getFollowersCount(currentUser) != this.f) {
-
-				}
-			}			
+			modifiedUser.isFollowing(currentUser);
+			notifyNewFollower(modifiedUser);		
 		}
 	}
 

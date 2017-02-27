@@ -25,4 +25,9 @@ public interface TwitObserver {
 	 * @param twits
 	 */
 	public void actionTwitModified(Set<Twit> twits, Twit twit);
+	/**
+	 * Liste des twits de l'utilisateur connecté
+	 * @param twits
+	 */
+	public void actionStartTwits(Set<Twit> twits);
 }

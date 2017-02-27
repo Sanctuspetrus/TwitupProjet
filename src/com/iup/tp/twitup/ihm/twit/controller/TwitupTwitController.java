@@ -15,7 +15,8 @@ public interface TwitupTwitController extends TwitupController, ProfilObserver, 
 	public void delTwitObserver(TwitObserver to);
 	
 	void notifySearchResult(Set<Twit> twits);
+	void notifyStartTwit(Set<Twit> twits);
 	void notifyNewTwit(Set<Twit> twits, Twit twit);
-	void notifyTwitDeleted(Set<Twit> twits, Twit twit);
-	void notifyTwitModified(Set<Twit> twits, Twit twit);
+	void notifyRemoveTwit(Set<Twit> twits, Twit twit);
+	void notifyModifyTwit(Set<Twit> twits, Twit twit);
 }
