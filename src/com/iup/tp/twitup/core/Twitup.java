@@ -126,9 +126,11 @@ public class Twitup {
 			public void actionClose() {
 			}
 		});
-
+		guiSwing.setMenuBarCtrl(menuBarCtrl);
+		
 		// USER
-		TwitupUserController userCtrl = new TwitupUserControllerImpl(mDatabase, guiSwing.getTwitupUserView());
+		TwitupUserController userCtrl = new TwitupUserControllerImpl(mDatabase);
+		guiSwing.setUserCtrl(userCtrl);
 		
 		// ACCOUNT
 		TwitupAccountController accountCtrl = new TwitupAccountControllerImpl(mEntityManager, mDatabase);

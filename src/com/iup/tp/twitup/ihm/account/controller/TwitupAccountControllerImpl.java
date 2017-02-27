@@ -43,11 +43,11 @@ public class TwitupAccountControllerImpl implements TwitupAccountController{
 
 	//vérifie si l'utilisateur existe
 	//return l'User trouvé, null sinon
-	protected User connection(String userTag, char[] cs){
+	protected User connection(String userTag, String pwd){
 		User user = this.findUserByTag(userTag);	
 
 		if(user != null){
-			if(user.getUserPassword().equals(new String(cs))){
+			if(user.getUserPassword().equals(pwd)){
 				return user;
 			}
 		}
@@ -122,7 +122,7 @@ public class TwitupAccountControllerImpl implements TwitupAccountController{
 	}
 
 	@Override
-	public void actionLogInAttempt(String tag, char[] pwd) {
+	public void actionLogInAttempt(String tag, String pwd) {
 		User u = connection(tag, pwd);
 		if(u == null){
 			StringBuilder msg = new StringBuilder();
@@ -214,8 +214,6 @@ public class TwitupAccountControllerImpl implements TwitupAccountController{
 			ao.actionShowSignUp();
 		}
 	}
-
-
 
 
 

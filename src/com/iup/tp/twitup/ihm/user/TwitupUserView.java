@@ -17,6 +17,12 @@ public interface TwitupUserView extends TwitupView {
 	void addActionAddAbo(TwitupWatcher tw);
 	void delActionAddAbo(TwitupWatcher tw);
 	
+	public void addListUserViewObserver(ListUserViewObserver luvo);
+	public void delListUserViewObserver(ListUserViewObserver luvo);
+	
+	void notifySearchUser(String str);
+	void notifySelectUser(User u);
+	
 	public void setListUserAbonnes(Set<User> listUser);
 	public void setListResearched(Set<User> listUser);
 }

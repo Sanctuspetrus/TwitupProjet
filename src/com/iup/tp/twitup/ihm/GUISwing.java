@@ -10,11 +10,13 @@ import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
 import com.iup.tp.twitup.ihm.account.view.TwitupSignUpViewImpl;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainViewImpl2;
+import com.iup.tp.twitup.ihm.menubar.controller.TwitupMenuBarController;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarViewImpl;
 import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitController;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitViewImpl;
+import com.iup.tp.twitup.ihm.user.TwitupUserController;
 import com.iup.tp.twitup.ihm.user.TwitupUserView;
 import com.iup.tp.twitup.ihm.user.TwitupUserViewImpl;
 
@@ -29,8 +31,10 @@ public class GUISwing implements GUI {
 	protected IDatabase db;
 	
 	// CTRL
-	protected TwitupTwitController twitCtrl;
+	protected TwitupMenuBarController menuBarCtrl;
 	protected TwitupAccountController accountCtrl;
+	protected TwitupUserController userCtrl;
+	protected TwitupTwitController twitCtrl;
 	
 	// VUES
 	protected TwitupFrame mainFrame;
@@ -75,8 +79,15 @@ public class GUISwing implements GUI {
 		suv.addSignUpViewObserver(accountCtrl);
 		aac.addAccountActionViewObserver(accountCtrl);
 		
+		userView.addListUserViewObserver(userCtrl);
+		
 		twitView.addObserver(twitCtrl);
 		twitView.setDatabase(db);
+
+		liv.initView();
+		suv.initView();
+		aac.initView();
+		userView.initView();
 		twitView.initView();
 		
 		mainView.show();
@@ -124,5 +135,15 @@ public class GUISwing implements GUI {
 	@Override
 	public void setAccountCtrl(TwitupAccountController tac) {
 		this.accountCtrl = tac;
+	}
+
+	@Override
+	public void setMenuBarCtrl(TwitupMenuBarController tmbc) {
+		menuBarCtrl = tmbc;
+	}
+
+	@Override
+	public void setUserCtrl(TwitupUserController tuc) {
+		userCtrl = tuc;
 	}
 }

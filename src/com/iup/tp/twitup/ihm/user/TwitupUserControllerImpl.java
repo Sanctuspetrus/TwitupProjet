@@ -12,20 +12,17 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 
 	protected User currentUser;
 	protected IDatabase database;
-	protected TwitupUserView userView;
 	protected Set<User> followers;
 	protected Set<User> searchResult;
 	protected Set<Twit> userTwit;
 	protected ArrayList<UserObserver> uolist;
 
-	public TwitupUserControllerImpl(IDatabase database, TwitupUserView uv) {
-		this.userView = uv;
+	public TwitupUserControllerImpl(IDatabase database) {
 		this.database = database;
 		this.currentUser = null;
 		this.uolist = new ArrayList<UserObserver>();
 		this.followers = new TreeSet<User>();
 		this.searchResult = new TreeSet<User>();
-		this.userTwit = new TreeSet<Twit>();
 	}
 
 	@Override
@@ -48,13 +45,6 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 		uolist.remove(uo);
 	}
 
-	@Override
-	public void notifyUserChange(User u) {
-		for (UserObserver uo : uolist) {
-			uo.actionUserChange(u);
-		}
-	}
-
 
 	public User getCurrentUser() {
 		return currentUser;
@@ -63,94 +53,66 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 
 	public void setCurrentUser(User currentUser) {
 		this.currentUser = currentUser;
-		updateFollowers();
-		notifyUserChange(currentUser);
+		if(currentUser != null){
+			this.followers = database.getFollowers(currentUser);
+		} else {
+			this.followers = new TreeSet<User>();
+		}
+		notifyProfilChange(currentUser);
 	}
 
+
 	/**
-	 * Met à jour la liste des twits de l'utilisateur courrant
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void notifyTwitAdded(Twit addedTwit) {
-		if(currentUser != null){
-			setUserTwit(database.getTwitsWithUserTag(currentUser.getUserTag()));
-		}
 	}
 
 	/**
-	 * Met à jour la liste des twits de l'utilisateur courrant
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void notifyTwitDeleted(Twit deletedTwit) {
-		if(currentUser != null){
-			setUserTwit(database.getTwitsWithUserTag(currentUser.getUserTag()));
-		}
 	}
 
 	/**
-	 * Met à jour la liste des twits de l'utilisateur courrant
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void notifyTwitModified(Twit modifiedTwit) {
-		if(currentUser != null){
-			setUserTwit(database.getTwitsWithUserTag(currentUser.getUserTag()));
-		}
 	}
 
 	/**
-	 * Met à jour la liste des abonnés de l'utilisateur courrant
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void notifyUserAdded(User addedUser) {
 		System.out.println("New user : ");
 		printUser(addedUser);
 		System.out.println(currentUser);
-		if(currentUser != null){
-			updateFollowers();
-		}
 	}
 
 	/**
-	 * Met à jour la liste des abonnés de l'utilisateur courrant
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void notifyUserDeleted(User deletedUser) {
 		System.out.println("Deleted user : ");
 		printUser(deletedUser);
-		if(currentUser != null){
-			updateFollowers();
-		}
 	}
 
 	/**
-	 * Met à jour la liste des abonnés de l'utilisateur courrant
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void notifyUserModified(User modifiedUser) {
 		System.out.println("Modified user : ");
 		printUser(modifiedUser);
-		if(currentUser != null){
-			updateFollowers();
-		}
 	}
 
 
 	// GETTERS / SETTERS
-	public Set<User> getFollowers() {
-		return followers;
-	}
-
-	public void setFollowers(Set<User> abonne) {
-		this.followers = abonne;
-		userView.setListUserAbonnes(abonne);
-	}
-
-	public void updateFollowers(){
-		setFollowers(database.getUsers());
-		for (User user : followers) {
-			System.out.println(user.getName());
-		}
-	}
 
 	public Set<User> getSearchResult() {
 		return searchResult;
@@ -158,15 +120,7 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 
 	public void setSearchResult(Set<User> recherche) {
 		this.searchResult = recherche;
-		userView.setListResearched(recherche);
-	}
-
-	public Set<Twit> getUserTwit() {
-		return userTwit;
-	}
-
-	public void setUserTwit(Set<Twit> userTwit) {
-		this.userTwit = userTwit;
+		notifySearchResult(searchResult);
 	}
 
 	public void printUser(User u){
@@ -178,6 +132,22 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 		System.out.println(msg);
 	}
 
+	// OBS
+
+	@Override
+	public void notifyUserChange(User u) {
+		for (UserObserver uo : uolist) {
+			uo.actionUserChange(u);
+		}
+	}
+	
+	@Override
+	public void notifyProfilChange(User u) {
+		for (UserObserver uo : uolist) {
+			uo.actionProfilChange(u);
+		}
+	}
+		
 	@Override
 	public void notifyNewFollower(User u) {
 		for (UserObserver uo : uolist) {
@@ -206,29 +176,80 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 		}
 	}
 
+	@Override
+	public void notifySearchResult(Set<User> users) {
+		for (UserObserver uo : uolist) {
+			uo.actionSearchUser(users);
+		}
+	}
 
-	
+
 	@Override
 	public void actionSignUp(User u) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void actionShowLogIn() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void actionShowLogOut() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void actionShowSignUp() {
 		// TODO Auto-generated method stub
-		
+
 	}
+
+	@Override
+	public void actionModifyName(String name) {
+		currentUser.setName(name);
+		notifyProfilChange(currentUser);
+	}
+
+	@Override
+	public void actionModifyAvatar(String path) {
+		currentUser.setAvatarPath(path);
+		notifyProfilChange(currentUser);
+	}
+
+	@Override
+	public void actionSearchUser(String str) {
+		searchResult = new TreeSet<User>();
+		for (User user : database.getUsers()) {
+			if(user.getName().contains(str)){
+				searchResult.add(user);		
+				notifySearchResult(searchResult);
+			}
+		}
+	}
+
+	@Override
+	public void actionSelectUser(User u) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void actionFollowUser(User u) {
+		currentUser.addFollowing(u.getUserTag());
+		this.followers = database.getFollowers(currentUser);
+		notifyFollowUser(u);
+	}
+
+	@Override
+	public void actionUnfollowUser(User u) {
+		currentUser.removeFollowing(u.getUserTag());
+		this.followers = database.getFollowers(currentUser);
+		notifyFollowUser(u);
+	}
+
+
 }
