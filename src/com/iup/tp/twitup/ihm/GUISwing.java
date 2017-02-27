@@ -1,8 +1,6 @@
 package com.iup.tp.twitup.ihm;
 
 import java.awt.Container;
-import java.util.ArrayList;
-
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.account.controller.AccountObserver;

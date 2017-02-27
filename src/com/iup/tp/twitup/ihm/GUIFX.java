@@ -11,7 +11,6 @@ import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
 import com.iup.tp.twitup.ihm.menubar.controller.MenuBarObserver;
 import com.iup.tp.twitup.ihm.menubar.controller.TwitupMenuBarController;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarMainViewImplFX;
-import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarViewImpl;
 import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitController;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitViewImplFX;
@@ -25,7 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class GUIFX extends Application implements GUI{
+public class GUIFX  implements GUI{
 	
 	/**
 	 * Vue principale de l'application.
@@ -122,7 +121,6 @@ public class GUIFX extends Application implements GUI{
 		this.userCtrl = tuc;
 	}
 
-	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
 		mainView = new TwitupMenuBarMainViewImplFX();
