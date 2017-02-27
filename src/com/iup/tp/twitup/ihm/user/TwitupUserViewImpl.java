@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -46,6 +47,9 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 		
 		zoneAbonnes = new JPanel();
 		scroll = new JScrollPane(zoneAbonnes);
+		
+		listUserAbo = new TreeSet<User>();
+		listUserResearch = new TreeSet<User>();
 
 		this.setBackground(Color.GREEN);
 		
@@ -161,6 +165,30 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	@Override
 	public void delActionAddAbo(TwitupWatcher tw) {
 		addAboWatchable.delWatcher(tw);
+	}
+
+	@Override
+	public void addListUserViewObserver(ListUserViewObserver luvo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delListUserViewObserver(ListUserViewObserver luvo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifySearchUser(String str) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifySelectUser(User u) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

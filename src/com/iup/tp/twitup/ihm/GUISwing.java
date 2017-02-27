@@ -75,6 +75,8 @@ public class GUISwing implements GUI {
 		
 		mainFrame.setContentPane((TwitupMainViewImpl2)mainView);
 		
+		menuBar.addMenuBarViewObserver(menuBarCtrl);
+		
 		liv.addLogInViewObserver(accountCtrl);
 		suv.addSignUpViewObserver(accountCtrl);
 		aac.addAccountActionViewObserver(accountCtrl);
@@ -84,6 +86,7 @@ public class GUISwing implements GUI {
 		twitView.addObserver(twitCtrl);
 		twitView.setDatabase(db);
 
+		menuBar.initView();
 		liv.initView();
 		suv.initView();
 		aac.initView();

@@ -21,6 +21,7 @@ import com.iup.tp.twitup.ihm.mainview.controller.TwitupMainViewController;
 import com.iup.tp.twitup.ihm.mainview.controller.TwitupMainViewControllerImpl;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
 import com.iup.tp.twitup.ihm.menubar.controller.MenuBarObserver;
+import com.iup.tp.twitup.ihm.menubar.controller.TwitupMenuBarController;
 import com.iup.tp.twitup.ihm.menubar.controller.TwitupMenuBarControllerImpl;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;
 import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitController;
@@ -114,7 +115,7 @@ public class Twitup {
 		TwitupMainViewController mainViewCtrl = new TwitupMainViewControllerImpl();
 		
 		// MENU BAR
-		TwitupMenuBarControllerImpl menuBarCtrl = new TwitupMenuBarControllerImpl();
+		TwitupMenuBarController menuBarCtrl = new TwitupMenuBarControllerImpl();
 		menuBarCtrl.addMenuBarObserver(new MenuBarObserver() {
 			
 			@Override
