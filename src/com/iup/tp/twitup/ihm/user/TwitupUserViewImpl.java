@@ -15,8 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import com.iup.tp.twitup.datamodel.User;
-import com.iup.tp.twitup.ihm.event.TwitupWatchable;
-import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
 @SuppressWarnings("serial")
 public class TwitupUserViewImpl extends JPanel implements TwitupUserView {

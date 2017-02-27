@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -36,6 +38,8 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 	JPanel zoneNorth;
 	JPanel zoneSouth;
 	
+	JScrollPane scroll;
+	
 	protected ArrayList<TwitViewObserver> listObserver; 
 	
 	public TwitupTwitViewImpl(){
@@ -54,6 +58,8 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 		zoneSouth.setLayout(new GridLayout(2,1));
 		zoneTwit = new JPanel();
 		
+		scroll = new JScrollPane(zoneTwit);
+		
 		listTwit = new TreeSet<Twit>();
 		
 		this.setBackground(Color.BLACK);
@@ -65,6 +71,7 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 	public void initView() {
 		
 		database.addObserver(this);
+		zoneTwit.setLayout(new BoxLayout(zoneTwit, BoxLayout.Y_AXIS));
 
 		researchButton.addActionListener(new ActionListener() {			
 			@Override
@@ -92,7 +99,7 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 			zoneTwit.add( new TwitTwitPanel(twit.getText(), twit.getTwiter().getAvatarPath()));
 		}
 		
-		this.add(zoneTwit, BorderLayout.CENTER);	
+		this.add(scroll, BorderLayout.CENTER);	
 		
 		zoneSouth.add(zoneRedacTwit);
 		zoneSouth.add(zoneRedacButton);
