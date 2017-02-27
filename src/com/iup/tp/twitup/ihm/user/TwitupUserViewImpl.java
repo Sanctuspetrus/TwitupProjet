@@ -87,6 +87,8 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 			});
 			zoneAbonnes.add(new VignetteAbonnesModif(new VignetteAbonnes(user), supprButton));
 		}
+		this.revalidate();
+		this.repaint();
 	}
 	
 	private void showUserResearched() {
@@ -103,6 +105,8 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 			});
 			zoneAbonnes.add(new VignetteAbonnesModif(new VignetteAbonnes(user), addButton));
 		}
+		this.revalidate();
+		this.repaint();
 	}
 
 	@Override
@@ -127,16 +131,13 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	public void setListUserAbonnes(Set<User> listUserAbo) {
 		this.listUserAbo = listUserAbo;
 		showUserAbonnes();
-		this.revalidate();
-		this.repaint();
+
 	}
 	
 	@Override
 	public void setListResearched(Set<User> listUserRech) {
 		this.listUserResearch = listUserRech;
 		showUserResearched();
-		this.revalidate();
-		this.repaint();
 	}
 
 	@Override
@@ -167,19 +168,31 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	public void actionUserChange(User u) {}
 
 	@Override
-	public void actionNewFollower(User f) {}
+	public void actionNewFollower(User f) {
+
+	}
 
 	@Override
-	public void actionLostFollower(User f) {}
+	public void actionLostFollower(User f) {
+
+	}
 
 	@Override
-	public void actionFollowUser(User f) {}
+	public void actionFollowUser(User f) {
+		listUserAbo.add(f);
+		showUserAbonnes();
+	}
 
 	@Override
-	public void actionUnfollowUser(User f) {}
+	public void actionUnfollowUser(User f) {
+		listUserAbo.remove(f);
+		showUserAbonnes();
+	}
 
 	@Override
-	public void actionSearchUser(Set<User> searchResult) {}
+	public void actionSearchUser(Set<User> searchResult) {
+		setListUserAbonnes(searchResult);
+	}
 
 	@Override
 	public void actionProfilChange(User u) {}

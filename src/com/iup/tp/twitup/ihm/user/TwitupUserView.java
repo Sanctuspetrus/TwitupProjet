@@ -13,7 +13,7 @@ public interface TwitupUserView extends TwitupView, UserObserver {
 	
 	void notifySearchUser(String str);
 	void notifySelectUser(User u);
-	
+	 
 	public void setListUserAbonnes(Set<User> listUser);
 	public void setListResearched(Set<User> listUser);
 }
