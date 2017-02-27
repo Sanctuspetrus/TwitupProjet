@@ -197,14 +197,14 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 	@Override
 	public void sendNewTwit(String t) {
 		for (TwitViewObserver twitViewObserver : listObserver) {
-			twitViewObserver.notifyNewTwit(t);
+			twitViewObserver.actionNewTwit(t);
 		}
 	}
 
 	@Override
 	public void sendRecherche(String str) {
 		for (TwitViewObserver twitViewObserver : listObserver) {
-			twitViewObserver.notifyRecherche(str);
+			twitViewObserver.actionRecherche(str);
 		}
 	}
 }

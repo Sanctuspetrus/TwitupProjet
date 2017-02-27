@@ -69,14 +69,14 @@ public class GUISwing implements GUI {
 	@Override
 	public void launch() {
 		
-		mainFrame.setSize(1000,500);
-		mainFrame.setLocation(700, 100);
+		mainFrame.setSize(500,300);
+		mainFrame.setLocation(0, 0);
 		mainView.init(userView, twitView);
 		
 		mainFrame.setContentPane((TwitupMainViewImpl2)mainView);
 		
 		menuBar.addMenuBarViewObserver(menuBarCtrl);
-		
+				
 		liv.addLogInViewObserver(accountCtrl);
 		suv.addSignUpViewObserver(accountCtrl);
 		aac.addAccountActionViewObserver(accountCtrl);
@@ -84,6 +84,7 @@ public class GUISwing implements GUI {
 		accountCtrl.addAccountObserver(suv);
 		
 		userView.addListUserViewObserver(userCtrl);
+		userCtrl.addUserObserver(userView);
 		
 		twitView.addObserver(twitCtrl);
 		twitView.setDatabase(db);

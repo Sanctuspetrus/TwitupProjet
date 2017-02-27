@@ -19,6 +19,7 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 
 	public TwitupUserControllerImpl(IDatabase database) {
 		this.database = database;
+		this.database.addObserver(this);
 		this.currentUser = null;
 		this.uolist = new ArrayList<UserObserver>();
 		this.followers = new TreeSet<User>();
@@ -249,6 +250,24 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 		currentUser.removeFollowing(u.getUserTag());
 		this.followers = database.getFollowers(currentUser);
 		notifyFollowUser(u);
+	}
+
+	@Override
+	public void actionCloseLogIn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionCloseLogOut() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionCloseSignUp() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

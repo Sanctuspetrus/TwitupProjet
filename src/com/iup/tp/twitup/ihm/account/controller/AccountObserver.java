@@ -10,4 +10,8 @@ public interface AccountObserver {
 	void actionShowLogIn();
 	void actionShowLogOut();
 	void actionShowSignUp();
+	
+	void actionCloseLogIn();
+	void actionCloseLogOut();
+	void actionCloseSignUp();
 }

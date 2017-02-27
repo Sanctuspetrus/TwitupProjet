@@ -136,11 +136,10 @@ public class Twitup {
 		// ACCOUNT
 		TwitupAccountController accountCtrl = new TwitupAccountControllerImpl(mEntityManager, mDatabase);
 		accountCtrl.addAccountObserver(userCtrl);
-		accountCtrl.init();
 		guiSwing.setAccountCtrl(accountCtrl);
 		
 		// TWIT
-		TwitupTwitController twitCtrl = new TwitupTwitControllerImpl(mEntityManager);
+		TwitupTwitController twitCtrl = new TwitupTwitControllerImpl(mDatabase, mEntityManager);
 		userCtrl.addUserObserver(twitCtrl);
 		guiSwing.setTwitCtrl(twitCtrl);
 		guiSwing.setDatabase(mDatabase);

@@ -159,6 +159,24 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void actionCloseLogIn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionCloseLogOut() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionCloseSignUp() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 

@@ -54,15 +54,6 @@ public class TwitupAccountControllerImpl implements TwitupAccountController{
 		return null;		
 	}
 
-	@Override
-	public void init() {
-	}
-
-	@Override
-	public void destroy() {
-
-	}
-
 	public IDatabase getDatabase() {
 		return database;
 	}
@@ -104,6 +95,7 @@ public class TwitupAccountControllerImpl implements TwitupAccountController{
 	public void sendLogIn(User u) {
 		for (AccountObserver ao : aolist) {
 			ao.actionLogIn(u);
+			ao.actionCloseLogIn();
 		}
 	}
 
@@ -111,6 +103,7 @@ public class TwitupAccountControllerImpl implements TwitupAccountController{
 	public void sendLogOut(User u) {
 		for (AccountObserver ao : aolist) {
 			ao.actionLogOut(u);
+			ao.actionCloseLogOut();
 		}
 	}
 
@@ -118,6 +111,7 @@ public class TwitupAccountControllerImpl implements TwitupAccountController{
 	public void sendSignUp(User u) {
 		for (AccountObserver ao : aolist) {
 			ao.actionSignUp(u);
+			ao.actionCloseSignUp();
 		}
 	}
 

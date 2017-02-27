@@ -13,18 +13,6 @@ public class TwitupMenuBarControllerImpl implements TwitupMenuBarController{
 	}
 
 	@Override
-	public void init() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void addMenuBarObserver(MenuBarObserver mbo) {
 		listMBO.add(mbo);
 	}
