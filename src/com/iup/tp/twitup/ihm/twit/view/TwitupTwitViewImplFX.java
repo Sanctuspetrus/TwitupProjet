@@ -2,10 +2,7 @@ package com.iup.tp.twitup.ihm.twit.view;
 import java.util.ArrayList;
 import java.util.Set;
 
-import com.iup.tp.twitup.datamodel.IDatabase;
-import com.iup.tp.twitup.datamodel.IDatabaseObserver;
 import com.iup.tp.twitup.datamodel.Twit;
-import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.ConstanteJavaFX;
 import com.iup.tp.twitup.ihm.user.VignetteTwitFX;
 
@@ -23,7 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 
-public class TwitupTwitViewImplFX extends GridPane implements TwitupTwitView, IDatabaseObserver {
+public class TwitupTwitViewImplFX extends GridPane implements TwitupTwitView {
 
 	Button rechercher;
 	Button twit;
@@ -37,6 +34,7 @@ public class TwitupTwitViewImplFX extends GridPane implements TwitupTwitView, ID
 	Text compteur;
 
 	Set<Twit> listTwit;
+	Set<Twit> listTwitResearch;
 
 	protected ArrayList<TwitViewObserver> listObserver; 
 
@@ -140,12 +138,6 @@ public class TwitupTwitViewImplFX extends GridPane implements TwitupTwitView, ID
 	}
 
 	@Override
-	public void setDatabase(IDatabase db) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void addObserver(TwitViewObserver tvo) {
 		listObserver.add(tvo);
 	}
@@ -175,52 +167,6 @@ public class TwitupTwitViewImplFX extends GridPane implements TwitupTwitView, ID
 		return null;
 	}
 
-	@Override
-	public void notifyTwitAdded(Twit addedTwit) {
-		listTwit.add(addedTwit);
-		reafficherTwit();
-	}
-
-	@Override
-	public void notifyTwitDeleted(Twit deletedTwit) {
-		listTwit.remove(deletedTwit);
-		reafficherTwit();
-	}
-
-	@Override
-	public void notifyTwitModified(Twit modifiedTwit) {
-		for (Twit twit : listTwit) {
-			if(twit.getUuid() == modifiedTwit.getUuid()){
-				listTwit.remove(twit);
-			}
-		}
-		reafficherTwit();
-	}
-
-	@Override
-	public void notifyUserAdded(User addedUser) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void notifyUserDeleted(User deletedUser) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void notifyUserModified(User modifiedUser) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void actionSearchResult(Set<Twit> twits) {
-		// TODO Auto-generated method stub
-
-	}
-
 	private void reafficherTwit(){
 		zoneTwit.getChildren().clear();
 		int i = 0;
@@ -232,6 +178,34 @@ public class TwitupTwitViewImplFX extends GridPane implements TwitupTwitView, ID
 			GridPane.setHgrow(temp, Priority.ALWAYS);
 			i++;
 		}
+	}
+
+	@Override
+	public void actionTwitAdded(Set<Twit> twits, Twit twit) {
+		listTwit.clear();
+		listTwit.addAll(twits);
+		reafficherTwit();
+	}
+
+	@Override
+	public void actionTwitDeleted(Set<Twit> twits, Twit twit) {
+		listTwit.clear();
+		listTwit.addAll(twits);
+		reafficherTwit();
+	}
+
+	@Override
+	public void actionTwitModified(Set<Twit> twits, Twit twit) {
+		listTwit.clear();
+		listTwit.addAll(twits);
+		reafficherTwit();
+	}
+
+	@Override
+	public void actionSearchResult(Set<Twit> twits) {
+		listTwitResearch.clear();
+		listTwitResearch.addAll(twits);
+		reafficherTwit();
 	}
 
 }

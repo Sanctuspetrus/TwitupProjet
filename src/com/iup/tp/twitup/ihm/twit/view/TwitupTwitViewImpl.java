@@ -16,15 +16,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import com.iup.tp.twitup.datamodel.IDatabase;
-import com.iup.tp.twitup.datamodel.IDatabaseObserver;
 import com.iup.tp.twitup.datamodel.Twit;
-import com.iup.tp.twitup.datamodel.User;
 
 @SuppressWarnings("serial")
-public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatabaseObserver{
-
-	IDatabase database;
+public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView {
 	
 	JTextField researchBar;
 	JTextArea zoneRedacTwit;
@@ -69,8 +64,6 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 
 	@Override
 	public void initView() {
-		
-		database.addObserver(this);
 		zoneTwit.setLayout(new BoxLayout(zoneTwit, BoxLayout.Y_AXIS));
 
 		researchButton.addActionListener(new ActionListener() {			
@@ -92,8 +85,6 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 		zoneNorth.add(researchBar);
 		zoneNorth.add(researchButton);
 		this.add(zoneNorth, BorderLayout.NORTH);
-		
-		listTwit = database.getTwits();
 		
 		for (Twit twit : listTwit) {
 			zoneTwit.add( new VignetteTwit(twit.getText(), twit.getTwiter().getAvatarPath()));
@@ -127,37 +118,8 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 	}
 
 	@Override
-	public void notifyTwitAdded(Twit addedTwit) {
-		System.out.println("La vue a reçu un nouveau twit");
-		listTwit.add(addedTwit);
-		reafficherTwits();
-	}
-
-	@Override
-	public void notifyTwitDeleted(Twit deletedTwit) {
-		listTwit.remove(deletedTwit);
-		reafficherTwits();
-	}
-
-	@Override
-	public void notifyTwitModified(Twit modifiedTwit) {}
-
-	@Override
-	public void notifyUserAdded(User addedUser) {}
-
-	@Override
-	public void notifyUserDeleted(User deletedUser) {}
-
-	@Override
-	public void notifyUserModified(User modifiedUser) {}
-
-	@Override
 	public String getTwitSent() {
 		return zoneRedacTwit.getText();
-	}
-	
-	public void setDatabase(IDatabase db){
-		database = db;
 	}
 
 	@Override
@@ -201,4 +163,30 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 		revalidate();
 		repaint();
 	}
+
+	@Override
+	public void actionTwitAdded(Set<Twit> twits, Twit twit) {
+		System.out.println("La vue a reçu un nouveau twit");
+		listTwit.clear();
+		listTwit.addAll(twits);
+		reafficherTwits();
+	}
+
+	@Override
+	public void actionTwitDeleted(Set<Twit> twits, Twit twit) {
+		System.out.println("La vue a suppr twit");
+		listTwit.clear();
+		listTwit.addAll(twits);
+		reafficherTwits();
+	}
+
+	@Override
+	public void actionTwitModified(Set<Twit> twits, Twit twit) {
+		System.out.println("La vue a modif twit");
+		listTwit.clear();
+		listTwit.addAll(twits);
+		reafficherTwits();
+	}
+	
+	
 }

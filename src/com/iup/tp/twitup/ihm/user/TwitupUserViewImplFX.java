@@ -150,4 +150,25 @@ public class TwitupUserViewImplFX extends GridPane implements TwitupUserView {
 		}
 	}
 
+	@Override
+	public void actionUserChange(User u) {}
+
+	@Override
+	public void actionNewFollower(User f) {}
+
+	@Override
+	public void actionLostFollower(User f) {}
+
+	@Override
+	public void actionFollowUser(User f) {}
+
+	@Override
+	public void actionUnfollowUser(User f) {}
+
+	@Override
+	public void actionSearchUser(Set<User> searchResult) {}
+
+	@Override
+	public void actionProfilChange(User u) {}
+
 }

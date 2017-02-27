@@ -4,7 +4,6 @@ import java.util.Set;
 
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.TwitupView;
-import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
 public interface TwitupUserView extends TwitupView, UserObserver {
 	
