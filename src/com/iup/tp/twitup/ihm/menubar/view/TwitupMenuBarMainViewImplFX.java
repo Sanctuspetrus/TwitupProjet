@@ -7,9 +7,9 @@ import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImplFX;
 import com.iup.tp.twitup.ihm.account.view.TwitupSignUpViewImplFX;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitViewImplFX;
+import com.iup.tp.twitup.ihm.user.view.TwitupUserView;
+import com.iup.tp.twitup.ihm.user.view.TwitupUserViewImplFX;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
-import com.iup.tp.twitup.ihm.user.TwitupUserView;
-import com.iup.tp.twitup.ihm.user.TwitupUserViewImplFX;
 
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;

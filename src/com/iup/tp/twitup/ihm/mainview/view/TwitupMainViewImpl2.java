@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInView;
 import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
-import com.iup.tp.twitup.ihm.user.TwitupUserView;
+import com.iup.tp.twitup.ihm.user.view.TwitupUserView;
 
 /**
  * Classe de la vue principale de l'application.

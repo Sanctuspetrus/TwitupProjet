@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.user;
+package com.iup.tp.twitup.ihm.user.view;
 
 import java.awt.Color;
 import javax.swing.BorderFactory;

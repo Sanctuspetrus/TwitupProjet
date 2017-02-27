@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.user;
+package com.iup.tp.twitup.ihm.user.controller;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -7,6 +7,9 @@ import java.util.TreeSet;
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.user.observer.FollowersObserver;
+import com.iup.tp.twitup.ihm.user.observer.ListUserObserver;
+import com.iup.tp.twitup.ihm.user.observer.ProfilObserver;
 
 public class TwitupUserControllerImpl implements TwitupUserController{
 
@@ -15,28 +18,53 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	protected Set<User> followers;
 	protected Set<User> searchResult;
 	protected Set<Twit> userTwit;
-	protected ArrayList<UserObserver> uolist;
+	protected ArrayList<ListUserObserver> listUserObslist;
+	protected ArrayList<FollowersObserver> folObslist;
+	protected ArrayList<ProfilObserver> profilObslist;
 
 	public TwitupUserControllerImpl(IDatabase database) {
 		this.database = database;
 		this.database.addObserver(this);
 		this.currentUser = null;
-		this.uolist = new ArrayList<UserObserver>();
+		this.profilObslist = new ArrayList<ProfilObserver>();
+		this.listUserObslist = new ArrayList<ListUserObserver>();
+		this.folObslist = new ArrayList<FollowersObserver>();
 		this.followers = new TreeSet<User>();
 		this.searchResult = new TreeSet<User>();
 	}
 
 	@Override
-	public void addUserObserver(UserObserver uo) {
-		uolist.add(uo);
+	public void addListUserObserver(ListUserObserver uo) {
+		listUserObslist.add(uo);
 	}
 
 	@Override
-	public void delUserObserver(UserObserver uo) {
-		uolist.remove(uo);
+	public void delListUserObserver(ListUserObserver uo) {
+		listUserObslist.remove(uo);
+	}
+
+	@Override
+	public void addProfilObserver(ProfilObserver po) {
+		profilObslist.add(po);
+	}
+
+	@Override
+	public void delProfilObserver(ProfilObserver po) {
+		profilObslist.remove(po);
+	}
+
+	@Override
+	public void addFollowersObserver(FollowersObserver fo) {
+		folObslist.add(fo);
+	}
+
+	@Override
+	public void delFollowersObserver(FollowersObserver fo) {
+		folObslist.remove(fo);
 	}
 
 
+	
 	public User getCurrentUser() {
 		return currentUser;
 	}
@@ -137,49 +165,49 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 
 	@Override
 	public void notifyUserChange(User u) {
-		for (UserObserver uo : uolist) {
-			uo.actionUserChange(u);
+		for (ProfilObserver po : profilObslist) {
+			po.actionUserChange(u);
 		}
 	}
 	
 	@Override
 	public void notifyProfilChange(User u) {
-		for (UserObserver uo : uolist) {
-			uo.actionProfilChange(u);
+		for (ProfilObserver po : profilObslist) {
+			po.actionProfilChange(u);
 		}
 	}
 		
 	@Override
 	public void notifyNewFollower(User u) {
-		for (UserObserver uo : uolist) {
-			uo.actionNewFollower(u);
+		for (FollowersObserver fo : folObslist) {
+			fo.actionNewFollower(u);
 		}
 	}
 
 	@Override
 	public void notifyLostFollower(User u) {
-		for (UserObserver uo : uolist) {
-			uo.actionLostFollower(u);
+		for (FollowersObserver fo : folObslist) {
+			fo.actionLostFollower(u);
 		}
 	}
 
 	@Override
 	public void notifyFollowUser(User u) {
-		for (UserObserver uo : uolist) {
+		for (ListUserObserver uo : listUserObslist) {
 			uo.actionFollowUser(u);
 		}
 	}
 
 	@Override
 	public void notifyUnfollowUser(User u) {
-		for (UserObserver uo : uolist) {
-			uo.actionUnfollowUser(u);
+		for (FollowersObserver fo : folObslist) {
+			fo.actionUnfollowUser(u);
 		}
 	}
 
 	@Override
 	public void notifySearchResult(Set<User> users) {
-		for (UserObserver uo : uolist) {
+		for (ListUserObserver uo : listUserObslist) {
 			uo.actionSearchUser(users);
 		}
 	}
@@ -268,6 +296,5 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 		// TODO Auto-generated method stub
 		
 	}
-
 
 }

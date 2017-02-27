@@ -62,36 +62,6 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 	}
 
 	@Override
-	public void actionNewFollower(User f) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void actionLostFollower(User f) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void actionFollowUser(User f) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void actionUnfollowUser(User f) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void actionSearchUser(Set<User> searchResult) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void actionProfilChange(User u) {
 		// TODO Auto-generated method stub
 

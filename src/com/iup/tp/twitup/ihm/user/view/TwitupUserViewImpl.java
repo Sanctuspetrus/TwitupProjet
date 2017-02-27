@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.user;
+package com.iup.tp.twitup.ihm.user.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.user.observer.ListUserViewObserver;
 
 @SuppressWarnings("serial")
 public class TwitupUserViewImpl extends JPanel implements TwitupUserView {

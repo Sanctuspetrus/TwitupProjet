@@ -35,8 +35,9 @@ public class TwitupAccountControllerImpl implements TwitupAccountController{
 
 	public User findUserByTag(String tag){
 		for (User user : database.getUsers()) {
-			if(user.getUserTag().equals(tag));
-			return user;
+			if(user.getUserTag().contentEquals(tag)){				
+				return user;
+			}
 		}
 		return null;
 	}
@@ -156,6 +157,7 @@ public class TwitupAccountControllerImpl implements TwitupAccountController{
 		setUser(null);
 		StringBuilder msg = new StringBuilder();
 		msg.append("Déconnecté");
+		System.out.println(msg);
 	}
 
 	@Override

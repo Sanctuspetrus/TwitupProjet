@@ -154,6 +154,8 @@ public class TwitupSignUpViewImpl extends JPanel implements TwitupSignUpView{
 	@Override
 	public void show() {
 		this.setVisible(true);
+		this.revalidate();
+		this.repaint();
 	}
 
 

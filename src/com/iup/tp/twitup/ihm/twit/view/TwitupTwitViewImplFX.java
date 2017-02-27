@@ -4,7 +4,7 @@ import java.util.Set;
 
 import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.ihm.ConstanteJavaFX;
-import com.iup.tp.twitup.ihm.user.VignetteTwitFX;
+import com.iup.tp.twitup.ihm.user.view.VignetteTwitFX;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

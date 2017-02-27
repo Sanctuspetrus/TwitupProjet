@@ -6,9 +6,10 @@ import com.iup.tp.twitup.datamodel.IDatabaseObserver;
 import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.ihm.TwitupController;
 import com.iup.tp.twitup.ihm.twit.view.TwitViewObserver;
-import com.iup.tp.twitup.ihm.user.UserObserver;
+import com.iup.tp.twitup.ihm.user.observer.ListUserObserver;
+import com.iup.tp.twitup.ihm.user.observer.ProfilObserver;
 
-public interface TwitupTwitController extends TwitupController, UserObserver, TwitViewObserver, IDatabaseObserver{
+public interface TwitupTwitController extends TwitupController, ProfilObserver, TwitViewObserver, IDatabaseObserver{
 	void notifySearchResult(Set<Twit> twits);
 	void notifyTwitAdded(Set<Twit> twits, Twit twit);
 	void notifyTwitDeleted(Set<Twit> twits, Twit twit);

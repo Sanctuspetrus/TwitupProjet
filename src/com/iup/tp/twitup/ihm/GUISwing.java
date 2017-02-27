@@ -22,9 +22,9 @@ import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarViewImpl;
 import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitController;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitViewImpl;
-import com.iup.tp.twitup.ihm.user.TwitupUserController;
-import com.iup.tp.twitup.ihm.user.TwitupUserView;
-import com.iup.tp.twitup.ihm.user.TwitupUserViewImpl;
+import com.iup.tp.twitup.ihm.user.controller.TwitupUserController;
+import com.iup.tp.twitup.ihm.user.view.TwitupUserView;
+import com.iup.tp.twitup.ihm.user.view.TwitupUserViewImpl;
 
 public class GUISwing implements GUI, AccountObserver {
 
@@ -103,10 +103,9 @@ public class GUISwing implements GUI, AccountObserver {
 		accountCtrl.addAccountObserver(suv);
 		
 		userView.addListUserViewObserver(userCtrl);
-		userCtrl.addUserObserver(userView);
+		userCtrl.addListUserObserver(userView);
 		
 		twitView.addObserver(twitCtrl);
-		twitView.setDatabase(db);
 
 		menuBar.initView();
 		liv.initView();
@@ -199,14 +198,14 @@ public class GUISwing implements GUI, AccountObserver {
 
 	@Override
 	public void actionShowLogOut() {
-		// TODO Auto-generated method stub
-		
+		accountCtrl.actionLogOutAttempt();
 	}
 
 	@Override
 	public void actionShowSignUp() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Log In");
+		mainFrame.setContentPane((Container)suv);
+		suv.show();
 	}
 
 	@Override
@@ -217,13 +216,13 @@ public class GUISwing implements GUI, AccountObserver {
 
 	@Override
 	public void actionCloseLogOut() {
-		// TODO Auto-generated method stub
-		
+		mainFrame.setContentPane((TwitupMainViewImpl2)mainView);
+		mainView.show();
 	}
 
 	@Override
 	public void actionCloseSignUp() {
-		// TODO Auto-generated method stub
-		
+		mainFrame.setContentPane((TwitupMainViewImpl2)mainView);
+		mainView.show();
 	}
 }

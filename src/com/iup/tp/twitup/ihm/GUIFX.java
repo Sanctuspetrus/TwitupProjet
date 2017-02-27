@@ -13,9 +13,9 @@ import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarMainViewImplFX;
 import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitController;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitViewImplFX;
-import com.iup.tp.twitup.ihm.user.TwitupUserController;
-import com.iup.tp.twitup.ihm.user.TwitupUserView;
-import com.iup.tp.twitup.ihm.user.TwitupUserViewImplFX;
+import com.iup.tp.twitup.ihm.user.controller.TwitupUserController;
+import com.iup.tp.twitup.ihm.user.view.TwitupUserView;
+import com.iup.tp.twitup.ihm.user.view.TwitupUserViewImplFX;
 
 import javafx.application.Application;
 

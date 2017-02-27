@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.user;
+package com.iup.tp.twitup.ihm.user.view;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,19 +9,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
-public class VignetteTwitFX extends GridPane {
+public class VignetteAbonnesFX extends GridPane{
 
 	ImageView avatar;
-	Button abonnement = new Button("abo");
+	String pathImage;
+	Button abonnement;
 	Label nomLabel;
-	Text text;
 	Rectangle rectangle = new Rectangle();
 	
-	public VignetteTwitFX(String nom, String pathImage, String text){
+	public VignetteAbonnesFX(String nom, String pathImage, Button b){
 		
-		this.text = new Text(text);
+		abonnement = b;
+		
 		nomLabel = new Label(nom);
 		nomLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		avatar = new ImageView(new Image (pathImage));
@@ -31,8 +31,8 @@ public class VignetteTwitFX extends GridPane {
 		
         rectangle.setX(400);
         rectangle.setY(400);
-        rectangle.setWidth(450);
-        rectangle.setHeight(110);
+        rectangle.setWidth(225);
+        rectangle.setHeight(65);
         rectangle.setFill(Color.WHITE);
         rectangle.setStroke(Color.BLACK);
         rectangle.setStrokeWidth(2);
@@ -42,12 +42,11 @@ public class VignetteTwitFX extends GridPane {
 		this.setAlignment(Pos.CENTER);
 		this.setHgap(20);
         
-		this.add(rectangle, 0, 0, 3, 3);
-		this.add(avatar, 1, 1, 1, 2);
-		this.add(abonnement, 1, 3);
+		this.add(rectangle, 0, 0, 3, 2);
+		
+		this.add(avatar, 1, 0, 1, 2);
 		this.add(nomLabel, 2, 0);
-		this.add(this.text, 2, 1);
-
+		this.add(abonnement, 2, 1);
 		
 	}
 }

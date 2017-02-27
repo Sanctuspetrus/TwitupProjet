@@ -26,8 +26,8 @@ import com.iup.tp.twitup.ihm.menubar.controller.TwitupMenuBarControllerImpl;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;
 import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitController;
 import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitControllerImpl;
-import com.iup.tp.twitup.ihm.user.TwitupUserController;
-import com.iup.tp.twitup.ihm.user.TwitupUserControllerImpl;
+import com.iup.tp.twitup.ihm.user.controller.TwitupUserController;
+import com.iup.tp.twitup.ihm.user.controller.TwitupUserControllerImpl;
 
 /**
  * Classe principale l'application.
@@ -139,7 +139,7 @@ public class Twitup {
 		
 		// TWIT
 		TwitupTwitController twitCtrl = new TwitupTwitControllerImpl(mDatabase, mEntityManager);
-		userCtrl.addUserObserver(twitCtrl);
+		userCtrl.addProfilObserver(twitCtrl);
 		guiSwing.setTwitCtrl(twitCtrl);
 		guiSwing.setDatabase(mDatabase);
 		

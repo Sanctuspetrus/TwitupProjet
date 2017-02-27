@@ -8,8 +8,8 @@ import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
 import com.iup.tp.twitup.ihm.menubar.controller.TwitupMenuBarController;
 import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitController;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
-import com.iup.tp.twitup.ihm.user.TwitupUserController;
-import com.iup.tp.twitup.ihm.user.TwitupUserView;
+import com.iup.tp.twitup.ihm.user.controller.TwitupUserController;
+import com.iup.tp.twitup.ihm.user.view.TwitupUserView;
 
 public interface GUI {
 	void launch();

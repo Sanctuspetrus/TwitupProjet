@@ -1,4 +1,4 @@
-package com.iup.tp.twitup.ihm.user;
+package com.iup.tp.twitup.ihm.user.observer;
 
 import com.iup.tp.twitup.datamodel.User;
 
