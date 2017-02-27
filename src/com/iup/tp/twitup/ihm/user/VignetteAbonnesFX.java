@@ -14,11 +14,13 @@ public class VignetteAbonnesFX extends GridPane{
 
 	ImageView avatar;
 	String pathImage;
-	Button abonnement = new Button("s'abonner");
+	Button abonnement;
 	Label nomLabel;
 	Rectangle rectangle = new Rectangle();
 	
-	public VignetteAbonnesFX(String nom, String pathImage){
+	public VignetteAbonnesFX(String nom, String pathImage, Button b){
+		
+		abonnement = b;
 		
 		nomLabel = new Label(nom);
 		nomLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));

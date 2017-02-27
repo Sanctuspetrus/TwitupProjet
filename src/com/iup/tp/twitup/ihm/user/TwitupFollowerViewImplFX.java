@@ -16,58 +16,58 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
-public class TwitupUserViewImplFX extends GridPane implements TwitupUserView {
-
+public class TwitupFollowerViewImplFX extends GridPane implements TwitupFollowerView {
+	
 	Button rechercher;
 
 	TextField textField;
-
+	
 	ScrollPane scroll;
 	GridPane scrollPane;
-
+	
 	Set<User> listUserAbo;
 	Set<User> listUserResearch;
-
+	
 	List<VignetteAbonnesFX> listVignettes = new ArrayList<VignetteAbonnesFX>();
-
+	
 	ArrayList<ListUserViewObserver> obs = new ArrayList<ListUserViewObserver>();
 
-	public TwitupUserViewImplFX(){}
-
+	public TwitupFollowerViewImplFX(){}
+	
 	private void setScrollPane(){
 
 	}
 
 	@Override
 	public void initView() {
-
+		
 		rechercher = new Button("RECHERCHER");
 		textField = new TextField("rechercher");
 		scrollPane = new GridPane();
-
+		
 		scroll = new ScrollPane();
-
+		
 		rechercher.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				notifySearchUser(rechercher.getText());
 			}
 		});
-
+		
 		this.setAlignment(Pos.TOP_CENTER);
 		this.setPadding(new Insets(25, 25, 25, 25));
 		this.setHgap(10);
 		this.setVgap(10);
-
+		
 		scroll.setFitToHeight(true);
 		scroll.setContent(scrollPane);
 		GridPane.setVgrow(scroll, Priority.ALWAYS);
-
+		
 		this.add(textField, 0, 0);
 		this.add(rechercher, 1, 0);
 		this.add(scroll, 0, 1, 2, 1);
 		this.setStyle(ConstanteJavaFX.COULEURPRINCIPALE);
-
+		
 		setScrollPane();
 	}
 
@@ -79,13 +79,13 @@ public class TwitupUserViewImplFX extends GridPane implements TwitupUserView {
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class TwitupUserViewImplFX extends GridPane implements TwitupUserView {
 		listUserAbo = listUser;
 		scrollPane.getChildren().clear();
 		listUserAbo.clear();
-
+		
 		int i = 0;
 		for (User user : listUserAbo) {
 			Button b = new Button();
@@ -106,7 +106,7 @@ public class TwitupUserViewImplFX extends GridPane implements TwitupUserView {
 			});
 			VignetteAbonnesFX vignetteTemp = new VignetteAbonnesFX(user.getName(), user.getAvatarPath(), b);
 			listVignettes.add(vignetteTemp);
-
+			
 			scrollPane.add(listVignettes.get(i), 0, i);
 			scrollPane.setVgap(10);
 			scrollPane.setPadding(new Insets(5, 5, 5, 5));
@@ -120,20 +120,12 @@ public class TwitupUserViewImplFX extends GridPane implements TwitupUserView {
 		listUserResearch = listUser;
 		scrollPane.getChildren().clear();
 		listUserResearch.clear();
-
+		
 		int i = 0;
 		for (User user : listUserResearch) {
-			Button b = new Button();
-			b.setOnAction(new EventHandler<ActionEvent>(){
-				@Override
-				public void handle(ActionEvent event) {
-					System.out.println("répertoire d'échange");
-					notifyFollowUser(user);
-				}
-			});
-			VignetteAbonnesFX vignetteTemp = new VignetteAbonnesFX(user.getName(), user.getAvatarPath(), b);
+			VignetteAbonnesFX vignetteTemp = new VignetteAbonnesFX(user.getName(), user.getAvatarPath());
 			listVignettes.add(vignetteTemp);
-
+			
 			scrollPane.add(listVignettes.get(i), 0, i);
 			scrollPane.setVgap(10);
 			scrollPane.setPadding(new Insets(5, 5, 5, 5));
@@ -186,13 +178,5 @@ public class TwitupUserViewImplFX extends GridPane implements TwitupUserView {
 
 	@Override
 	public void actionProfilChange(User u) {}
-
-	@Override
-	public void notifyFollowUser(User u) {
-		for (ListUserViewObserver userObser : obs) {
-			userObser.actionFollowUser(u);
-		}
-
-	}
 
 }
