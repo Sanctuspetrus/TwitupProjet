@@ -17,7 +17,6 @@ import com.iup.tp.twitup.ihm.GUISwing;
 import com.iup.tp.twitup.ihm.TwitupMock;
 import com.iup.tp.twitup.ihm.account.controller.TwitupAccountController;
 import com.iup.tp.twitup.ihm.account.controller.TwitupAccountControllerImpl;
-import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 import com.iup.tp.twitup.ihm.mainview.controller.TwitupMainViewController;
 import com.iup.tp.twitup.ihm.mainview.controller.TwitupMainViewControllerImpl;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
@@ -143,7 +142,7 @@ public class Twitup {
 		guiSwing.setTwitCtrl(twitCtrl);
 		guiSwing.setDatabase(mDatabase);
 		
-		guiFX = GUIFX.getInstance();
+		//guiFX = GUIFX.getInstance();
 		
 		
 		
@@ -151,8 +150,8 @@ public class Twitup {
 		
 
 		
-		guiFX.setTwitCtrl(twitCtrl);
-		guiFX.setDatabase(mDatabase);
+		/*guiFX.setTwitCtrl(twitCtrl);
+		guiFX.setDatabase(mDatabase);*/
 	}
 
 	/**

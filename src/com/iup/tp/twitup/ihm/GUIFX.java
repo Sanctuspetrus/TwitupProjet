@@ -1,6 +1,7 @@
 package com.iup.tp.twitup.ihm;
 
 import com.iup.tp.twitup.datamodel.IDatabase;
+import com.iup.tp.twitup.ihm.account.controller.TwitupAccountController;
 import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImplFX;
@@ -137,6 +138,12 @@ public class GUIFX implements GUI{
 	@Override
 	public void setDatabase(IDatabase db) {
 		this.db = db;
+	}
+
+	@Override
+	public void setAccountCtrl(TwitupAccountController tac) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

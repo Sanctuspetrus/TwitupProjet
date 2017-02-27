@@ -1,8 +1,5 @@
 package com.iup.tp.twitup.ihm;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.ihm.account.controller.TwitupAccountController;
 import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
@@ -11,7 +8,6 @@ import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImpl;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogOutView;
 import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
 import com.iup.tp.twitup.ihm.account.view.TwitupSignUpViewImpl;
-import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainViewImpl2;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;

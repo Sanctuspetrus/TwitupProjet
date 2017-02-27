@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 public class TwitupMenuBarControllerImpl implements TwitupMenuBarController{
 
-	protected ArrayList<MenuBarObserver> listMBO;
+	protected ArrayList<MenuBarObserver> listMBO = new ArrayList<MenuBarObserver>();
 
 	public TwitupMenuBarControllerImpl(){
 	}

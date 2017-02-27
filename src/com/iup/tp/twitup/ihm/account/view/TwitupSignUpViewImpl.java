@@ -25,8 +25,6 @@ public class TwitupSignUpViewImpl extends JPanel implements TwitupSignUpView{
 	protected JTextField nomSignUpField;
 	protected JPasswordField pwdSignUpField;
 	protected JTextField pathAvatar;
-	int compteurValue = 150;
-	Text compteur = new Text(String.valueOf(150));
 	protected ArrayList<SignUpViewObserver> obs = new ArrayList<SignUpViewObserver>();
 	
 	protected JButton signUp;

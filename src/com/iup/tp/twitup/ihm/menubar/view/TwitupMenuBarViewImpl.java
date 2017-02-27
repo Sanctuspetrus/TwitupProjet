@@ -3,6 +3,8 @@ package com.iup.tp.twitup.ihm.menubar.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -11,8 +13,6 @@ import javax.swing.JMenuItem;
 
 import com.iup.tp.twitup.ihm.account.AccountActionViewObserver;
 import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
-import com.iup.tp.twitup.ihm.event.TwitupWatchable;
-import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
 public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountActionView {
 
@@ -29,6 +29,9 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 	protected JMenuItem signIn;
 	protected JMenuItem signOut;
 
+	protected ArrayList<AccountActionViewObserver> obs = new ArrayList<AccountActionViewObserver>();
+	protected ArrayList<MenuBarViewObserver> obsMenuBar = new ArrayList<MenuBarViewObserver>();
+
 	public TwitupMenuBarViewImpl(JFrame f) {
 		// Composants graphiques
 		menuBar = new JMenuBar();
@@ -42,14 +45,7 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 		signUp = new JMenuItem("Créer un compte");
 		signIn = new JMenuItem("Connexion");
 		signOut = new JMenuItem("Déconnexion");
-		
-		// Watchers
-		closeWatcher = new TwitupWatchable();
-		aboutWatcher = new TwitupWatchable();
-		modifyExchangeFolderWatcher = new TwitupWatchable();
-		signUpWatcher = new TwitupWatchable();
-		signInWatcher = new TwitupWatchable();
-		signOutWatcher = new TwitupWatchable();
+
 	}
 
 	@Override
@@ -62,7 +58,7 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 		shareFolder.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				modifyExchangeFolderWatcher.sendEvent();
+				notifyModifyExchangeFolderButton();
 			}
 		});
 		files.add(shareFolder);
@@ -73,14 +69,14 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				closeWatcher.sendEvent();
+				notifyCloseButton();
 			}
 		});
 		files.add(close);
 
 		menuBar.add(files);
-		
-		
+
+
 		// Menu Compte
 		account.setMnemonic(KeyEvent.VK_C);
 		// Bouton créer un compte
@@ -89,7 +85,7 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 		signUp.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				signUpWatcher.sendEvent();
+				sendSignUpButton();
 			}
 		});
 		account.add(signUp);
@@ -99,7 +95,7 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 		signIn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				signInWatcher.sendEvent();
+				sendLogInButton();
 			}
 		});
 		account.add(signIn);
@@ -109,13 +105,13 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 		signOut.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				signOutWatcher.sendEvent();
+				sendLogOutButton();
 			}
 		});
 		account.add(signOut);
-			
+
 		menuBar.add(account);
-		
+
 
 		// Build second menu in the menu bar.
 		help.setMnemonic(KeyEvent.VK_COMMA);
@@ -126,13 +122,13 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 		about.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				aboutWatcher.sendEvent();
+				notifyAboutButton();
 			}
 		});
 		help.add(about);
 
 		menuBar.add(help);
-		
+
 		frame.setJMenuBar(menuBar);
 	}
 
@@ -140,85 +136,80 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 		// TODO
 		menuBar.removeAll();
 	}
-	
+
 
 	@Override
 	public void initView() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void addAccountActionViewObserver(AccountActionViewObserver aavo) {
-		// TODO Auto-generated method stub
-		
+		obs.add(aavo);
 	}
 
 	@Override
 	public void delAccountActionViewObserver(AccountActionViewObserver aavo) {
-		// TODO Auto-generated method stub
-		
+		obs.remove(aavo);
 	}
 
 	@Override
 	public void sendLogInButton() {
-		// TODO Auto-generated method stub
-		
+		for (AccountActionViewObserver accountActionViewObserver : obs) {
+			accountActionViewObserver.actionLogInButton();
+		}
 	}
 
 	@Override
 	public void sendLogOutButton() {
-		// TODO Auto-generated method stub
-		
+		for (AccountActionViewObserver accountActionViewObserver : obs) {
+			accountActionViewObserver.actionLogOutButton();
+		}
 	}
 
 	@Override
 	public void sendSignUpButton() {
-		// TODO Auto-generated method stub
-		
+		for (AccountActionViewObserver accountActionViewObserver : obs) {
+			accountActionViewObserver.actionSignUpButton();
+		}
 	}
 
 	@Override
-	public void addActionClose(TwitupWatcher tw) {
-		// TODO Auto-generated method stub
-		
+	public void addMenuBarViewObserver(MenuBarViewObserver aavo) {
+		obsMenuBar.add(aavo);
 	}
 
 	@Override
-	public void delActionClose(TwitupWatcher tw) {
-		// TODO Auto-generated method stub
-		
+	public void delMenuBarViewObserver(MenuBarViewObserver aavo) {
+		obsMenuBar.remove(aavo);
 	}
 
 	@Override
-	public void addActionAbout(TwitupWatcher tw) {
-		// TODO Auto-generated method stub
-		
+	public void notifyCloseButton() {
+		for (MenuBarViewObserver menuObserver : obsMenuBar) {
+			menuObserver.actionCloseButton();
+		}
 	}
 
 	@Override
-	public void delActionAbout(TwitupWatcher tw) {
-		// TODO Auto-generated method stub
-		
+	public void notifyAboutButton() {
+		for (MenuBarViewObserver menuObserver : obsMenuBar) {
+			menuObserver.actionAboutButton();
+		}
 	}
 
 	@Override
-	public void addActionModifyExchangeFolder(TwitupWatcher tw) {
-		// TODO Auto-generated method stub
-		
+	public void notifyModifyExchangeFolderButton() {
+		for (MenuBarViewObserver menuObserver : obsMenuBar) {
+			menuObserver.actionModifyExchangeFolderButton();
+		}
 	}
-
-	@Override
-	public void delActionModifyExchangeFolder(TwitupWatcher tw) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 }
