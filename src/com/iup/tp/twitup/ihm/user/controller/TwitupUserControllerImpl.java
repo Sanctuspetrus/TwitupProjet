@@ -128,6 +128,14 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	public void notifyUserModified(User modifiedUser) {
 		System.out.println("Modified user : ");
 		printUser(modifiedUser);
+		
+		if(currentUser != null){
+			for (String tag : modifiedUser.getFollows()) {
+				if(database.getFollowersCount(currentUser) != this.f) {
+
+				}
+			}			
+		}
 	}
 
 

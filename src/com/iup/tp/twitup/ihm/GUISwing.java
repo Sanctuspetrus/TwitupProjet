@@ -75,7 +75,7 @@ public class GUISwing implements GUI, AccountObserver {
 	@Override
 	public void launch() {
 		
-		mainFrame.setSize(500,300);
+		mainFrame.setSize(500,500);
 		mainFrame.setLocation(0, 0);
 		mainView.init(userView, twitView);
 		
@@ -106,6 +106,7 @@ public class GUISwing implements GUI, AccountObserver {
 		userCtrl.addListUserObserver(userView);
 		
 		twitView.addObserver(twitCtrl);
+		twitCtrl.addTwitObserver(twitView);
 
 		menuBar.initView();
 		liv.initView();

@@ -20,6 +20,7 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 	public TwitupTwitControllerImpl(IDatabase db, EntityManager em){
 		this.em = em;
 		this.database = db;
+		db.addObserver(this);
 		user = null;
 		listTwitObs = new ArrayList<TwitObserver>();
 	}
@@ -67,7 +68,16 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 
 	}
 
-
+	@Override
+	public void addTwitObserver(TwitObserver to){
+		listTwitObs.add(to);
+	}
+	
+	@Override
+	public void delTwitObserver(TwitObserver to){
+		listTwitObs.remove(to);
+	}
+	
 	@Override
 	public void notifySearchResult(Set<Twit> twits) {
 		for (TwitObserver twitObs : listTwitObs) {
@@ -76,7 +86,8 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 	}
 
 	@Override
-	public void notifyTwitAdded(Set<Twit> twits, Twit twit) {
+	public void notifyNewTwit(Set<Twit> twits, Twit twit) {
+		System.out.println("Observateurs des twits notifier");
 		for (TwitObserver twitObs : listTwitObs) {
 			twitObs.actionTwitAdded(twits, twit);
 		}
@@ -99,12 +110,12 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 	// OBS DATABASE
 	@Override
 	public void notifyTwitAdded(Twit addedTwit) {
-		notifyTwitAdded(database.getTwits(), addedTwit);
+		notifyNewTwit(database.getTwits(), addedTwit);
 	}
 
 	@Override
 	public void notifyTwitDeleted(Twit deletedTwit) {
-		notifyTwitAdded(database.getTwits(), deletedTwit);
+		notifyNewTwit(database.getTwits(), deletedTwit);
 	}
 
 	@Override
