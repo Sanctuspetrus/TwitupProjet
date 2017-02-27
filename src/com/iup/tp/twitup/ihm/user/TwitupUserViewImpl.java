@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -29,9 +30,7 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	JPanel zoneAbonnes;
 	JScrollPane scroll;
 	
-	TwitupWatchable supprWatchable;
-	TwitupWatchable researchWatchable;
-	TwitupWatchable addAboWatchable;
+	ArrayList<ListUserViewObserver> obs = new ArrayList<ListUserViewObserver>();
 	
 	JPanel north;
 	
@@ -41,9 +40,6 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 		
 		researchBar = new JTextField("rechercher");
 		researchButton = new JButton("RECHERCHER");
-		
-		supprWatchable = new TwitupWatchable();
-		researchWatchable = new TwitupWatchable();
 		
 		zoneAbonnes = new JPanel();
 		scroll = new JScrollPane(zoneAbonnes);
@@ -63,6 +59,14 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 		
 		north.add(researchBar);
 		north.add(researchButton);
+		
+		researchButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				notifySearchUser(researchBar.getText());
+			}
+		});
 		
 		this.add(north, BorderLayout.NORTH);
 		
@@ -138,57 +142,27 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	}
 
 	@Override
-	public void addActionResearch(TwitupWatcher tw) {
-		researchWatchable.addWatcher(tw);
-	}
-
-	@Override
-	public void delActionResearch(TwitupWatcher tw) {
-		researchWatchable.delWatcher(tw);
-	}
-
-	@Override
-	public void addActionSuppr(TwitupWatcher tw) {
-		supprWatchable.addWatcher(tw);
-	}
-
-	@Override
-	public void delActionSuppr(TwitupWatcher tw) {
-		supprWatchable.delWatcher(tw);
-	}
-
-	@Override
-	public void addActionAddAbo(TwitupWatcher tw) {
-		addAboWatchable.addWatcher(tw);
-	}
-
-	@Override
-	public void delActionAddAbo(TwitupWatcher tw) {
-		addAboWatchable.delWatcher(tw);
-	}
-
-	@Override
 	public void addListUserViewObserver(ListUserViewObserver luvo) {
-		// TODO Auto-generated method stub
-		
+		obs.add(luvo);
 	}
 
 	@Override
 	public void delListUserViewObserver(ListUserViewObserver luvo) {
-		// TODO Auto-generated method stub
-		
+		obs.remove(luvo);
 	}
 
 	@Override
 	public void notifySearchUser(String str) {
-		// TODO Auto-generated method stub
-		
+		for (ListUserViewObserver userObser : obs) {
+			userObser.actionSearchUser(str);
+		}
 	}
 
 	@Override
 	public void notifySelectUser(User u) {
-		// TODO Auto-generated method stub
-		
+		for (ListUserViewObserver userObser : obs) {
+			userObser.actionSelectUser(u);
+		}
 	}
 
 }

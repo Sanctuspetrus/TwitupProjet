@@ -5,9 +5,9 @@ import java.util.Set;
 
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.ConstanteJavaFX;
-import com.iup.tp.twitup.ihm.event.TwitupWatchable;
-import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -30,9 +30,7 @@ public class TwitupUserViewImplFX extends GridPane implements TwitupUserView {
 	
 	List<VignetteAbonnesFX> listVignettes = new ArrayList<VignetteAbonnesFX>();
 	
-	TwitupWatchable supprWatchable = new TwitupWatchable();
-	TwitupWatchable researchWatchable = new TwitupWatchable();
-	TwitupWatchable aboWatchable = new TwitupWatchable();
+	ArrayList<ListUserViewObserver> obs = new ArrayList<ListUserViewObserver>();
 
 	public TwitupUserViewImplFX(){}
 	
@@ -42,6 +40,14 @@ public class TwitupUserViewImplFX extends GridPane implements TwitupUserView {
 
 	@Override
 	public void initView() {
+		
+		rechercher.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				notifySearchUser(rechercher.getText());
+			}
+		});
+		
 		this.setAlignment(Pos.TOP_CENTER);
 		this.setPadding(new Insets(25, 25, 25, 25));
 		this.setHgap(10);
@@ -74,37 +80,6 @@ public class TwitupUserViewImplFX extends GridPane implements TwitupUserView {
 	public void destroy() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void addActionResearch(TwitupWatcher tw) {
-		researchWatchable.addWatcher(tw);
-	}
-
-	@Override
-	public void delActionResearch(TwitupWatcher tw) {
-		researchWatchable.delWatcher(tw);
-	}
-
-	@Override
-	public void addActionSuppr(TwitupWatcher tw) {
-		supprWatchable.addWatcher(tw);
-	}
-
-	@Override
-	public void delActionSuppr(TwitupWatcher tw) {
-		supprWatchable.delWatcher(tw);
-	}
-
-	@Override
-	public void addActionAddAbo(TwitupWatcher tw) {
-		aboWatchable.addWatcher(tw);
-		
-	}
-
-	@Override
-	public void delActionAddAbo(TwitupWatcher tw) {
-		aboWatchable.delWatcher(tw);
 	}
 
 	@Override
@@ -142,6 +117,30 @@ public class TwitupUserViewImplFX extends GridPane implements TwitupUserView {
 			scrollPane.setPadding(new Insets(5, 5, 5, 5));
 			GridPane.setHgrow(listVignettes.get(i), Priority.ALWAYS);
 			i++;
+		}
+	}
+
+	@Override
+	public void addListUserViewObserver(ListUserViewObserver luvo) {
+		obs.add(luvo);
+	}
+
+	@Override
+	public void delListUserViewObserver(ListUserViewObserver luvo) {
+		obs.remove(luvo);
+	}
+
+	@Override
+	public void notifySearchUser(String str) {
+		for (ListUserViewObserver userObser : obs) {
+			userObser.actionSearchUser(str);
+		}
+	}
+
+	@Override
+	public void notifySelectUser(User u) {
+		for (ListUserViewObserver userObser : obs) {
+			userObser.actionSelectUser(u);
 		}
 	}
 

@@ -8,15 +8,6 @@ import com.iup.tp.twitup.ihm.event.TwitupWatcher;
 
 public interface TwitupUserView extends TwitupView {
 	
-	void addActionResearch(TwitupWatcher tw);
-	void delActionResearch(TwitupWatcher tw);
-	
-	void addActionSuppr(TwitupWatcher tw);
-	void delActionSuppr(TwitupWatcher tw);
-	
-	void addActionAddAbo(TwitupWatcher tw);
-	void delActionAddAbo(TwitupWatcher tw);
-	
 	public void addListUserViewObserver(ListUserViewObserver luvo);
 	public void delListUserViewObserver(ListUserViewObserver luvo);
 	

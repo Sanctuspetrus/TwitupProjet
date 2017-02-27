@@ -145,16 +145,19 @@ public class Twitup {
 		guiSwing.setTwitCtrl(twitCtrl);
 		guiSwing.setDatabase(mDatabase);
 		
-		//guiFX = GUIFX.getInstance();
-		
+		guiFX = GUIFX.getInstance();
+		guiFX.setAccountCtrl(accountCtrl);
+		guiFX.setMenuBarCtrl(menuBarCtrl);
+		guiFX.setUserCtrl(userCtrl);
+		guiFX.setTwitCtrl(twitCtrl);
 		
 		
 		
 		
 
 		
-		/*guiFX.setTwitCtrl(twitCtrl);
-		guiFX.setDatabase(mDatabase);*/
+		guiFX.setTwitCtrl(twitCtrl);
+		guiFX.setDatabase(mDatabase);
 	}
 
 	/**
