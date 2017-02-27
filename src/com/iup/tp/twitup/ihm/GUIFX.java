@@ -11,6 +11,7 @@ import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
 import com.iup.tp.twitup.ihm.menubar.controller.MenuBarObserver;
 import com.iup.tp.twitup.ihm.menubar.controller.TwitupMenuBarController;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarMainViewImplFX;
+import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarViewImpl;
 import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitController;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitViewImplFX;
