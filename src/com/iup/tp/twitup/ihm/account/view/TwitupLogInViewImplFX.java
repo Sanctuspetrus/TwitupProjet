@@ -85,7 +85,6 @@ public class TwitupLogInViewImplFX extends GridPane implements TwitupLogInView {
 					actiontarget.setFill(Color.FIREBRICK);
 					actiontarget.setText("Veuillez rentrer tous les champs");
 				}else{
-					actiontarget.setText("");
 					sendLogInAttempt();
 				}
 			}
@@ -136,8 +135,13 @@ public class TwitupLogInViewImplFX extends GridPane implements TwitupLogInView {
 		this.show();
 	}
 
+	//on efface les infos du panel si l'utilisateur arrive à se connecter
 	@Override
-	public void actionLogIn(User u) {}
+	public void actionLogIn(User u) {
+		actiontarget.setText("");
+		userTextField.setText("");
+		pwBox.setText("");
+	}
 
 	@Override
 	public void actionLogOut(User u) {}
@@ -176,5 +180,17 @@ public class TwitupLogInViewImplFX extends GridPane implements TwitupLogInView {
 
 	@Override
 	public void sendLogInCancel() {}
+
+
+	@Override
+	public void actionCloseLogIn() {}
+
+
+	@Override
+	public void actionCloseLogOut() {}
+
+
+	@Override
+	public void actionCloseSignUp() {}
 
 }

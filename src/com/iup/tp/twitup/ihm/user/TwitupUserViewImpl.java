@@ -164,45 +164,24 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	}
 
 	@Override
-	public void actionUserChange(User u) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void actionUserChange(User u) {}
 
 	@Override
-	public void actionNewFollower(User f) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void actionNewFollower(User f) {}
 
 	@Override
-	public void actionLostFollower(User f) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void actionLostFollower(User f) {}
 
 	@Override
-	public void actionFollowUser(User f) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void actionFollowUser(User f) {}
 
 	@Override
-	public void actionUnfollowUser(User f) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void actionUnfollowUser(User f) {}
 
 	@Override
-	public void actionSearchUser(Set<User> searchResult) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void actionSearchUser(Set<User> searchResult) {}
 
 	@Override
-	public void actionProfilChange(User u) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void actionProfilChange(User u) {}
 
 }

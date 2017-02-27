@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class TwitTwitPanel extends JPanel{
+public class VignetteTwit extends JPanel{
 	
 	
 	
@@ -18,7 +18,7 @@ public class TwitTwitPanel extends JPanel{
 	
 	
 	
-	public TwitTwitPanel(String twitText, String avatarPath){
+	public VignetteTwit(String twitText, String avatarPath){
 		
 		this.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.red));
 		this.avatar = new ImageIcon(avatarPath);

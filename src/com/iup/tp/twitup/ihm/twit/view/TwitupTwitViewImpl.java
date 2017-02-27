@@ -96,7 +96,7 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 		listTwit = database.getTwits();
 		
 		for (Twit twit : listTwit) {
-			zoneTwit.add( new TwitTwitPanel(twit.getText(), twit.getTwiter().getAvatarPath()));
+			zoneTwit.add( new VignetteTwit(twit.getText(), twit.getTwiter().getAvatarPath()));
 		}
 		
 		this.add(scroll, BorderLayout.CENTER);	
@@ -129,51 +129,27 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 	@Override
 	public void notifyTwitAdded(Twit addedTwit) {
 		System.out.println("La vue a reçu un nouveau twit");
-		zoneTwit.removeAll();
-		for (Twit twit : listTwit) {
-			zoneTwit.add( new TwitTwitPanel(twit.getText(), twit.getTwiter().getAvatarPath()));
-		}
-		revalidate();
-		repaint();
-		
-		
+		listTwit.add(addedTwit);
+		reafficherTwits();
 	}
 
 	@Override
 	public void notifyTwitDeleted(Twit deletedTwit) {
-		zoneTwit.removeAll();
-		for (Twit twit : listTwit) {
-			zoneTwit.add( new TwitTwitPanel(twit.getText(), twit.getTwiter().getAvatarPath()));
-		}
-		revalidate();
-		repaint();
-		
-		
+		listTwit.remove(deletedTwit);
+		reafficherTwits();
 	}
 
 	@Override
-	public void notifyTwitModified(Twit modifiedTwit) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void notifyTwitModified(Twit modifiedTwit) {}
 
 	@Override
-	public void notifyUserAdded(User addedUser) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void notifyUserAdded(User addedUser) {}
 
 	@Override
-	public void notifyUserDeleted(User deletedUser) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void notifyUserDeleted(User deletedUser) {}
 
 	@Override
-	public void notifyUserModified(User modifiedUser) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void notifyUserModified(User modifiedUser) {}
 
 	@Override
 	public String getTwitSent() {
@@ -187,11 +163,13 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 	@Override
 	public void addObserver(TwitViewObserver tvo) {
 		listObserver.add(tvo);
+		reafficherTwits();
 	}
 
 	@Override
 	public void delObserver(TwitViewObserver tvo) {
 		listObserver.remove(tvo);
+		reafficherTwits();
 	}
 
 	@Override
@@ -206,5 +184,21 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView, IDatab
 		for (TwitViewObserver twitViewObserver : listObserver) {
 			twitViewObserver.actionRecherche(str);
 		}
+	}
+
+	@Override
+	public void actionSearchResult(Set<Twit> twits) {
+		listTwit.clear();
+		listTwit.addAll(twits);
+		reafficherTwits();
+	}
+	
+	private void reafficherTwits(){
+		zoneTwit.removeAll();
+		for (Twit twit : listTwit) {
+			zoneTwit.add( new VignetteTwit(twit.getText(), twit.getTwiter().getAvatarPath()));
+		}
+		revalidate();
+		repaint();
 	}
 }

@@ -206,9 +206,15 @@ public class TwitupSignUpViewImplFX extends GridPane implements TwitupSignUpView
 	}
 
 	@Override
-	public void sendSignUpCancel() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void sendSignUpCancel() {}
+
+	@Override
+	public void actionCloseLogIn() {}
+
+	@Override
+	public void actionCloseLogOut() {}
+
+	@Override
+	public void actionCloseSignUp() {}
 
 }

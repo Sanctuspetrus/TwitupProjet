@@ -1,11 +1,13 @@
 package com.iup.tp.twitup.ihm.twit.view;
 import java.util.ArrayList;
+import java.util.Set;
 
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.IDatabaseObserver;
 import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.ConstanteJavaFX;
+import com.iup.tp.twitup.ihm.user.VignetteTwitFX;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,34 +24,36 @@ import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 
 public class TwitupTwitViewImplFX extends GridPane implements TwitupTwitView, IDatabaseObserver {
-	
+
 	Button rechercher;
 	Button twit;
-	
+
 	TextField textField;
 	TextArea textArea;
-	
+
 	ScrollPane scroll;
-	GridPane scrollPane;
+	GridPane zoneTwit;
 	int compteurValue = 150;
 	Text compteur;
-	
+
+	Set<Twit> listTwit;
+
 	protected ArrayList<TwitViewObserver> listObserver; 
-	
+
 	public TwitupTwitViewImplFX(){}
 
 	@Override
 	public void initView() {
-		
+
 		rechercher = new Button("RECHERCHER");
 		twit = new Button("TWIT !!!");
 		textField = new TextField("rechercher");
 		textArea = new TextArea();
 		scroll = new ScrollPane();
-		scrollPane = new GridPane();
+		zoneTwit = new GridPane();
 		compteur = new Text(String.valueOf(150));
-		
-		
+
+
 		this.setAlignment(Pos.TOP_CENTER);
 		this.setPadding(new Insets(25, 25, 25, 25));
 		this.setHgap(10);
@@ -69,40 +73,40 @@ public class TwitupTwitViewImplFX extends GridPane implements TwitupTwitView, ID
 
 		textArea.setMaxHeight(50);
 		textArea.setWrapText(true);
-		
+
 		compteur.minHeight(50);
 		compteur.minWidth(200);
 		compteur.maxWidth(200);
-		
-		textArea.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
 
-                if (event.getCode().equals(KeyCode.ENTER))
-                {
-                    event.consume();
-                    //ENVOI DU TWIT
-                    textArea.setText("");
-                }
-            }
-        });
+		textArea.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+
+				if (event.getCode().equals(KeyCode.ENTER))
+				{
+					event.consume();
+					//ENVOI DU TWIT
+					textArea.setText("");
+				}
+			}
+		});
 
 		textArea.setOnKeyTyped(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (textArea.getText().length() >= 150) {
-                    event.consume();
-                }else{
-                	compteurValue = 150 - textArea.getText().length();
-                	compteur.setText(String.valueOf(compteurValue));
-                }
-            }
-        });
-			
-		//scroll.setFitToHeight(true);
-		scroll.setContent(scrollPane);
+			@Override
+			public void handle(KeyEvent event) {
+				if (textArea.getText().length() >= 150) {
+					event.consume();
+				}else{
+					compteurValue = 150 - textArea.getText().length();
+					compteur.setText(String.valueOf(compteurValue));
+				}
+			}
+		});
 
-		
+		//scroll.setFitToHeight(true);
+		scroll.setContent(zoneTwit);
+
+
 		this.add(textField, 0, 0);
 		this.add(rechercher, 1, 0);
 		this.add(scroll, 0, 1, 3, 1);
@@ -112,33 +116,33 @@ public class TwitupTwitViewImplFX extends GridPane implements TwitupTwitView, ID
 		this.setStyle(ConstanteJavaFX.COULEURPRINCIPALE);
 		GridPane.setVgrow(scroll, Priority.ALWAYS);
 		//setScrollPane();
-		
+
 		listObserver = new ArrayList<TwitViewObserver>();
-		
+
 	}
 
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void setDatabase(IDatabase db) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -173,38 +177,61 @@ public class TwitupTwitViewImplFX extends GridPane implements TwitupTwitView, ID
 
 	@Override
 	public void notifyTwitAdded(Twit addedTwit) {
-		// TODO Auto-generated method stub
-		
+		listTwit.add(addedTwit);
+		reafficherTwit();
 	}
 
 	@Override
 	public void notifyTwitDeleted(Twit deletedTwit) {
-		// TODO Auto-generated method stub
-		
+		listTwit.remove(deletedTwit);
+		reafficherTwit();
 	}
 
 	@Override
 	public void notifyTwitModified(Twit modifiedTwit) {
-		// TODO Auto-generated method stub
-		
+		for (Twit twit : listTwit) {
+			if(twit.getUuid() == modifiedTwit.getUuid()){
+				listTwit.remove(twit);
+			}
+		}
+		reafficherTwit();
 	}
 
 	@Override
 	public void notifyUserAdded(User addedUser) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void notifyUserDeleted(User deletedUser) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void notifyUserModified(User modifiedUser) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void actionSearchResult(Set<Twit> twits) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void reafficherTwit(){
+		zoneTwit.getChildren().clear();
+		int i = 0;
+		for (Twit twit : listTwit) {
+			VignetteTwitFX temp = new VignetteTwitFX(twit.getTwiter().getName(), twit.getTwiter().getAvatarPath(), twit.getText());
+			zoneTwit.add(temp, 0, i);
+			zoneTwit.setVgap(10);
+			zoneTwit.setPadding(new Insets(5, 5, 5, 5));
+			GridPane.setHgrow(temp, Priority.ALWAYS);
+			i++;
+		}
 	}
 
 }
