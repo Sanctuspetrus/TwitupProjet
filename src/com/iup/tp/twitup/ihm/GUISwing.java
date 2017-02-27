@@ -82,6 +82,7 @@ public class GUISwing implements GUI, AccountObserver {
 		mainFrame.setContentPane((TwitupMainViewImpl2)mainView);
 		
 		menuBar.addMenuBarViewObserver(menuBarCtrl);
+		accountCtrl.addAccountObserver(menuBar);
 		menuBarCtrl.addMenuBarObserver(new MenuBarObserver() {
 			
 			@Override

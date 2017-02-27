@@ -101,7 +101,7 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 			addButton.addActionListener(new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
-					//	addAboWatchable.sendEvent(user);
+						notifyFollowUser(user);
 					}
 			});
 			zoneAbonnes.add(new VignetteAbonnesModif(new VignetteAbonnes(user), addButton));
@@ -166,23 +166,8 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	}
 
 	@Override
-	public void actionUserChange(User u) {}
-
-	@Override
-	public void actionNewFollower(User f) {}
-
-	@Override
-	public void actionLostFollower(User f) {}
-
-	@Override
 	public void actionFollowUser(User f) {
 		listUserAbo.add(f);
-		showUserAbonnes();
-	}
-
-	@Override
-	public void actionUnfollowUser(User f) {
-		listUserAbo.remove(f);
 		showUserAbonnes();
 	}
 
@@ -190,9 +175,6 @@ public class TwitupUserViewImpl extends JPanel implements TwitupUserView {
 	public void actionSearchUser(Set<User> searchResult) {
 		setListUserAbonnes(searchResult);
 	}
-
-	@Override
-	public void actionProfilChange(User u) {}
 
 	@Override
 	public void notifyFollowUser(User u) {

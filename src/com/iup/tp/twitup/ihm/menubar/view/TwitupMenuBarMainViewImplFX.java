@@ -1,6 +1,7 @@
 package com.iup.tp.twitup.ihm.menubar.view;
 import java.util.ArrayList;
 
+import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.account.AccountActionViewObserver;
 import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImplFX;
@@ -262,6 +263,51 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 		for (AccountActionViewObserver accountActionViewObserver : obs) {
 			accountActionViewObserver.actionSignUpButton();
 		}
+	}
+	@Override
+	public void actionLogIn(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void actionLogOut(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void actionSignUp(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void actionShowLogIn() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void actionShowLogOut() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void actionShowSignUp() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void actionCloseLogIn() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void actionCloseLogOut() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void actionCloseSignUp() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

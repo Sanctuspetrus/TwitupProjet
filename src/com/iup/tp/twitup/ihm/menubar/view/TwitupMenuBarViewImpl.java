@@ -11,6 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.account.AccountActionViewObserver;
 import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
 
@@ -50,6 +51,7 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 
 	@Override
 	public void show() {
+		
 		// Build the first menu.
 		files.setMnemonic(KeyEvent.VK_F);
 		// a submenu
@@ -210,5 +212,59 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 			menuObserver.actionModifyExchangeFolderButton();
 		}
 	}
+
+	@Override
+	public void actionLogIn(User u) {
+			
+		signUp.setVisible(false);
+		signIn.setVisible(false);
+		signOut.setVisible(true);
+
+	}
+
+	@Override
+	public void actionLogOut(User u) {
+		signUp.setVisible(true);
+		signIn.setVisible(true);
+		signOut.setVisible(false);
+		
+	}
+
+	@Override
+	public void actionSignUp(User u) {
+		signUp.setVisible(false);
+		signIn.setVisible(false);
+		signOut.setVisible(true);
+	}
+
+	@Override
+	public void actionShowLogIn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionShowLogOut() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionShowSignUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionCloseLogIn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionCloseLogOut() {}
+
+	@Override
+	public void actionCloseSignUp() {}
 
 }
