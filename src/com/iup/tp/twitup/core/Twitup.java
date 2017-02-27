@@ -2,8 +2,10 @@ package com.iup.tp.twitup.core;
 
 import java.io.File;
 import java.util.Properties;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
 import com.iup.tp.twitup.common.Constants;
 import com.iup.tp.twitup.common.PropertiesManager;
 import com.iup.tp.twitup.datamodel.Database;
@@ -17,13 +19,10 @@ import com.iup.tp.twitup.ihm.GUISwing;
 import com.iup.tp.twitup.ihm.TwitupMock;
 import com.iup.tp.twitup.ihm.account.controller.TwitupAccountController;
 import com.iup.tp.twitup.ihm.account.controller.TwitupAccountControllerImpl;
-import com.iup.tp.twitup.ihm.mainview.controller.TwitupMainViewController;
-import com.iup.tp.twitup.ihm.mainview.controller.TwitupMainViewControllerImpl;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
 import com.iup.tp.twitup.ihm.menubar.controller.MenuBarObserver;
 import com.iup.tp.twitup.ihm.menubar.controller.TwitupMenuBarController;
 import com.iup.tp.twitup.ihm.menubar.controller.TwitupMenuBarControllerImpl;
-import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;
 import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitController;
 import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitControllerImpl;
 import com.iup.tp.twitup.ihm.user.controller.TwitupUserController;

@@ -26,7 +26,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMenuBarView, TwitupAccountActionView, TwitupMainView {
+public class TwitupMenuBarMainViewImplFX extends GridPane implements TwitupMenuBarView, TwitupAccountActionView, TwitupMainView {
 
 	MenuBar menuBar;
 
@@ -50,42 +50,33 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 	TwitupUserViewImplFX gauche; 
 	TwitupTwitViewImplFX droit; 
 
-	Scene scene;
-
 	protected ArrayList<AccountActionViewObserver> obs = new ArrayList<AccountActionViewObserver>();
 	protected ArrayList<MenuBarViewObserver> obsMenuBar = new ArrayList<MenuBarViewObserver>();
-
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		
+	
+	public TwitupMenuBarMainViewImplFX(){
 		menuBar = new MenuBar();
 		menuFile = new Menu("Fichier");
-		repItem = new MenuItem("Répertoire d'échange");
+		repItem = new MenuItem("Rï¿½pertoire d'ï¿½change");
 		quitItem = new MenuItem("Quitter");
 		mainPane = new GridPane();
 		twitPane = new GridPane();
 
 		menuCompte = new Menu("Compte");
-		creerItem = new MenuItem("Créer un compte");
+		creerItem = new MenuItem("Crï¿½er un compte");
 		connexItem = new MenuItem("Connexion");
-		decoItem = new MenuItem("Déconnexion");
+		decoItem = new MenuItem("Dï¿½connexion");
 
 		menuAbout = new Menu("?");
 		aproposItem = new MenuItem("A Propos");
 
 		connexionPane = new TwitupLogInViewImplFX();
 		creationComptePane = new TwitupSignUpViewImplFX();
-		scene = new Scene(mainPane, 850, 500, Color.LIGHTBLUE);
-
-		primaryStage.setMinWidth(1100);
-		primaryStage.setMinHeight(650);
 
 		// --- Menu File
 		repItem.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("répertoire d'échange");
+				System.out.println("rï¿½pertoire d'ï¿½change");
 				notifyModifyExchangeFolderButton();
 			}
 		});
@@ -105,7 +96,7 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 			public void handle(ActionEvent event) {
 				sendSignUpButton();
 				//chargementCreationCompte();
-				System.out.println("créer un compte");
+				System.out.println("crï¿½er un compte");
 			}
 		});
 
@@ -121,7 +112,7 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 		decoItem.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Déconnexion");
+				System.out.println("Dï¿½connexion");
 				sendSignUpButton();
 			}
 		});
@@ -139,39 +130,39 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 		menuCompte.getItems().addAll(creerItem, connexItem, decoItem);
 		menuAbout.getItems().addAll(aproposItem);
 
-		menuBar.setPrefWidth(scene.getWidth());
+		menuBar.setPrefWidth(this.getWidth());
 
 		menuBar.getMenus().addAll(menuFile, menuCompte, menuAbout);
 
 
 
-		primaryStage.setTitle("Twitup");
 
-		//ajout d'un event sur le redimensionnement de la fenetre pour que la barre de menu ai une taille similaire à la taille de l'écran 
-		scene.widthProperty().addListener(new ChangeListener<Number>() {
+
+		//ajout d'un event sur le redimensionnement de la fenetre pour que la barre de menu ai une taille similaire ï¿½ la taille de l'ï¿½cran 
+		this.widthProperty().addListener(new ChangeListener<Number>() {
 			@Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
 				menuBar.setPrefWidth(newSceneWidth.doubleValue());
 			}
 		});
-		scene.heightProperty().addListener(new ChangeListener<Number>() {
+		this.heightProperty().addListener(new ChangeListener<Number>() {
 			@Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
 			}
 		});
 
 		mainPane.setHgap(10);
 
-		chargementTwitup();
-
-		primaryStage.setScene(scene);
-		primaryStage.show();
-
+		//chargementTwitup();
+		
+		
+		
 	}
+
 	public void chargementConnexion(){
 		mainPane.getChildren().clear();
 		mainPane.add(menuBar,  0, 0, 1, 1);
 		mainPane.add(connexionPane, 0, 1, 1, 1);
 		GridPane.setVgrow(connexionPane, Priority.ALWAYS);
-		scene.setRoot(mainPane);
+	//	scene.setRoot(mainPane);
 	}
 
 	public void chargementCreationCompte(){
@@ -179,13 +170,17 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 		mainPane.add(menuBar,  0, 0, 1, 1);
 		mainPane.add(creationComptePane, 0, 1, 1, 1);
 		GridPane.setVgrow(creationComptePane, Priority.ALWAYS);
-		scene.setRoot(mainPane);
+	//	scene.setRoot(mainPane);
 	}
 
 	public void chargementTwitup(){
 		mainPane.getChildren().clear();
 		mainPane.add(menuBar,  0, 0, 2, 1);
-		scene.setRoot(mainPane);
+		mainPane.add(gauche,  0, 1);
+		mainPane.add(droit, 1, 1);
+		GridPane.setVgrow(droit, Priority.ALWAYS);
+		GridPane.setVgrow(gauche, Priority.ALWAYS);
+		//scene.setRoot(mainPane);
 	}
 
 	@Override
@@ -206,12 +201,7 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 
 	@Override
 	public void init(TwitupUserView userView, TwitupTwitView twitView) {
-		gauche = (TwitupUserViewImplFX)userView;
-		droit = (TwitupTwitViewImplFX)twitView;
-		mainPane.add(gauche,  0, 1);
-		mainPane.add(droit, 1, 1);
-		GridPane.setVgrow(droit, Priority.ALWAYS);
-		GridPane.setVgrow(gauche, Priority.ALWAYS);
+		Application.launch();
 
 	}
 	@Override
@@ -321,6 +311,12 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 	public void actionCloseSignUp() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void setGaucheEtDroit(TwitupUserViewImplFX userView, TwitupTwitViewImplFX twitView){
+		gauche = userView;
+		droit = twitView;
+		chargementTwitup();
 	}
 
 

@@ -6,7 +6,6 @@ import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.ihm.ConstanteJavaFX;
 import com.iup.tp.twitup.ihm.user.view.VignetteTwitFX;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;

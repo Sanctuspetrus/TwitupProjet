@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.user.observer.FollowersViewObserver;
-import com.iup.tp.twitup.ihm.user.observer.ListUserViewObserver;
 
 @SuppressWarnings("serial")
 public class TwitupFollowerViewImpl extends JPanel implements TwitupFollowerView{
