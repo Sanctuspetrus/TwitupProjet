@@ -56,7 +56,7 @@ public class GUISwing implements GUI {
 		liv = new TwitupLogInViewImpl();
 		lov = null;
 		suv = new TwitupSignUpViewImpl();
-		aac = (TwitupAccountActionView) menuBar;
+		aac = menuBar;
 	}
 	
 	public static GUISwing getInstance(){
@@ -75,18 +75,24 @@ public class GUISwing implements GUI {
 		
 		mainFrame.setContentPane((TwitupMainViewImpl2)mainView);
 		
+		menuBar.addMenuBarViewObserver(menuBarCtrl);
+		
 		liv.addLogInViewObserver(accountCtrl);
 		suv.addSignUpViewObserver(accountCtrl);
 		aac.addAccountActionViewObserver(accountCtrl);
+		accountCtrl.addAccountObserver(liv);
+		accountCtrl.addAccountObserver(suv);
 		
 		userView.addListUserViewObserver(userCtrl);
 		
 		twitView.addObserver(twitCtrl);
 		twitView.setDatabase(db);
 
+		
+		
+		menuBar.initView();
 		liv.initView();
 		suv.initView();
-		aac.initView();
 		userView.initView();
 		twitView.initView();
 		

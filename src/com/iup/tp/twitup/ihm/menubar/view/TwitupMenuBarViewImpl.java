@@ -140,8 +140,7 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 
 	@Override
 	public void initView() {
-		// TODO Auto-generated method stub
-
+		this.show();
 	}
 
 	@Override
