@@ -23,25 +23,33 @@ import javafx.scene.text.Text;
 
 public class TwitupTwitViewImplFX extends GridPane implements TwitupTwitView, IDatabaseObserver {
 	
-	Button rechercher = new Button("RECHERCHER");
-	Button twit = new Button("TWIT !!!");
+	Button rechercher;
+	Button twit;
 	
-	TextField textField = new TextField("rechercher");
-	TextArea textArea = new TextArea();
+	TextField textField;
+	TextArea textArea;
 	
-	ScrollPane scroll = new ScrollPane();
-	GridPane scrollPane = new GridPane();
+	ScrollPane scroll;
+	GridPane scrollPane;
 	int compteurValue = 150;
-	Text compteur = new Text(String.valueOf(150));
+	Text compteur;
 	
 	protected ArrayList<TwitViewObserver> listObserver; 
 	
-	public TwitupTwitViewImplFX(){
-
-	}
+	public TwitupTwitViewImplFX(){}
 
 	@Override
 	public void initView() {
+		
+		rechercher = new Button("RECHERCHER");
+		twit = new Button("TWIT !!!");
+		textField = new TextField("rechercher");
+		textArea = new TextArea();
+		scroll = new ScrollPane();
+		scrollPane = new GridPane();
+		compteur = new Text(String.valueOf(150));
+		
+		
 		this.setAlignment(Pos.TOP_CENTER);
 		this.setPadding(new Insets(25, 25, 25, 25));
 		this.setHgap(10);

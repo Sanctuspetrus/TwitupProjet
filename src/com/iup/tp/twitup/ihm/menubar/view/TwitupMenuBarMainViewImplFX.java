@@ -27,8 +27,7 @@ import javafx.stage.Stage;
 
 public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMenuBarView, TwitupAccountActionView, TwitupMainView {
 
-
-	MenuBar menuBar = new MenuBar();
+	MenuBar menuBar;
 
 	Menu menuFile = new Menu("Fichier");
 	MenuItem repItem = new MenuItem("Répertoire d'échange");
@@ -44,13 +43,13 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 	Menu menuAbout = new Menu("?");
 	MenuItem aproposItem = new MenuItem("A Propos");
 
-	TwitupLogInViewImplFX connexionPane = new TwitupLogInViewImplFX();
-	TwitupSignUpViewImplFX creationComptePane = new TwitupSignUpViewImplFX();
+	TwitupLogInViewImplFX connexionPane;
+	TwitupSignUpViewImplFX creationComptePane;
 
 	TwitupUserViewImplFX gauche; 
 	TwitupTwitViewImplFX droit; 
 
-	Scene scene = new Scene(mainPane, 850, 500, Color.LIGHTBLUE);
+	Scene scene;
 
 	protected ArrayList<AccountActionViewObserver> obs = new ArrayList<AccountActionViewObserver>();
 	protected ArrayList<MenuBarViewObserver> obsMenuBar = new ArrayList<MenuBarViewObserver>();
@@ -59,6 +58,11 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		
+		menuBar = new MenuBar();
+		connexionPane = new TwitupLogInViewImplFX();
+		creationComptePane = new TwitupSignUpViewImplFX();
+		scene = new Scene(mainPane, 850, 500, Color.LIGHTBLUE);
 
 		primaryStage.setMinWidth(1100);
 		primaryStage.setMinHeight(650);
@@ -174,9 +178,6 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 		scene.setRoot(mainPane);
 	}
 
-	public static void main(String[] args) {
-		Application.launch(TwitupMenuBarMainViewImplFX.class, args);
-	}
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub

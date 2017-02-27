@@ -18,12 +18,12 @@ import javafx.scene.layout.Priority;
 
 public class TwitupUserViewImplFX extends GridPane implements TwitupUserView {
 	
-	Button rechercher = new Button("RECHERCHER");
+	Button rechercher;
 
-	TextField textField = new TextField("rechercher");
+	TextField textField;
 	
-	ScrollPane scroll = new ScrollPane();
-	GridPane scrollPane = new GridPane();
+	ScrollPane scroll;
+	GridPane scrollPane;
 	
 	Set<User> listUserAbo;
 	Set<User> listUserResearch;
@@ -40,6 +40,12 @@ public class TwitupUserViewImplFX extends GridPane implements TwitupUserView {
 
 	@Override
 	public void initView() {
+		
+		rechercher = new Button("RECHERCHER");
+		textField = new TextField("rechercher");
+		scrollPane = new GridPane();
+		
+		scroll = new ScrollPane();
 		
 		rechercher.setOnAction(new EventHandler<ActionEvent>() {
 			@Override

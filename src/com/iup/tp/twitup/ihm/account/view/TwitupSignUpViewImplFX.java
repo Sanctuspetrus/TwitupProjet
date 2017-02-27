@@ -22,26 +22,40 @@ import javafx.scene.text.Text;
 
 public class TwitupSignUpViewImplFX extends GridPane implements TwitupSignUpView{
 
-
-	protected final Text actiontarget = new Text();
-	protected Text scenetitle = new Text("S'inscrire");
-	protected Label login = new Label("Login :");
-	protected Label nom = new Label("Nom :");
-	protected Label pw = new Label("Mot de passe :");
-	protected Label pathImage = new Label("Path Image :");
-	protected TextField loginTextField = new TextField();
-	protected TextField nomTextField = new TextField();
-	protected PasswordField pwBox = new PasswordField();
-	protected TextField pathImageTextField = new TextField();
-	protected Button btn = new Button("S'inscrire");
-	protected HBox hbBtn = new HBox(10);
-	protected Rectangle rectangle = new Rectangle();
+	protected Text actiontarget;
+	protected Text scenetitle;
+	protected Label login;
+	protected Label nom;
+	protected Label pw;
+	protected Label pathImage;
+	protected TextField loginTextField;
+	protected TextField nomTextField;
+	protected PasswordField pwBox;
+	protected TextField pathImageTextField;
+	protected Button btn;
+	protected HBox hbBtn;
+	protected Rectangle rectangle;
 	protected ArrayList<SignUpViewObserver> obs = new ArrayList<SignUpViewObserver>();
 
 	public TwitupSignUpViewImplFX(){}
 
 	@Override
 	public void initView() {
+		
+		actiontarget = new Text();
+		scenetitle = new Text("S'inscrire");
+		login = new Label("Login :");
+		nom = new Label("Nom :");
+		pw = new Label("Mot de passe :");
+		pathImage = new Label("Path Image :");
+		loginTextField = new TextField();
+		nomTextField = new TextField();
+		pwBox = new PasswordField();
+		pathImageTextField = new TextField();
+		btn = new Button("S'inscrire");
+		hbBtn = new HBox(10);
+		rectangle = new Rectangle();
+		
 		rectangle.setX(400);
 		rectangle.setY(400);
 		rectangle.setWidth(310);

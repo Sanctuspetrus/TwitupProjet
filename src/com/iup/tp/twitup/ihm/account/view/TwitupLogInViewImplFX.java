@@ -24,15 +24,15 @@ import javafx.scene.text.Text;
 public class TwitupLogInViewImplFX extends GridPane implements TwitupLogInView {
 
 
-	protected final Text actiontarget = new Text();
-	protected Text scenetitle = new Text("Connexion");
-	protected Label userName = new Label("Login :");
-	protected Label pw = new Label("Mot de passe :");
-	protected TextField userTextField = new TextField();
-	protected PasswordField pwBox = new PasswordField();
-	protected Button btn = new Button("Se connecter");
-	protected HBox hbBtn = new HBox(10);
-	protected Rectangle rectangle = new Rectangle();
+	protected Text actiontarget;
+	protected Text scenetitle;
+	protected Label userName;
+	protected Label pw;
+	protected TextField userTextField;
+	protected PasswordField pwBox;
+	protected Button btn;
+	protected HBox hbBtn;
+	protected Rectangle rectangle;
 
 	protected ArrayList<LogInViewObserver> obs = new ArrayList<LogInViewObserver>();
 
@@ -42,6 +42,16 @@ public class TwitupLogInViewImplFX extends GridPane implements TwitupLogInView {
 
 	@Override
 	public void initView() {
+		actiontarget = new Text();
+		scenetitle = new Text("Connexion");
+		userName = new Label("Login :");
+		pw = new Label("Mot de passe :");
+		userTextField = new TextField();
+		pwBox = new PasswordField();
+		btn = new Button("Se connecter");
+		hbBtn = new HBox(10);
+		rectangle = new Rectangle();
+		
 		rectangle.setX(400);
 		rectangle.setY(400);
 		rectangle.setWidth(310);
