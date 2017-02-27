@@ -6,6 +6,7 @@ import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.ihm.ConstanteJavaFX;
 import com.iup.tp.twitup.ihm.user.view.VignetteTwitFX;
 
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -38,7 +39,9 @@ public class TwitupTwitViewImplFX extends GridPane implements TwitupTwitView {
 
 	protected ArrayList<TwitViewObserver> listObserver; 
 
-	public TwitupTwitViewImplFX(){}
+	public TwitupTwitViewImplFX(){
+		listObserver = new ArrayList<TwitViewObserver>();
+	}
 
 	@Override
 	public void initView() {
@@ -50,7 +53,6 @@ public class TwitupTwitViewImplFX extends GridPane implements TwitupTwitView {
 		scroll = new ScrollPane();
 		zoneTwit = new GridPane();
 		compteur = new Text(String.valueOf(150));
-
 
 		this.setAlignment(Pos.TOP_CENTER);
 		this.setPadding(new Insets(25, 25, 25, 25));
@@ -115,7 +117,6 @@ public class TwitupTwitViewImplFX extends GridPane implements TwitupTwitView {
 		GridPane.setVgrow(scroll, Priority.ALWAYS);
 		//setScrollPane();
 
-		listObserver = new ArrayList<TwitViewObserver>();
 
 	}
 

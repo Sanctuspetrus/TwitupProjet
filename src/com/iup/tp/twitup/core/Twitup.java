@@ -148,13 +148,7 @@ public class Twitup {
 		guiFX.setMenuBarCtrl(menuBarCtrl);
 		guiFX.setUserCtrl(userCtrl);
 		guiFX.setTwitCtrl(twitCtrl);
-		
-		
-		
-		
 
-		
-		guiFX.setTwitCtrl(twitCtrl);
 		guiFX.setDatabase(mDatabase);
 	}
 

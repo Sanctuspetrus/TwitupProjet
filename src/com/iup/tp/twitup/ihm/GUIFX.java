@@ -8,8 +8,10 @@ import com.iup.tp.twitup.ihm.account.view.TwitupLogInViewImplFX;
 import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
 import com.iup.tp.twitup.ihm.account.view.TwitupSignUpViewImplFX;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
+import com.iup.tp.twitup.ihm.menubar.controller.MenuBarObserver;
 import com.iup.tp.twitup.ihm.menubar.controller.TwitupMenuBarController;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarMainViewImplFX;
+import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;
 import com.iup.tp.twitup.ihm.twit.controller.TwitupTwitController;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitViewImplFX;
@@ -31,21 +33,26 @@ public class GUIFX implements GUI{
 	
 	// CTRL
 	protected TwitupTwitController twitCtrl;
-	protected TwitupAccountController accountControl;
-	protected TwitupMenuBarController menuBarControl;
-	protected TwitupUserController userControl;
+	protected TwitupAccountController accountCtrl;
+	protected TwitupMenuBarController menuBarCtrl;
+	protected TwitupUserController userCtrl;
 	
 	// VUES
-	protected TwitupMainView mainView = new TwitupMenuBarMainViewImplFX();
-	protected TwitupUserView userView = new TwitupUserViewImplFX();
-	protected TwitupTwitView twitView = new TwitupTwitViewImplFX();
-	protected TwitupLogInView liv = new TwitupLogInViewImplFX();
-	protected TwitupSignUpView suv = new TwitupSignUpViewImplFX();
+	protected TwitupMainView mainView;
+	protected TwitupUserView userView;
+	protected TwitupTwitView twitView;
+	protected TwitupLogInView liv;
+	protected TwitupSignUpView suv;
 	
 	protected TwitupAccountActionView aac;
 	
 	protected GUIFX(){
+		mainView = new TwitupMenuBarMainViewImplFX();
 		aac = (TwitupAccountActionView) mainView;
+		userView = new TwitupUserViewImplFX();
+		twitView = new TwitupTwitViewImplFX();
+		liv = new TwitupLogInViewImplFX();
+		suv = new TwitupSignUpViewImplFX();
 	}
 	
 	public static GUIFX getInstance(){
@@ -58,22 +65,45 @@ public class GUIFX implements GUI{
 	@Override
 	public void launch() {
 
-		liv.addLogInViewObserver(accountControl);
-		suv.addSignUpViewObserver(accountControl);
-		aac.addAccountActionViewObserver(accountControl);
-		userView.addListUserViewObserver(userControl);
+
+		((TwitupMenuBarMainViewImplFX) mainView).addMenuBarViewObserver(menuBarCtrl);
+		menuBarCtrl.addMenuBarObserver(new MenuBarObserver() {
+			
+			@Override
+			public void actionExchangeFolder() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void actionClose() {
+				 System.exit(0);
+			}
+		});
+				
+		liv.addLogInViewObserver(accountCtrl);
+		suv.addSignUpViewObserver(accountCtrl);
+		aac.addAccountActionViewObserver(accountCtrl);
+		accountCtrl.addAccountObserver(liv);
+		accountCtrl.addAccountObserver(suv);
+		
+		userView.addListUserViewObserver(userCtrl);
+		userCtrl.addListUserObserver(userView);
 		
 		twitView.addObserver(twitCtrl);
-		twitView.setDatabase(db);
-		
+		twitCtrl.addTwitObserver(twitView);
 
-		twitView.initView();
-		userView.initView();
+		mainView.init(userView, twitView);
+
+		Application.launch(TwitupMenuBarMainViewImplFX.class);
+		mainView.initView();
 		liv.initView();
 		suv.initView();
-		Application.launch(TwitupMenuBarMainViewImplFX.class);
-		mainView.init(userView, twitView);
+		userView.initView();
+		twitView.initView();
+		
 		mainView.show();
+
 		
 	}
 
@@ -120,17 +150,17 @@ public class GUIFX implements GUI{
 
 	@Override
 	public void setAccountCtrl(TwitupAccountController tac) {
-		this.accountControl = tac;
+		this.accountCtrl = tac;
 	}
 
 	@Override
 	public void setMenuBarCtrl(TwitupMenuBarController tmbc) {
-		this.menuBarControl = tmbc;
+		this.menuBarCtrl = tmbc;
 	}
 
 	@Override
 	public void setUserCtrl(TwitupUserController tuc) {
-		this.userControl = tuc;
+		this.userCtrl = tuc;
 	}
 
 }

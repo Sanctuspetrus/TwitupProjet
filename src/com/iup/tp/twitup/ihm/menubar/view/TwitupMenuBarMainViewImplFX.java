@@ -30,19 +30,19 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 
 	MenuBar menuBar;
 
-	Menu menuFile = new Menu("Fichier");
-	MenuItem repItem = new MenuItem("Répertoire d'échange");
-	MenuItem quitItem = new MenuItem("Quitter");
-	GridPane mainPane = new GridPane();
-	GridPane twitPane = new GridPane();
+	Menu menuFile;
+	MenuItem repItem;
+	MenuItem quitItem;
+	GridPane mainPane;
+	GridPane twitPane;
 
-	Menu menuCompte = new Menu("Compte");
-	MenuItem creerItem = new MenuItem("Créer un compte");
-	MenuItem connexItem = new MenuItem("Connexion");
-	MenuItem decoItem = new MenuItem("Déconnexion");
+	Menu menuCompte;
+	MenuItem creerItem;
+	MenuItem connexItem;
+	MenuItem decoItem;
 
-	Menu menuAbout = new Menu("?");
-	MenuItem aproposItem = new MenuItem("A Propos");
+	Menu menuAbout;
+	MenuItem aproposItem;
 
 	TwitupLogInViewImplFX connexionPane;
 	TwitupSignUpViewImplFX creationComptePane;
@@ -56,11 +56,24 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 	protected ArrayList<MenuBarViewObserver> obsMenuBar = new ArrayList<MenuBarViewObserver>();
 
 
-
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
 		menuBar = new MenuBar();
+		menuFile = new Menu("Fichier");
+		repItem = new MenuItem("Répertoire d'échange");
+		quitItem = new MenuItem("Quitter");
+		mainPane = new GridPane();
+		twitPane = new GridPane();
+
+		menuCompte = new Menu("Compte");
+		creerItem = new MenuItem("Créer un compte");
+		connexItem = new MenuItem("Connexion");
+		decoItem = new MenuItem("Déconnexion");
+
+		menuAbout = new Menu("?");
+		aproposItem = new MenuItem("A Propos");
+
 		connexionPane = new TwitupLogInViewImplFX();
 		creationComptePane = new TwitupSignUpViewImplFX();
 		scene = new Scene(mainPane, 850, 500, Color.LIGHTBLUE);
@@ -198,7 +211,7 @@ public class TwitupMenuBarMainViewImplFX extends Application implements TwitupMe
 	@Override
 	public void init(TwitupUserView userView, TwitupTwitView twitView) {
 		gauche = (TwitupUserViewImplFX)userView;
-		droit = (TwitupTwitViewImplFX)userView;
+		droit = (TwitupTwitViewImplFX)twitView;
 
 	}
 	@Override

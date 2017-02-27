@@ -34,10 +34,12 @@ public class TwitupLogInViewImplFX extends GridPane implements TwitupLogInView {
 	protected HBox hbBtn;
 	protected Rectangle rectangle;
 
-	protected ArrayList<LogInViewObserver> obs = new ArrayList<LogInViewObserver>();
+	protected ArrayList<LogInViewObserver> obs;
 
 
-	public TwitupLogInViewImplFX(){}
+	public TwitupLogInViewImplFX(){
+		obs = new ArrayList<LogInViewObserver>();
+	}
 
 
 	@Override
