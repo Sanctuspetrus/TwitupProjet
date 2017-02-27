@@ -33,7 +33,6 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 	public void actionNewTwit(String t) {
 		if(user != null){
 			em.sendTwit(new Twit(user, t));
-
 			System.out.println("Twit :\n" + t);
 		} else {
 			System.out.println("Pas connecté");
@@ -104,6 +103,61 @@ public class TwitupTwitControllerImpl implements TwitupTwitController{
 		for (TwitObserver twitObs : listTwitObs) {
 			twitObs.actionSearchResult(twits);
 		}
+	}
+
+	@Override
+	public void notifyTwitAdded(Set<Twit> twits, Twit twit) {
+		for (TwitObserver twitObs : listTwitObs) {
+			twitObs.actionTwitAdded(twits, twit);
+		}
+	}
+
+	@Override
+	public void notifyTwitDeleted(Set<Twit> twits, Twit twit) {
+		for (TwitObserver twitObs : listTwitObs) {
+			twitObs.actionTwitDeleted(twits, twit);
+		}
+	}
+	@Override
+	public void notifyTwitModified(Set<Twit> twits, Twit twit) {
+		for (TwitObserver twitObs : listTwitObs) {
+			twitObs.actionTwitModified(twits, twit);
+		}
+	}
+
+
+	// OBS DATABASE
+	@Override
+	public void notifyTwitAdded(Twit addedTwit) {
+		notifyTwitAdded(database.getTwits(), addedTwit);
+	}
+
+	@Override
+	public void notifyTwitDeleted(Twit deletedTwit) {
+		notifyTwitAdded(database.getTwits(), deletedTwit);
+	}
+
+	@Override
+	public void notifyTwitModified(Twit modifiedTwit) {
+		notifyTwitModified(database.getTwits(), modifiedTwit);
+	}
+
+	@Override
+	public void notifyUserAdded(User addedUser) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyUserDeleted(User deletedUser) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyUserModified(User modifiedUser) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
