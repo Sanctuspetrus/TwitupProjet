@@ -112,7 +112,6 @@ public class Twitup {
 		guiSwing = GUISwing.getInstance();
 		guiSwing.setDatabase(mDatabase);
 		
-		TwitupMainViewController mainViewCtrl = new TwitupMainViewControllerImpl();
 		
 		// MENU BAR
 		TwitupMenuBarController menuBarCtrl = new TwitupMenuBarControllerImpl();
@@ -264,5 +263,6 @@ public class Twitup {
 
 	public void show() {
 		guiSwing.launch();
+		guiFX.launch();
 	}
 }

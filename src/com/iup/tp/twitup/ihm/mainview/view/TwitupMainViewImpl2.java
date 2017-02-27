@@ -8,6 +8,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.iup.tp.twitup.ihm.account.view.TwitupLogInView;
+import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
 import com.iup.tp.twitup.ihm.twit.view.TwitupTwitView;
 import com.iup.tp.twitup.ihm.user.TwitupUserView;
 
@@ -36,7 +38,6 @@ public class TwitupMainViewImpl2 extends JPanel implements TwitupMainView{
 
 	@Override
 	public void initView() {
-		// TODO Auto-generated method stub
 		
 	}
 

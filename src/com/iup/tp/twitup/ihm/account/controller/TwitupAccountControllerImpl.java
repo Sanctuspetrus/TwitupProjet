@@ -117,25 +117,33 @@ public class TwitupAccountControllerImpl implements TwitupAccountController{
 
 	@Override
 	public void actionLogInAttempt(String tag, String pwd) {
+		System.out.println("Log In attempt");
 		User u = connection(tag, pwd);
+		// Si l'utilisateur n'est pas reconnu
 		if(u == null){
 			StringBuilder msg = new StringBuilder();
 			msg.append("L'utilisateur ");
 			msg.append(tag);
 			msg.append(" n'est pas reconnu");
+			System.out.println(msg);
 			return;
 		}
+		// Si l'utilisateur est déjà connecté
 		if(u.equals(user)){
 			StringBuilder msg = new StringBuilder();
 			msg.append("Vous êtes déjà connecté en tant que ");
 			msg.append(user.getName());
+			System.out.println(msg);
 			return;
 		}
+		// L'utilisateur est connecté
 		setUser(u);
 		StringBuilder msg = new StringBuilder();
 		msg.append("Connecté en tant que ");
 		msg.append(user.getName());
 		msg.append(", bravo!");
+		System.out.println(msg);
+		sendLogIn(user);
 	}
 	@Override
 	public void actionLogInCancel() {

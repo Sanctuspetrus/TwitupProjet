@@ -27,16 +27,6 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	}
 
 	@Override
-	public void actionLogIn(User u) {
-		setCurrentUser(u);
-	}
-
-	@Override
-	public void actionLogOut(User u) {
-		setCurrentUser(null);
-	}
-
-	@Override
 	public void addUserObserver(UserObserver uo) {
 		uolist.add(uo);
 	}
@@ -59,7 +49,7 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 		} else {
 			this.followers = new TreeSet<User>();
 		}
-		notifyProfilChange(currentUser);
+		notifyUserChange(currentUser);
 	}
 
 
@@ -136,6 +126,16 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 	// OBS
 
 	@Override
+	public void actionLogIn(User u) {
+		setCurrentUser(u);
+	}
+
+	@Override
+	public void actionLogOut(User u) {
+		setCurrentUser(null);
+	}
+
+	@Override
 	public void notifyUserChange(User u) {
 		for (UserObserver uo : uolist) {
 			uo.actionUserChange(u);
@@ -187,8 +187,7 @@ public class TwitupUserControllerImpl implements TwitupUserController{
 
 	@Override
 	public void actionSignUp(User u) {
-		// TODO Auto-generated method stub
-
+		notifyUserChange(u);
 	}
 
 	@Override

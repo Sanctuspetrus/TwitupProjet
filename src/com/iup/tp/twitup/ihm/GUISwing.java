@@ -1,6 +1,11 @@
 package com.iup.tp.twitup.ihm;
 
+import java.awt.Container;
+import java.util.ArrayList;
+
 import com.iup.tp.twitup.datamodel.IDatabase;
+import com.iup.tp.twitup.datamodel.User;
+import com.iup.tp.twitup.ihm.account.controller.AccountObserver;
 import com.iup.tp.twitup.ihm.account.controller.TwitupAccountController;
 import com.iup.tp.twitup.ihm.account.view.TwitupAccountActionView;
 import com.iup.tp.twitup.ihm.account.view.TwitupLogInView;
@@ -10,6 +15,7 @@ import com.iup.tp.twitup.ihm.account.view.TwitupSignUpView;
 import com.iup.tp.twitup.ihm.account.view.TwitupSignUpViewImpl;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainView;
 import com.iup.tp.twitup.ihm.mainview.view.TwitupMainViewImpl2;
+import com.iup.tp.twitup.ihm.menubar.controller.MenuBarObserver;
 import com.iup.tp.twitup.ihm.menubar.controller.TwitupMenuBarController;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarView;
 import com.iup.tp.twitup.ihm.menubar.view.TwitupMenuBarViewImpl;
@@ -20,7 +26,7 @@ import com.iup.tp.twitup.ihm.user.TwitupUserController;
 import com.iup.tp.twitup.ihm.user.TwitupUserView;
 import com.iup.tp.twitup.ihm.user.TwitupUserViewImpl;
 
-public class GUISwing implements GUI {
+public class GUISwing implements GUI, AccountObserver {
 
 	/**
 	 * Vue principale de l'application.
@@ -76,6 +82,19 @@ public class GUISwing implements GUI {
 		mainFrame.setContentPane((TwitupMainViewImpl2)mainView);
 		
 		menuBar.addMenuBarViewObserver(menuBarCtrl);
+		menuBarCtrl.addMenuBarObserver(new MenuBarObserver() {
+			
+			@Override
+			public void actionExchangeFolder() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void actionClose() {
+				 System.exit(0);
+			}
+		});
 				
 		liv.addLogInViewObserver(accountCtrl);
 		suv.addSignUpViewObserver(accountCtrl);
@@ -142,6 +161,7 @@ public class GUISwing implements GUI {
 	@Override
 	public void setAccountCtrl(TwitupAccountController tac) {
 		this.accountCtrl = tac;
+		this.accountCtrl.addAccountObserver(this);
 	}
 
 	@Override
@@ -152,5 +172,60 @@ public class GUISwing implements GUI {
 	@Override
 	public void setUserCtrl(TwitupUserController tuc) {
 		userCtrl = tuc;
+	}
+
+	@Override
+	public void actionLogIn(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionLogOut(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionSignUp(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionShowLogIn() {
+		System.out.println("Log In");
+		mainFrame.setContentPane((Container)liv);
+		liv.show();
+	}
+
+	@Override
+	public void actionShowLogOut() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionShowSignUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionCloseLogIn() {
+		mainFrame.setContentPane((TwitupMainViewImpl2)mainView);
+		mainView.show();
+	}
+
+	@Override
+	public void actionCloseLogOut() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionCloseSignUp() {
+		// TODO Auto-generated method stub
+		
 	}
 }

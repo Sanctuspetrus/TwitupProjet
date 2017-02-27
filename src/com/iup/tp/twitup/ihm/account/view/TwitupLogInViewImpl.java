@@ -114,6 +114,8 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView {
 	@Override
 	public void show() {
 		this.setVisible(true);
+		this.revalidate();
+		this.repaint();
 	}
 
 	@Override
@@ -127,7 +129,6 @@ public class TwitupLogInViewImpl extends JPanel implements TwitupLogInView {
 
 	@Override
 	public void actionShowLogIn() {
-		initView();
 		show();
 	}
 
