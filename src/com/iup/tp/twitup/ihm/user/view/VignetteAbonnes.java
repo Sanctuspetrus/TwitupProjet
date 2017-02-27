@@ -18,10 +18,11 @@ public class VignetteAbonnes extends JPanel{
 	
 	public VignetteAbonnes(User user){
 		
-		imageLabel = new JLabel();
-		nomUserLabel = new JLabel();
+		image = new ImageIcon(user.getAvatarPath());
 		
-		imageLabel.setText(user.getAvatarPath());
+		imageLabel = new JLabel(image);
+		nomUserLabel = new JLabel();
+		//imageLabel.setText(user.getAvatarPath());
 		nomUserLabel.setText(user.getName());
 		
 		this.add(imageLabel);

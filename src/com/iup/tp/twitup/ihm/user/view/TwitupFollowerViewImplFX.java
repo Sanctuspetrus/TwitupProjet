@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.ConstanteJavaFX;
+import com.iup.tp.twitup.ihm.user.observer.FollowersViewObserver;
 import com.iup.tp.twitup.ihm.user.observer.ListUserViewObserver;
 
 import javafx.event.ActionEvent;
@@ -179,5 +180,53 @@ public class TwitupFollowerViewImplFX extends GridPane implements TwitupFollower
 
 	@Override
 	public void actionProfilChange(User u) {}
+
+	@Override
+	public void addFollowersViewOberserver(FollowersViewObserver luvo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delFollowersViewOberserver(FollowersViewObserver luvo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifySearchFollower(String str) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyUnfollowFollower(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifySelectFollower(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyFollowFollower(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setListFollowerAbonnes(Set<User> listUser) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setListFollowerResearched(Set<User> listUser) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

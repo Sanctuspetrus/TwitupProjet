@@ -63,7 +63,7 @@ public class TwitupFollowerViewImpl extends JPanel implements TwitupFollowerView
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				notifySearchUser(researchBar.getText());
+			//	notifySearchUser(researchBar.getText());
 			}
 		});
 		
@@ -149,14 +149,14 @@ public class TwitupFollowerViewImpl extends JPanel implements TwitupFollowerView
 	@Override
 	public void notifySearchFollower(String str) {
 		for (FollowersViewObserver userObser : obs) {
-			userObser.ac(str);
+		//	userObser.ac(str);
 		}
 	}
 
 	@Override
 	public void notifySelectFollower(User u) {
 		for (FollowersViewObserver userObser : obs) {
-			userObser.actionSearchUser(str);
+		//	userObser.actionSearchUser(str);
 		}
 	}
 

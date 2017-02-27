@@ -7,8 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.TreeSet;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -27,7 +25,8 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView {
 	JButton researchButton;
 	JButton zoneRedacButton;
 	
-	Set<Twit> listTwit;
+	//Set<Twit> listTwit;
+	ArrayList<Twit> listTwit;
 	
 	JPanel zoneTwit;
 	JPanel zoneNorth;
@@ -55,11 +54,13 @@ public class TwitupTwitViewImpl extends JPanel implements TwitupTwitView {
 		
 		scroll = new JScrollPane(zoneTwit);
 		
-		listTwit = new TreeSet<Twit>();
+		//listTwit = new TreeSet<Twit>();
 		
 		this.setBackground(Color.BLACK);
 		
 		listObserver = new ArrayList<TwitViewObserver>();
+		
+		listTwit = new ArrayList<Twit>();
 	}
 
 	@Override

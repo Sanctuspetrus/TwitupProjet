@@ -132,6 +132,8 @@ public class TwitupMenuBarViewImpl implements TwitupMenuBarView, TwitupAccountAc
 		menuBar.add(help);
 
 		frame.setJMenuBar(menuBar);
+		
+		signOut.setVisible(false);
 	}
 
 	public void close(){
